@@ -186,18 +186,20 @@ async function showDashboard(user){
   document.getElementById("login").style.display = "none";
   document.getElementById("dashboard").style.display = "block";
 
-  const { data: profile } = await supabaseClient
+  const { data: profile, error } = await supabaseClient
     .from("profiles")
     .select("full_name, role")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
+
+  console.log("Profile:", profile);
+  console.log("Profile error:", error);
 
   if(profile && profile.full_name){
     document.getElementById("welcome").textContent =
       "Bonjour " + profile.full_name + " 👋";
   }
 }
-
 async function logout(){
   await supabaseClient.auth.signOut();
   document.getElementById("dashboard").style.display = "none";
