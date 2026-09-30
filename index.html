@@ -190,7 +190,7 @@ async function showDashboard(user){
     .from("profiles")
     .select("full_name, role")
     .eq("id", user.id.trim())
-    .maybeSingle();
+    .maybeSingle();alert("Profile: " + JSON.stringify(profile) + "\nError: " + JSON.stringify(error));
 
   console.log("Profile:", profile);
   console.log("Profile error:", error);
