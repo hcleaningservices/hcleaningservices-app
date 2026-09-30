@@ -1,263 +1,322 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>H Cleaning Services | Employés</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>H Cleaning Services - Espace Employé</title>
 
-<style>
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(160deg,#e9fbff,#ffffff);
-color:#16333d;
-}
-.header{
-background:linear-gradient(135deg,#087d9b,#08b8c6);
-color:white;
-padding:28px 20px;
-text-align:center;
-border-radius:0 0 30px 30px;
-}
-.logo{font-size:30px;font-weight:bold}
-.logo span{color:#ff9c35}
-.container{max-width:430px;margin:auto;padding:25px 20px}
-.card{
-background:white;
-border-radius:22px;
-padding:25px;
-box-shadow:0 8px 30px rgba(0,0,0,.10);
-margin-top:20px;
-}
-h2{margin-top:0;text-align:center}
-label{display:block;font-weight:bold;margin:15px 0 7px}
-input{
-width:100%;
-padding:15px;
-border:1px solid #d4e3e8;
-border-radius:12px;
-font-size:16px;
-}
-button{
-width:100%;
-border:0;
-padding:16px;
-border-radius:12px;
-font-size:17px;
-font-weight:bold;
-margin-top:20px;
-background:linear-gradient(90deg,#087d9b,#08b8c6);
-color:white;
-cursor:pointer;
-}
-.small{text-align:center;color:#67818a;font-size:13px;margin-top:20px}
-.hidden{display:none}
-.welcome{font-size:24px;font-weight:bold}
-.job{
-background:#f1fbfd;
-border-left:5px solid #09aebe;
-padding:17px;
-border-radius:14px;
-margin-top:18px;
-}
-.job h3{margin:0 0 8px}
-.badge{
-display:inline-block;
-background:#e5f8ed;
-color:#16884c;
-padding:7px 10px;
-border-radius:20px;
-font-size:12px;
-font-weight:bold;
-}
-.orange{background:linear-gradient(90deg,#ff9234,#ffad42)}
-.error{
-color:#c62828;
-text-align:center;
-margin-top:15px;
-font-size:14px;
-}
-</style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f4f8fa;
+      color: #16324a;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #08a7a7, #1677c8);
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .header p {
+      margin: 6px 0 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      margin-top: 20px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border: 1px solid #d5dfe5;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      border: 0;
+      border-radius: 10px;
+      background: #08a7a7;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+    }
+
+    .logout {
+      background: #1677c8;
+    }
+
+    .status {
+      display: inline-block;
+      background: #dff7ea;
+      color: #158447;
+      padding: 8px 13px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    .task {
+      border-left: 4px solid #08a7a7;
+      padding: 12px 15px;
+      margin-top: 15px;
+      background: #f7fafb;
+      border-radius: 8px;
+    }
+
+    .task h3 {
+      margin: 0 0 8px;
+    }
+
+    .error {
+      color: #c62828;
+      margin-top: 12px;
+    }
+
+    #dashboard {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="header">
-<div class="logo">H <span>CLEANING</span> SERVICES</div>
-<div>Espace Employé</div>
-</div>
+  <div class="header">
+    <h1>H CLEANING SERVICES</h1>
+    <p>Espace Employé</p>
+  </div>
 
-<div class="container">
+  <div class="container">
 
-<div id="login" class="card">
-<h2>Connexion</h2>
+    <div id="login" class="card">
 
-<label>Adresse e-mail</label>
-<input id="email" type="email" placeholder="votre@email.com">
+      <h2>Connexion</h2>
 
-<label>Mot de passe</label>
-<input id="password" type="password" placeholder="••••••••">
+      <input
+        id="email"
+        type="email"
+        placeholder="Adresse e-mail"
+        autocomplete="email"
+      >
 
-<button id="loginButton" onclick="login()">Se connecter</button>
+      <input
+        id="password"
+        type="password"
+        placeholder="Mot de passe"
+        autocomplete="current-password"
+      >
 
-<div id="error" class="error"></div>
+      <button id="loginButton" onclick="login()">
+        Se connecter
+      </button>
 
-<div class="small">
-Accès réservé aux employés H Cleaning Services
-</div>
-</div>
+      <div id="error" class="error"></div>
 
-<div id="dashboard" class="hidden">
+    </div>
 
-<div class="card">
-<div id="welcome" class="welcome">Bonjour 👋</div>
-<p>Voici votre planning de la journée.</p>
-<span class="badge">● Disponible</span>
-</div>
 
-<div class="card">
-<h2>📅 Mes tâches</h2>
+    <div id="dashboard">
 
-<div class="job">
-<h3>Bureau Client</h3>
-<p>🕐 08:00 – 10:00</p>
-<p>📍 Verviers</p>
-<button class="orange">Voir la tâche</button>
-</div>
+      <div class="card">
 
-<div class="job">
-<h3>Nettoyage habitation</h3>
-<p>🕐 11:00 – 13:00</p>
-<p>📍 Eupen</p>
-<button class="orange">Voir la tâche</button>
-</div>
+        <h2 id="welcome">Bonjour 👋</h2>
 
-<button onclick="logout()">Se déconnecter</button>
-</div>
+        <p>Voici votre planning de la journée.</p>
 
-</div>
-</div>
+        <span class="status">● Disponible</span>
 
-<script>
-const SUPABASE_URL = "https://exymobulxbkseefxxmxe.supabase.co";
-const SUPABASE_KEY = "sb_publishable_WE_xrJP3u21brM2YKUxeEg_JpUeFuC4";
+      </div>
 
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
 
-async function login(){
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const errorBox = document.getElementById("error");
-  const button = document.getElementById("loginButton");
+      <div class="card">
 
-  errorBox.textContent = "";
-  async function login(){
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const errorBox = document.getElementById("error");
-  const button = document.querySelector("#login button");
+        <h2>Mes tâches</h2>
 
-  if(errorBox) errorBox.textContent = "";
+        <div class="task">
+          <h3>Bureau Client</h3>
+          <div>🕗 08:00 – 10:00</div>
+          <div>📍 Verviers</div>
+          <button>Voir la tâche</button>
+        </div>
 
-  if(!email || !password){
-    if(errorBox) errorBox.textContent = "Veuillez entrer votre e-mail et votre mot de passe.";
-    return;
-  }
+        <div class="task">
+          <h3>Nettoyage habitation</h3>
+          <div>🕚 11:00 – 13:00</div>
+          <div>📍 Eupen</div>
+          <button>Voir la tâche</button>
+        </div>
 
-  if(button){
-    button.disabled = true;
-    button.textContent = "Connexion...";
-  }
+        <button class="logout" onclick="logout()">
+          Se déconnecter
+        </button>
 
-  const { data, error } = await supabaseClient.auth.signInWithPassword({
-    email: email,
-    password: password
-  });
+      </div>
 
-  if(button){
-    button.disabled = false;
-    button.textContent = "Se connecter";
-  }
+    </div>
 
-  if(error){
-    if(errorBox){
-      errorBox.textContent = "E-mail ou mot de passe incorrect.";
-    }else{
-      alert("E-mail ou mot de passe incorrect.");
+  </div>
+
+
+  <script>
+
+    const SUPABASE_URL =
+      "https://lexymobulxbkseefxxmxe.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+      sb_publishable_WE_xrJP3u21brM2YKUxeEg_JpUeFuC4
+
+    const supabaseClient =
+      supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+
+    async function login() {
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const errorBox =
+        document.getElementById("error");
+
+      const button =
+        document.getElementById("loginButton");
+
+      errorBox.textContent = "";
+
+      if (!email || !password) {
+        errorBox.textContent =
+          "Veuillez entrer votre e-mail et votre mot de passe.";
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Connexion...";
+
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
+
+      button.disabled = false;
+      button.textContent = "Se connecter";
+
+      if (error) {
+        console.error(error);
+
+        errorBox.textContent =
+          "Impossible de se connecter. Vérifiez votre e-mail et votre mot de passe.";
+
+        return;
+      }
+
+      await showDashboard(data.user);
     }
-    return;
-  }
-
-  await showDashboard(data.user);
-}
 
 
-async function showDashboard(user){
+    async function showDashboard(user) {
 
-  const { data: profile, error } = await supabaseClient
-    .from("profiles")
-    .select("full_name, role")
-    .eq("id", user.id)
-    .maybeSingle();
+      const { data: profile, error } =
+        await supabaseClient
+          .from("profiles")
+          .select("full_name, role")
+          .eq("id", user.id)
+          .maybeSingle();
 
-  if(error){
-    console.error("Profile error:", error);
-  }
+      if (error) {
+        console.error("Profile error:", error);
+      }
 
-  document.getElementById("login").style.display = "none";
-  document.getElementById("dashboard").style.display = "block";
+      document.getElementById("login").style.display =
+        "none";
 
-  const welcome = document.getElementById("welcome");
+      document.getElementById("dashboard").style.display =
+        "block";
 
-  if(welcome){
-    if(profile && profile.full_name){
-      welcome.textContent = "Bonjour " + profile.full_name + " 👋";
-    }else{
-      welcome.textContent = "Bonjour 👋";
+      const welcome =
+        document.getElementById("welcome");
+
+      if (profile && profile.full_name) {
+        welcome.textContent =
+          "Bonjour " + profile.full_name + " 👋";
+      } else {
+        welcome.textContent =
+          "Bonjour 👋";
+      }
     }
-  }
-}
 
 
-async function logout(){
+    async function logout() {
 
-  await supabaseClient.auth.signOut();
+      await supabaseClient.auth.signOut();
 
-  document.getElementById("dashboard").style.display = "none";
-  document.getElementById("login").style.display = "block";
+      document.getElementById("dashboard").style.display =
+        "none";
 
-  const password = document.getElementById("password");
+      document.getElementById("login").style.display =
+        "block";
 
-  if(password){
-    password.value = "";
-  }
-}
-
-
-async function checkSession(){
-
-  const { data, error } =
-    await supabaseClient.auth.getSession();
-
-  if(error){
-    console.error("Session error:", error);
-    return;
-  }
-
-  if(data.session){
-    await showDashboard(data.session.user);
-  }
-}
+      document.getElementById("password").value = "";
+    }
 
 
-checkSession();
-</script>
+    async function checkSession() {
+
+      const { data, error } =
+        await supabaseClient.auth.getSession();
+
+      if (error) {
+        console.error("Session error:", error);
+        return;
+      }
+
+      if (data.session) {
+        await showDashboard(data.session.user);
+      }
+    }
+
+
+    checkSession();
+
+  </script>
 
 </body>
 </html>
