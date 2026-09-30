@@ -157,63 +157,104 @@ async function login(){
   const button = document.getElementById("loginButton");
 
   errorBox.textContent = "";
+  async function login(){
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const errorBox = document.getElementById("error");
+  const button = document.querySelector("#login button");
+
+  if(errorBox) errorBox.textContent = "";
 
   if(!email || !password){
-    errorBox.textContent = "Veuillez entrer votre e-mail et votre mot de passe.";
+    if(errorBox) errorBox.textContent = "Veuillez entrer votre e-mail et votre mot de passe.";
     return;
   }
 
-  button.disabled = true;
-  button.textContent = "Connexion...";
+  if(button){
+    button.disabled = true;
+    button.textContent = "Connexion...";
+  }
 
   const { data, error } = await supabaseClient.auth.signInWithPassword({
     email: email,
     password: password
   });
 
-  button.disabled = false;
-  button.textContent = "Se connecter";
+  if(button){
+    button.disabled = false;
+    button.textContent = "Se connecter";
+  }
 
   if(error){
-    errorBox.textContent = "E-mail ou mot de passe incorrect.";
+    if(errorBox){
+      errorBox.textContent = "E-mail ou mot de passe incorrect.";
+    }else{
+      alert("E-mail ou mot de passe incorrect.");
+    }
     return;
   }
 
   await showDashboard(data.user);
 }
 
+
 async function showDashboard(user){
-  document.getElementById("login").style.display = "none";
-  document.getElementById("dashboard").style.display = "block";
 
   const { data: profile, error } = await supabaseClient
     .from("profiles")
     .select("full_name, role")
-    .eq("id", user.id.trim())
-    .maybeSingle();alert("Profile: " + JSON.stringify(profile) + "\nError: " + JSON.stringify(error));
+    .eq("id", user.id)
+    .maybeSingle();
 
-  console.log("Profile:", profile);
-  console.log("Profile error:", error);
+  if(error){
+    console.error("Profile error:", error);
+  }
 
-  if(profile && profile.full_name){
-    document.getElementById("welcome").textContent =
-      "Bonjour " + profile.full_name + " 👋";
+  document.getElementById("login").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+
+  const welcome = document.getElementById("welcome");
+
+  if(welcome){
+    if(profile && profile.full_name){
+      welcome.textContent = "Bonjour " + profile.full_name + " 👋";
+    }else{
+      welcome.textContent = "Bonjour 👋";
+    }
   }
 }
+
+
 async function logout(){
+
   await supabaseClient.auth.signOut();
+
   document.getElementById("dashboard").style.display = "none";
   document.getElementById("login").style.display = "block";
-  document.getElementById("password").value = "";
+
+  const password = document.getElementById("password");
+
+  if(password){
+    password.value = "";
+  }
 }
 
+
 async function checkSession(){
-  const { data } = await supabaseClient.auth.getSession();
+
+  const { data, error } =
+    await supabaseClient.auth.getSession();
+
+  if(error){
+    console.error("Session error:", error);
+    return;
+  }
 
   if(data.session){
     await showDashboard(data.session.user);
   }
 }
+
 
 checkSession();
 </script>
