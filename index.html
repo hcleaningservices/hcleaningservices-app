@@ -281,11 +281,13 @@ async function forgotPassword(){
     {redirectTo:APP_URL}
   );
 
-  if(error){
-    errorBox.textContent =
-    "Impossible d'envoyer l'e-mail.";
-    return;
-  }
+if(error){
+  console.error("RESET ERROR:", error);
+
+  errorBox.textContent =
+    "Erreur: " + error.message;
+  return;
+}
 
   message.textContent =
   "E-mail de réinitialisation envoyé.";
