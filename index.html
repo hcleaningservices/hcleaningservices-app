@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H Cleaning Services | Employés</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(160deg,#e9fbff,#ffffff);
+color:#16333d;
+}
+
+.header{
+background:linear-gradient(135deg,#087d9b,#08b8c6);
+color:white;
+padding:28px 20px;
+text-align:center;
+border-radius:0 0 30px 30px;
+}
+
+.logo{
+font-size:30px;
+font-weight:bold;
+}
+
+.logo span{color:#ff9c35}
+
+.container{
+max-width:430px;
+margin:auto;
+padding:25px 20px;
+}
+
+.card{
+background:white;
+border-radius:22px;
+padding:25px;
+box-shadow:0 8px 30px rgba(0,0,0,.10);
+margin-top:20px;
+}
+
+h2{
+margin-top:0;
+text-align:center;
+}
+
+label{
+display:block;
+font-weight:bold;
+margin:15px 0 7px;
+}
+
+input{
+width:100%;
+padding:15px;
+border:1px solid #d4e3e8;
+border-radius:12px;
+font-size:16px;
+}
+
+button{
+width:100%;
+border:0;
+padding:16px;
+border-radius:12px;
+font-size:17px;
+font-weight:bold;
+margin-top:20px;
+background:linear-gradient(90deg,#087d9b,#08b8c6);
+color:white;
+cursor:pointer;
+}
+
+.small{
+text-align:center;
+color:#67818a;
+font-size:13px;
+margin-top:20px;
+}
+
+.hidden{display:none}
+
+.welcome{
+font-size:24px;
+font-weight:bold;
+}
+
+.job{
+background:#f1fbfd;
+border-left:5px solid #09aebe;
+padding:17px;
+border-radius:14px;
+margin-top:18px;
+}
+
+.job h3{
+margin:0 0 8px;
+}
+
+.badge{
+display:inline-block;
+background:#e5f8ed;
+color:#16884c;
+padding:7px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+}
+
+.orange{
+background:linear-gradient(90deg,#ff9234,#ffad42);
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<div class="logo">H <span>CLEANING</span> SERVICES</div>
+<div>Espace Employé</div>
+</div>
+
+<div class="container">
+
+<div id="login" class="card">
+<h2>Connexion</h2>
+
+<label>Adresse e-mail</label>
+<input id="email" type="email" placeholder="votre@email.com">
+
+<label>Mot de passe</label>
+<input id="password" type="password" placeholder="••••••••">
+
+<button onclick="login()">Se connecter</button>
+
+<div class="small">
+Accès réservé aux employés H Cleaning Services
+</div>
+</div>
+
+<div id="dashboard" class="hidden">
+
+<div class="card">
+<div class="welcome">Bonjour 👋</div>
+<p>Voici votre planning de la journée.</p>
+<span class="badge">● Disponible</span>
+</div>
+
+<div class="card">
+<h2>📅 Mes tâches</h2>
+
+<div class="job">
+<h3>Bureau Client</h3>
+<p>🕐 08:00 – 10:00</p>
+<p>📍 Verviers</p>
+<button class="orange">Voir la tâche</button>
+</div>
+
+<div class="job">
+<h3>Nettoyage habitation</h3>
+<p>🕐 11:00 – 13:00</p>
+<p>📍 Eupen</p>
+<button class="orange">Voir la tâche</button>
+</div>
+
+<button onclick="logout()">Se déconnecter</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+function login(){
+let email=document.getElementById("email").value;
+let password=document.getElementById("password").value;
+
+if(email && password){
+document.getElementById("login").style.display="none";
+document.getElementById("dashboard").style.display="block";
+}else{
+alert("Veuillez entrer votre e-mail et votre mot de passe.");
+}
+}
+
+function logout(){
+document.getElementById("dashboard").style.display="none";
+document.getElementById("login").style.display="block";
+}
+</script>
+
+</body>
+</html>
