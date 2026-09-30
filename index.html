@@ -189,7 +189,7 @@ async function showDashboard(user){
   const { data: profile, error } = await supabaseClient
     .from("profiles")
     .select("full_name, role")
-    .eq("id", user.id)
+    .eq("id", user.id.trim())
     .maybeSingle();
 
   console.log("Profile:", profile);
