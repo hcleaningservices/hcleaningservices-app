@@ -743,7 +743,7 @@ async function showDashboard(user){
         error
       );
 
-      throw error;
+      throw new Error("PROFILE: " + error.message);
 
     }
 
