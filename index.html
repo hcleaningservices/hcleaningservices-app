@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>H Cleaning Services</title>
 
@@ -22,165 +22,172 @@ body{
 
 .header{
   background:linear-gradient(135deg,#08a7a7,#1677c8);
-  color:white;
-  padding:28px 20px;
+  color:#fff;
+  padding:25px 18px;
   text-align:center;
 }
 
 .header h1{
   margin:0;
-  font-size:25px;
-}
-
-.header p{
-  margin:7px 0 0;
-  font-size:17px;
+  font-size:24px;
 }
 
 .container{
-  max-width:500px;
+  max-width:600px;
   margin:auto;
-  padding:20px;
+  padding:18px;
 }
 
 .card{
-  background:white;
-  padding:24px;
+  background:#fff;
+  padding:21px;
   border-radius:18px;
-  margin-top:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
+  margin-top:17px;
+  box-shadow:0 5px 20px #00000012;
 }
 
-input{
+input,
+select,
+textarea{
   width:100%;
-  padding:15px;
-  margin-top:12px;
+  padding:13px;
+  margin-top:10px;
   border:1px solid #d5dfe5;
-  border-radius:11px;
-  font-size:16px;
+  border-radius:10px;
+  font-size:15px;
+}
+
+textarea{
+  min-height:85px;
 }
 
 button{
   width:100%;
-  padding:15px;
-  margin-top:15px;
+  padding:14px;
+  margin-top:12px;
   border:0;
-  border-radius:11px;
+  border-radius:10px;
   background:#08a7a7;
-  color:white;
-  font-size:16px;
+  color:#fff;
+  font-size:15px;
   font-weight:bold;
   cursor:pointer;
 }
 
 button:disabled{
   opacity:.6;
-  cursor:not-allowed;
 }
 
-.link-button{
+.blue{
+  background:#1677c8;
+}
+
+.gray{
+  background:#718392;
+}
+
+.danger{
+  background:#c62828;
+}
+
+.link{
   background:transparent;
   color:#1677c8;
 }
 
-.logout{
-  background:#1677c8;
-}
-
-.cancel{
-  background:#718392;
-}
-
 .error{
   color:#c62828;
-  margin-top:12px;
   font-weight:bold;
+  margin-top:10px;
 }
 
 .success{
   color:#158447;
-  margin-top:12px;
   font-weight:bold;
+  margin-top:10px;
 }
 
-.status{
+.badge{
   display:inline-block;
-  background:#dff7ea;
-  color:#158447;
-  padding:8px 13px;
-  border-radius:20px;
-  font-weight:bold;
-}
-
-.task{
-  border-left:4px solid #08a7a7;
-  padding:14px;
-  margin-top:15px;
-  background:#f7fafb;
-  border-radius:9px;
-}
-
-.task h3{
-  margin:0 0 9px;
-}
-
-.admin-badge{
-  display:inline-block;
+  padding:7px 11px;
+  border-radius:18px;
   background:#e6f2ff;
   color:#1677c8;
-  padding:8px 13px;
-  border-radius:20px;
   font-weight:bold;
 }
 
-.admin-grid{
+.grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:18px;
+  gap:11px;
+  margin-top:15px;
 }
 
-.admin-item{
+.tile{
   background:#f7fafb;
-  border-radius:14px;
-  padding:18px 10px;
-  text-align:center;
   border:1px solid #e4ecef;
+  border-radius:13px;
+  padding:16px 8px;
+  text-align:center;
   cursor:pointer;
 }
 
-.admin-icon{
-  font-size:28px;
-  margin-bottom:8px;
+.tile .icon{
+  font-size:27px;
 }
 
-.admin-item strong{
-  display:block;
-  font-size:15px;
-}
-
-.admin-item small{
+.tile strong,
+.tile small{
   display:block;
   margin-top:5px;
+}
+
+.tile small{
   color:#667b8c;
 }
 
-.employee-form{
-  margin-top:22px;
-  padding-top:20px;
-  border-top:1px solid #e4ecef;
+.item{
+  background:#f7fafb;
+  border-left:4px solid #08a7a7;
+  border-radius:9px;
+  padding:13px;
+  margin-top:12px;
 }
 
-.employee-form h3{
-  margin-top:0;
+.item h3{
+  margin:0 0 7px;
 }
 
+.row{
+  display:flex;
+  gap:8px;
+}
+
+.row > *{
+  flex:1;
+}
+
+.page,
 #employeeDashboard,
 #adminDashboard,
-#resetPassword,
-#employeesPage,
-#addEmployeeForm{
+#resetPassword{
   display:none;
+}
+
+.muted{
+  color:#667b8c;
+}
+
+.check{
+  display:flex;
+  gap:9px;
+  align-items:center;
+  margin:9px 0;
+}
+
+.check input{
+  width:auto;
+  margin:0;
 }
 </style>
 </head>
@@ -194,289 +201,715 @@ button:disabled{
 
 <div class="container">
 
-  <!-- LOGIN -->
-  <div id="login" class="card">
+<!-- LOGIN -->
 
-    <h2>Connexion</h2>
+<div id="login" class="card">
 
-    <input
-      id="email"
-      type="email"
-      placeholder="Adresse e-mail"
-      autocomplete="email">
+  <h2>Connexion</h2>
 
-    <input
-      id="password"
-      type="password"
-      placeholder="Mot de passe"
-      autocomplete="current-password">
+  <input
+    id="email"
+    type="email"
+    placeholder="Adresse e-mail">
 
-    <button id="loginButton" type="button">
-      Se connecter
-    </button>
+  <input
+    id="password"
+    type="password"
+    placeholder="Mot de passe">
+
+  <button id="loginButton">
+    Se connecter
+  </button>
+
+  <button
+    id="forgotButton"
+    class="link">
+    Mot de passe oublié ?
+  </button>
+
+  <div id="error" class="error"></div>
+  <div id="message" class="success"></div>
+
+</div>
+
+
+<!-- RESET PASSWORD -->
+
+<div id="resetPassword" class="card">
+
+  <h2>Nouveau mot de passe</h2>
+
+  <input
+    id="newPassword"
+    type="password"
+    placeholder="Nouveau mot de passe">
+
+  <input
+    id="confirmPassword"
+    type="password"
+    placeholder="Confirmer le mot de passe">
+
+  <button id="savePasswordButton">
+    Enregistrer
+  </button>
+
+  <div id="resetError" class="error"></div>
+  <div id="resetMessage" class="success"></div>
+
+</div>
+
+
+<!-- ADMIN DASHBOARD -->
+
+<div id="adminDashboard">
+
+  <div class="card">
+
+    <h2 id="adminWelcome">
+      Bonjour 👋
+    </h2>
+
+    <p>
+      Tableau de bord administrateur
+    </p>
+
+    <span class="badge">
+      ★ Administrateur
+    </span>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>Gestion H Cleaning</h2>
+
+    <div class="grid">
+
+      <div
+        class="tile"
+        onclick="go('employeesPage','Employés');loadEmployees()">
+
+        <div class="icon">👥</div>
+
+        <strong>Employés</strong>
+
+        <small>Gérer l'équipe</small>
+
+      </div>
+
+
+      <div
+        class="tile"
+        onclick="go('planningPage','Planning');loadMissions('planningList')">
+
+        <div class="icon">📅</div>
+
+        <strong>Planning</strong>
+
+        <small>Voir le planning</small>
+
+      </div>
+
+
+      <div
+        class="tile"
+        onclick="go('missionsPage','Missions');prepareMissions()">
+
+        <div class="icon">🧹</div>
+
+        <strong>Missions</strong>
+
+        <small>Créer / gérer</small>
+
+      </div>
+
+
+      <div
+        class="tile"
+        onclick="go('hoursPage','Heures');loadHours()">
+
+        <div class="icon">⏱️</div>
+
+        <strong>Heures</strong>
+
+        <small>Temps de travail</small>
+
+      </div>
+
+
+      <div
+        class="tile"
+        onclick="go('absencesPage','Absences');loadAbsences(true)">
+
+        <div class="icon">🏖️</div>
+
+        <strong>Absences</strong>
+
+        <small>Demandes</small>
+
+      </div>
+
+
+      <div
+        class="tile"
+        onclick="go('photosPage','Photos')">
+
+        <div class="icon">📷</div>
+
+        <strong>Photos</strong>
+
+        <small>Avant / Après</small>
+
+      </div>
+
+
+      <div
+        class="tile"
+        onclick="go('problemsPage','Problèmes');loadProblems()">
+
+        <div class="icon">⚠️</div>
+
+        <strong>Problèmes</strong>
+
+        <small>Incidents</small>
+
+      </div>
+
+
+      <div
+        class="tile"
+        onclick="go('reportsPage','Rapports');loadReports()">
+
+        <div class="icon">📊</div>
+
+        <strong>Rapports</strong>
+
+        <small>Vue générale</small>
+
+      </div>
+
+    </div>
+
 
     <button
-      id="forgotButton"
-      type="button"
-      class="link-button">
-      Mot de passe oublié ?
+      id="adminLogoutButton"
+      class="blue">
+      Se déconnecter
     </button>
-
-    <div id="error" class="error"></div>
-    <div id="message" class="success"></div>
-
-  </div>
-
-
-  <!-- RESET PASSWORD -->
-  <div id="resetPassword" class="card">
-
-    <h2>Nouveau mot de passe</h2>
-
-    <p>Choisissez votre nouveau mot de passe.</p>
-
-    <input
-      id="newPassword"
-      type="password"
-      placeholder="Nouveau mot de passe"
-      autocomplete="new-password">
-
-    <input
-      id="confirmPassword"
-      type="password"
-      placeholder="Confirmer le mot de passe"
-      autocomplete="new-password">
-
-    <button
-      id="savePasswordButton"
-      type="button">
-      Enregistrer le nouveau mot de passe
-    </button>
-
-    <div id="resetError" class="error"></div>
-    <div id="resetMessage" class="success"></div>
-
-  </div>
-
-
-  <!-- EMPLOYEE DASHBOARD -->
-  <div id="employeeDashboard">
-
-    <div class="card">
-
-      <h2 id="employeeWelcome">Bonjour 👋</h2>
-
-      <p>Voici votre planning de la journée.</p>
-
-      <span class="status">
-        ● Disponible
-      </span>
-
-    </div>
-
-    <div class="card">
-
-      <h2>Mes tâches</h2>
-
-      <div class="task">
-        <h3>Bureau Client</h3>
-        <div>🕗 08:00 – 10:00</div>
-        <div>📍 Verviers</div>
-        <button type="button">Voir la tâche</button>
-      </div>
-
-      <div class="task">
-        <h3>Nettoyage habitation</h3>
-        <div>🕚 11:00 – 13:00</div>
-        <div>📍 Eupen</div>
-        <button type="button">Voir la tâche</button>
-      </div>
-
-      <button
-        id="employeeLogoutButton"
-        type="button"
-        class="logout">
-        Se déconnecter
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- ADMIN DASHBOARD -->
-  <div id="adminDashboard">
-
-    <div class="card">
-
-      <h2 id="adminWelcome">Bonjour 👋</h2>
-
-      <p>Tableau de bord administrateur</p>
-
-      <span class="admin-badge">
-        ★ Administrateur
-      </span>
-
-    </div>
-
-    <div class="card">
-
-      <h2>Gestion H Cleaning</h2>
-
-      <div class="admin-grid">
-
-        <div class="admin-item" onclick="openEmployees()">
-          <div class="admin-icon">👥</div>
-          <strong>Employés</strong>
-          <small>Gérer l'équipe</small>
-        </div>
-
-        <div class="admin-item">
-          <div class="admin-icon">📅</div>
-          <strong>Planning</strong>
-          <small>Organiser les tâches</small>
-        </div>
-
-        <div class="admin-item">
-          <div class="admin-icon">🧹</div>
-          <strong>Missions</strong>
-          <small>Créer une mission</small>
-        </div>
-
-        <div class="admin-item">
-          <div class="admin-icon">⏱️</div>
-          <strong>Heures</strong>
-          <small>Temps de travail</small>
-        </div>
-
-        <div class="admin-item">
-          <div class="admin-icon">🏖️</div>
-          <strong>Absences</strong>
-          <small>Demandes de congé</small>
-        </div>
-
-        <div class="admin-item">
-          <div class="admin-icon">📷</div>
-          <strong>Photos</strong>
-          <small>Avant / Après</small>
-        </div>
-
-        <div class="admin-item">
-          <div class="admin-icon">⚠️</div>
-          <strong>Problèmes</strong>
-          <small>Incidents signalés</small>
-        </div>
-
-        <div class="admin-item">
-          <div class="admin-icon">📊</div>
-          <strong>Rapports</strong>
-          <small>Suivi du travail</small>
-        </div>
-
-      </div>
-
-      <button
-        id="adminLogoutButton"
-        type="button"
-        class="logout">
-        Se déconnecter
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- EMPLOYEES PAGE -->
-  <div id="employeesPage">
-
-    <div class="card">
-
-      <h2>👥 Employés</h2>
-
-      <p>Gestion de l'équipe</p>
-
-      <button
-        id="showEmployeeFormButton"
-        type="button"
-        onclick="addEmployee()">
-        + Ajouter un employé
-      </button>
-
-
-      <!-- ADD EMPLOYEE FORM -->
-      <div id="addEmployeeForm" class="employee-form">
-
-        <h3>Nouvel employé</h3>
-
-        <input
-          id="employeeName"
-          type="text"
-          placeholder="Nom et prénom"
-          autocomplete="name">
-
-        <input
-          id="employeeEmail"
-          type="email"
-          placeholder="Adresse e-mail"
-          autocomplete="off">
-
-        <input
-          id="employeePhone"
-          type="tel"
-          placeholder="Téléphone"
-          autocomplete="tel">
-
-        <input
-          id="employeePassword"
-          type="password"
-          placeholder="Mot de passe"
-          autocomplete="new-password">
-
-        <button
-          id="createEmployeeButton"
-          type="button"
-          onclick="createEmployee()">
-          Créer l'employé
-        </button>
-
-        <button
-          type="button"
-          class="cancel"
-          onclick="cancelAddEmployee()">
-          Annuler
-        </button>
-
-        <div
-          id="employeeFormError"
-          class="error">
-        </div>
-
-        <div
-          id="employeeFormMessage"
-          class="success">
-        </div>
-
-      </div>
-
-
-      <button
-        type="button"
-        class="logout"
-        onclick="backToAdmin()">
-        ← Retour
-      </button>
-
-    </div>
 
   </div>
 
 </div>
 
 
+<!-- EMPLOYEE DASHBOARD -->
+
+<div id="employeeDashboard">
+
+  <div class="card">
+
+    <h2 id="employeeWelcome">
+      Bonjour 👋
+    </h2>
+
+    <p>
+      Vos missions et outils de travail.
+    </p>
+
+    <span class="badge">
+      ● Employé
+    </span>
+
+  </div>
+
+
+  <div class="card">
+
+    <button
+      onclick="go('employeeMissionsPage','Mes missions');loadEmployeeMissions()">
+      🧹 Mes missions
+    </button>
+
+    <button
+      onclick="go('employeeAbsencePage','Mes absences');loadAbsences(false)">
+      🏖️ Mes absences
+    </button>
+
+    <button
+      onclick="go('employeeProblemPage','Signaler un problème');loadMissionOptions()">
+      ⚠️ Signaler un problème
+    </button>
+
+    <button
+      id="employeeLogoutButton"
+      class="blue">
+      Se déconnecter
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- EMPLOYEES -->
+
+<div id="employeesPage" class="page">
+
+  <div class="card">
+
+    <h2>👥 Employés</h2>
+
+    <button onclick="toggle('employeeForm')">
+      + Ajouter un employé
+    </button>
+
+
+    <div
+      id="employeeForm"
+      style="display:none">
+
+      <input
+        id="employeeName"
+        placeholder="Nom et prénom">
+
+      <input
+        id="employeeEmail"
+        type="email"
+        placeholder="Adresse e-mail">
+
+      <input
+        id="employeePhone"
+        placeholder="Téléphone">
+
+      <input
+        id="employeePassword"
+        type="password"
+        placeholder="Mot de passe (min. 6 caractères)">
+
+      <button
+        id="createEmployeeButton"
+        onclick="createEmployee()">
+        Créer l'employé
+      </button>
+
+      <div
+        id="employeeFormError"
+        class="error">
+      </div>
+
+      <div
+        id="employeeFormMessage"
+        class="success">
+      </div>
+
+    </div>
+
+
+    <div id="employeesList"></div>
+
+    <button
+      class="blue"
+      onclick="home()">
+      ← Retour
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- PLANNING -->
+
+<div
+  id="planningPage"
+  class="page">
+
+  <div class="card">
+
+    <h2>📅 Planning</h2>
+
+    <div id="planningList"></div>
+
+    <button
+      class="blue"
+      onclick="home()">
+      ← Retour
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- MISSIONS -->
+
+<div
+  id="missionsPage"
+  class="page">
+
+  <div class="card">
+
+    <h2>🧹 Missions</h2>
+
+    <input
+      id="missionTitle"
+      placeholder="Titre">
+
+    <input
+      id="missionClient"
+      placeholder="Client">
+
+    <input
+      id="missionAddress"
+      placeholder="Adresse">
+
+    <input
+      id="missionCity"
+      placeholder="Ville">
+
+    <input
+      id="missionDate"
+      type="date">
+
+    <div class="row">
+
+      <input
+        id="missionStart"
+        type="time">
+
+      <input
+        id="missionEnd"
+        type="time">
+
+    </div>
+
+
+    <select id="missionEmployee">
+
+      <option value="">
+        Choisir un employé
+      </option>
+
+    </select>
+
+
+    <textarea
+      id="missionDescription"
+      placeholder="Instructions">
+    </textarea>
+
+
+    <input
+      id="missionChecklist"
+      placeholder="Checklist séparée par des virgules">
+
+
+    <button onclick="createMission()">
+      Créer la mission
+    </button>
+
+
+    <div id="missionMsg"></div>
+
+    <div id="missionsList"></div>
+
+
+    <button
+      class="blue"
+      onclick="home()">
+      ← Retour
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- HOURS -->
+
+<div
+  id="hoursPage"
+  class="page">
+
+  <div class="card">
+
+    <h2>⏱️ Heures</h2>
+
+    <div id="hoursList"></div>
+
+    <button
+      class="blue"
+      onclick="home()">
+      ← Retour
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ADMIN ABSENCES -->
+
+<div
+  id="absencesPage"
+  class="page">
+
+  <div class="card">
+
+    <h2>🏖️ Absences</h2>
+
+    <div id="absencesList"></div>
+
+    <button
+      class="blue"
+      onclick="home()">
+      ← Retour
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- PHOTOS -->
+
+<div
+  id="photosPage"
+  class="page">
+
+  <div class="card">
+
+    <h2>📷 Photos Avant / Après</h2>
+
+    <p>
+      Cette section est prête.
+      L'envoi des photos sera activé
+      après la création du stockage Supabase.
+    </p>
+
+    <button
+      class="blue"
+      onclick="home()">
+      ← Retour
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- PROBLEMS -->
+
+<div
+  id="problemsPage"
+  class="page">
+
+  <div class="card">
+
+    <h2>⚠️ Problèmes</h2>
+
+    <div id="problemsList"></div>
+
+    <button
+      class="blue"
+      onclick="home()">
+      ← Retour
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- REPORTS -->
+
+<div
+  id="reportsPage"
+  class="page">
+
+  <div class="card">
+
+    <h2>📊 Rapports</h2>
+
+    <div id="reportsContent"></div>
+
+    <button
+      class="blue"
+      onclick="home()">
+      ← Retour
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- EMPLOYEE MISSIONS -->
+
+<div
+  id="employeeMissionsPage"
+  class="page">
+
+  <div class="card">
+
+    <h2>🧹 Mes missions</h2>
+
+    <div id="employeeMissionsList"></div>
+
+    <button
+      class="blue"
+      onclick="home()">
+      ← Retour
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- MISSION DETAIL -->
+
+<div
+  id="missionDetailPage"
+  class="page">
+
+  <div class="card">
+
+    <h2 id="detailTitle">
+      Mission
+    </h2>
+
+    <div id="missionDetail"></div>
+
+    <div id="checklistArea"></div>
+
+    <div class="row">
+
+      <button onclick="startWork()">
+        ▶ Démarrer
+      </button>
+
+      <button
+        class="blue"
+        onclick="finishWork()">
+        ⏹ Terminer
+      </button>
+
+    </div>
+
+
+    <button
+      class="gray"
+      onclick="go('employeeMissionsPage','Mes missions');loadEmployeeMissions()">
+      ← Missions
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- EMPLOYEE ABSENCE -->
+
+<div
+  id="employeeAbsencePage"
+  class="page">
+
+  <div class="card">
+
+    <h2>🏖️ Demande d'absence</h2>
+
+    <label>Du</label>
+
+    <input
+      id="absenceStart"
+      type="date">
+
+    <label>Au</label>
+
+    <input
+      id="absenceEnd"
+      type="date">
+
+    <textarea
+      id="absenceReason"
+      placeholder="Motif">
+    </textarea>
+
+
+    <button onclick="requestAbsence()">
+      Envoyer
+    </button>
+
+
+    <div id="absenceMsg"></div>
+
+    <div id="myAbsences"></div>
+
+
+    <button
+      class="blue"
+      onclick="home()">
+      ← Retour
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- EMPLOYEE PROBLEM -->
+
+<div
+  id="employeeProblemPage"
+  class="page">
+
+  <div class="card">
+
+    <h2>⚠️ Signaler un problème</h2>
+
+    <select id="problemMission">
+
+      <option value="">
+        Mission (facultatif)
+      </option>
+
+    </select>
+
+
+    <textarea
+      id="problemDescription"
+      placeholder="Décrivez le problème ou dommage">
+    </textarea>
+
+
+    <button onclick="reportProblem()">
+      Envoyer
+    </button>
+
+
+    <div id="problemMsg"></div>
+
+
+    <button
+      class="blue"
+      onclick="home()">
+      ← Retour
+    </button>
+
+  </div>
+
+</div>
+
+</div>
+
+
 <script>
 
-/* SUPABASE */
+/* ==============================
+   SUPABASE
+================================ */
 
 const SUPABASE_URL =
   "https://exymobulxbkseefxxmxe.supabase.co";
@@ -487,862 +920,627 @@ const SUPABASE_ANON_KEY =
 const APP_URL =
   "https://hcleaningservices.github.io/hcleaningservices-app/";
 
-const supabaseClient =
+const sb =
   supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
   );
 
 
-/* ELEMENTS */
-
-const loginPage =
-  document.getElementById("login");
-
-const employeeDashboard =
-  document.getElementById("employeeDashboard");
-
-const adminDashboard =
-  document.getElementById("adminDashboard");
-
-const employeesPage =
-  document.getElementById("employeesPage");
-
-const addEmployeeForm =
-  document.getElementById("addEmployeeForm");
-
-const resetPage =
-  document.getElementById("resetPassword");
-
-const areaTitle =
-  document.getElementById("areaTitle");
-
-const emailInput =
-  document.getElementById("email");
-
-const passwordInput =
-  document.getElementById("password");
-
-const errorBox =
-  document.getElementById("error");
-
-const messageBox =
-  document.getElementById("message");
-
-const loginButton =
-  document.getElementById("loginButton");
-
-const forgotButton =
-  document.getElementById("forgotButton");
-
-const employeeLogoutButton =
-  document.getElementById("employeeLogoutButton");
-
-const adminLogoutButton =
-  document.getElementById("adminLogoutButton");
-
-const savePasswordButton =
-  document.getElementById("savePasswordButton");
-
-const createEmployeeButton =
-  document.getElementById("createEmployeeButton");
-
-const employeeFormError =
-  document.getElementById("employeeFormError");
-
-const employeeFormMessage =
-  document.getElementById("employeeFormMessage");
+let currentRole = "";
+let currentUser = null;
+let currentMission = null;
 
 
-/* CLEAR MESSAGES */
+const $ =
+  id => document.getElementById(id);
 
-function clearMessages(){
 
-  errorBox.textContent = "";
-  messageBox.textContent = "";
+/* ==============================
+   NAVIGATION
+================================ */
+
+function hide(){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      page =>
+        page.style.display = "none"
+    );
+
+  $("adminDashboard").style.display =
+    "none";
+
+  $("employeeDashboard").style.display =
+    "none";
+
+  $("resetPassword").style.display =
+    "none";
 
 }
 
 
-/* HIDE PRIVATE PAGES */
+function go(id,title){
 
-function hidePrivatePages(){
+  hide();
 
-  employeesPage.style.display = "none";
-  employeeDashboard.style.display = "none";
-  adminDashboard.style.display = "none";
-  resetPage.style.display = "none";
-  addEmployeeForm.style.display = "none";
+  $(id).style.display =
+    "block";
+
+  $("areaTitle").textContent =
+    title;
 
 }
 
 
-/* LOGIN */
+function home(){
+
+  hide();
+
+  if(currentRole === "admin"){
+
+    $("adminDashboard").style.display =
+      "block";
+
+    $("areaTitle").textContent =
+      "Espace Administrateur";
+
+  }else{
+
+    $("employeeDashboard").style.display =
+      "block";
+
+    $("areaTitle").textContent =
+      "Espace Employé";
+
+  }
+
+}
+
+
+function toggle(id){
+
+  const element = $(id);
+
+  element.style.display =
+    element.style.display === "none"
+      ? "block"
+      : "none";
+
+}
+
+
+/* ==============================
+   HELPERS
+================================ */
+
+function esc(value){
+
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      character => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      })[character]
+    );
+
+}
+
+
+function stat(status){
+
+  return ({
+    planned:"Planifiée",
+    in_progress:"En cours",
+    completed:"Terminée",
+    pending:"En attente",
+    approved:"Approuvée",
+    rejected:"Refusée",
+    open:"Ouvert",
+    closed:"Résolu"
+  })[status] || status || "—";
+
+}
+
+
+function dt(value){
+
+  return value
+    ? new Date(value)
+        .toLocaleString("fr-BE")
+    : "—";
+
+}
+
+
+/* ==============================
+   LOGIN
+================================ */
 
 async function login(){
 
-  clearMessages();
+  $("error").textContent = "";
 
   const email =
-    emailInput.value.trim();
+    $("email").value.trim();
 
   const password =
-    passwordInput.value;
+    $("password").value;
 
-  if(!email){
 
-    errorBox.textContent =
-      "Veuillez entrer votre adresse e-mail.";
+  const {
+    data,
+    error
+  } =
+    await sb.auth
+      .signInWithPassword({
+        email,
+        password
+      });
+
+
+  if(error){
+
+    $("error").textContent =
+      "E-mail ou mot de passe incorrect.";
 
     return;
 
   }
 
-  if(!password){
 
-    errorBox.textContent =
-      "Veuillez entrer votre mot de passe.";
-
-    return;
-
-  }
-
-  loginButton.disabled = true;
-  loginButton.textContent = "Connexion...";
-
-  try{
-
-    const {data,error} =
-      await supabaseClient.auth
-        .signInWithPassword({
-          email:email,
-          password:password
-        });
-
-    if(error){
-
-      console.error(error);
-
-      errorBox.textContent =
-        "E-mail ou mot de passe incorrect.";
-
-      return;
-
-    }
-
-    if(!data.user){
-
-      errorBox.textContent =
-        "Connexion impossible.";
-
-      return;
-
-    }
-
-    await showDashboard(data.user);
-
-  }catch(error){
-
-    console.error(error);
-
-    errorBox.textContent =
-      "Une erreur est survenue. Veuillez réessayer.";
-
-  }finally{
-
-    loginButton.disabled = false;
-    loginButton.textContent = "Se connecter";
-
-  }
+  await dashboard(
+    data.user
+  );
 
 }
 
 
-/* FORGOT PASSWORD */
+/* ==============================
+   DASHBOARD
+================================ */
 
-async function forgotPassword(){
+async function dashboard(user){
 
-  clearMessages();
-
-  const email =
-    emailInput.value.trim();
-
-  if(!email){
-
-    errorBox.textContent =
-      "Entrez votre adresse e-mail ci-dessus.";
-
-    emailInput.focus();
-
-    return;
-
-  }
-
-  forgotButton.disabled = true;
-  forgotButton.textContent = "Envoi...";
-
-  try{
-
-    const {error} =
-      await supabaseClient.auth
-        .resetPasswordForEmail(
-          email,
-          {
-            redirectTo:APP_URL
-          }
-        );
-
-    if(error){
-
-      console.error(error);
-
-      errorBox.textContent =
-        "Impossible d'envoyer l'e-mail de réinitialisation.";
-
-      return;
-
-    }
-
-    messageBox.textContent =
-      "E-mail envoyé. Vérifiez votre boîte de réception.";
-
-  }catch(error){
-
-    console.error(error);
-
-    errorBox.textContent =
-      "Une erreur est survenue. Veuillez réessayer.";
-
-  }finally{
-
-    forgotButton.disabled = false;
-    forgotButton.textContent = "Mot de passe oublié ?";
-
-  }
-
-}
+  currentUser =
+    user;
 
 
-/* PASSWORD RECOVERY */
-
-supabaseClient.auth.onAuthStateChange(
-  async (event,session) => {
-
-    if(event === "PASSWORD_RECOVERY"){
-
-      loginPage.style.display = "none";
-
-      hidePrivatePages();
-
-      resetPage.style.display = "block";
-
-      areaTitle.textContent =
-        "Nouveau mot de passe";
-
-    }
-
-  }
-);
+  const {
+    data:profile,
+    error
+  } =
+    await sb
+      .from("profiles")
+      .select(
+        "full_name,role"
+      )
+      .eq(
+        "id",
+        user.id
+      )
+      .maybeSingle();
 
 
-/* SAVE NEW PASSWORD */
+  if(error || !profile){
 
-async function saveNewPassword(){
-
-  const password =
-    document.getElementById("newPassword").value;
-
-  const confirmPassword =
-    document.getElementById("confirmPassword").value;
-
-  const resetError =
-    document.getElementById("resetError");
-
-  const resetMessage =
-    document.getElementById("resetMessage");
-
-  resetError.textContent = "";
-  resetMessage.textContent = "";
-
-  if(password.length < 6){
-
-    resetError.textContent =
-      "Le mot de passe doit contenir au moins 6 caractères.";
+    $("error").textContent =
+      "Compte non configuré.";
 
     return;
 
   }
 
-  if(password !== confirmPassword){
 
-    resetError.textContent =
-      "Les deux mots de passe ne correspondent pas.";
-
-    return;
-
-  }
-
-  savePasswordButton.disabled = true;
-  savePasswordButton.textContent = "Enregistrement...";
-
-  try{
-
-    const {error} =
-      await supabaseClient.auth
-        .updateUser({
-          password:password
-        });
-
-    if(error){
-
-      console.error(error);
-
-      resetError.textContent =
-        "Impossible de modifier le mot de passe.";
-
-      return;
-
-    }
-
-    resetMessage.textContent =
-      "Mot de passe modifié avec succès.";
-
-    setTimeout(
-      async function(){
-
-        await supabaseClient.auth.signOut();
-
-        window.location.replace(APP_URL);
-
-      },
-      1500
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    resetError.textContent =
-      "Une erreur est survenue.";
-
-  }finally{
-
-    savePasswordButton.disabled = false;
-
-    savePasswordButton.textContent =
-      "Enregistrer le nouveau mot de passe";
-
-  }
-
-}
+  $("login").style.display =
+    "none";
 
 
-/* DASHBOARD */
-
-async function showDashboard(user){
-
-  let fullName = "";
-  let role = "";
-
-  try{
-
-    const {
-      data:profile,
-      error
-    } =
-      await supabaseClient
-        .from("profiles")
-        .select("full_name, role")
-        .eq("id",user.id)
-        .maybeSingle();
-
-    if(error){
-
-      console.error(
-        "Profile error:",
-        error
-      );
-
-      throw new Error(
-        "PROFILE: " + error.message
-      );
-
-    }
-
-    if(
-      !profile ||
-      !profile.role
-    ){
-
-      await supabaseClient.auth.signOut();
-
-      hidePrivatePages();
-
-      loginPage.style.display = "block";
-
-      areaTitle.textContent =
-        "Espace Employé";
-
-      errorBox.textContent =
-        "Votre compte n'est pas encore configuré. Contactez l'administrateur.";
-
-      return;
-
-    }
-
-    fullName =
-      profile.full_name || "";
-
-    role =
-      profile.role
-        .toString()
-        .trim()
-        .toLowerCase();
-
-  }catch(error){
-
-    console.error(error);
-
-    await supabaseClient.auth.signOut();
-
-    hidePrivatePages();
-
-    loginPage.style.display = "block";
-
-    areaTitle.textContent =
-      "Espace Employé";
-
-    errorBox.textContent =
-      "Erreur: " + error.message;
-
-    return;
-
-  }
-
-  loginPage.style.display = "none";
-
-  hidePrivatePages();
+  currentRole =
+    (profile.role || "")
+      .toLowerCase();
 
 
-  /* ADMIN */
+  hide();
 
-  if(role === "admin"){
 
-    areaTitle.textContent =
+  if(currentRole === "admin"){
+
+    $("adminWelcome").textContent =
+      "Bonjour " +
+      (profile.full_name || "") +
+      " 👋";
+
+    $("adminDashboard").style.display =
+      "block";
+
+    $("areaTitle").textContent =
       "Espace Administrateur";
 
-    adminDashboard.style.display =
+  }else{
+
+    $("employeeWelcome").textContent =
+      "Bonjour " +
+      (profile.full_name || "") +
+      " 👋";
+
+    $("employeeDashboard").style.display =
       "block";
 
-    const adminWelcome =
-      document.getElementById("adminWelcome");
-
-    adminWelcome.textContent =
-      fullName
-        ? "Bonjour " + fullName + " 👋"
-        : "Bonjour 👋";
-
-    return;
-
-  }
-
-
-  /* EMPLOYEE */
-
-  if(role === "employee"){
-
-    areaTitle.textContent =
+    $("areaTitle").textContent =
       "Espace Employé";
 
-    employeeDashboard.style.display =
-      "block";
-
-    const employeeWelcome =
-      document.getElementById("employeeWelcome");
-
-    employeeWelcome.textContent =
-      fullName
-        ? "Bonjour " + fullName + " 👋"
-        : "Bonjour 👋";
-
-    return;
-
   }
-
-
-  /* UNKNOWN ROLE */
-
-  await supabaseClient.auth.signOut();
-
-  hidePrivatePages();
-
-  loginPage.style.display = "block";
-
-  areaTitle.textContent =
-    "Espace Employé";
-
-  errorBox.textContent =
-    "Ce compte ne possède pas les autorisations nécessaires.";
 
 }
 
 
-/* LOGOUT */
+/* ==============================
+   LOGOUT
+================================ */
 
 async function logout(){
 
-  try{
+  await sb.auth.signOut();
 
-    await supabaseClient.auth.signOut();
+  currentRole = "";
+  currentUser = null;
 
-  }catch(error){
+  hide();
 
-    console.error(error);
+  $("login").style.display =
+    "block";
 
-  }
-
-  hidePrivatePages();
-
-  loginPage.style.display = "block";
-
-  areaTitle.textContent =
+  $("areaTitle").textContent =
     "Espace Employé";
 
-  passwordInput.value = "";
-
-  clearMessages();
-
-}
-
-
-/* EMPLOYEES PAGE */
-
-function openEmployees(){
-
-  adminDashboard.style.display =
-    "none";
-
-  employeesPage.style.display =
-    "block";
-
-  addEmployeeForm.style.display =
-    "none";
-
-  areaTitle.textContent =
-    "Employés";
+  $("password").value =
+    "";
 
 }
 
 
-function backToAdmin(){
-
-  addEmployeeForm.style.display =
-    "none";
-
-  employeesPage.style.display =
-    "none";
-
-  adminDashboard.style.display =
-    "block";
-
-  areaTitle.textContent =
-    "Espace Administrateur";
-
-}
-
-
-function addEmployee(){
-
-  employeeFormError.textContent = "";
-  employeeFormMessage.textContent = "";
-
-  addEmployeeForm.style.display =
-    "block";
-
-  document.getElementById(
-    "employeeName"
-  ).focus();
-
-}
-
-
-function cancelAddEmployee(){
-
-  addEmployeeForm.style.display =
-    "none";
-
-  employeeFormError.textContent = "";
-  employeeFormMessage.textContent = "";
-
-}
-
-
-/* CREATE REAL EMPLOYEE */
+/* ==============================
+   CREATE EMPLOYEE
+================================ */
 
 async function createEmployee(){
 
   const name =
-    document.getElementById(
-      "employeeName"
-    ).value.trim();
+    $("employeeName")
+      .value
+      .trim();
 
   const email =
-    document.getElementById(
-      "employeeEmail"
-    ).value.trim();
+    $("employeeEmail")
+      .value
+      .trim();
 
   const phone =
-    document.getElementById(
-      "employeePhone"
-    ).value.trim();
+    $("employeePhone")
+      .value
+      .trim();
 
   const password =
-    document.getElementById(
-      "employeePassword"
-    ).value;
+    $("employeePassword")
+      .value;
 
-  employeeFormError.textContent = "";
-  employeeFormMessage.textContent = "";
 
-  if(!name){
+  $("employeeFormError").textContent =
+    "";
 
-    employeeFormError.textContent =
-      "Veuillez entrer le nom de l'employé.";
+  $("employeeFormMessage").textContent =
+    "";
 
-    return;
 
-  }
+  if(
+    !name ||
+    !email ||
+    password.length < 6
+  ){
 
-  if(!email){
-
-    employeeFormError.textContent =
-      "Veuillez entrer l'adresse e-mail.";
-
-    return;
-
-  }
-
-  if(password.length < 6){
-
-    employeeFormError.textContent =
-      "Le mot de passe doit contenir au moins 6 caractères.";
+    $("employeeFormError").textContent =
+      "Nom, e-mail et mot de passe de 6 caractères minimum obligatoires.";
 
     return;
 
   }
 
-  createEmployeeButton.disabled = true;
 
-  createEmployeeButton.textContent =
-    "Création...";
+  $("createEmployeeButton").disabled =
+    true;
 
-  try{
 
-    const {
-      data:sessionData,
-      error:sessionError
-    } =
-      await supabaseClient.auth
-        .getSession();
-
-    if(
-      sessionError ||
-      !sessionData.session
-    ){
-
-      throw new Error(
-        "Votre session administrateur a expiré. Reconnectez-vous."
-      );
-
-    }
-
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/functions/v1/create-employee",
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":"application/json",
-
-            "Authorization":
-              "Bearer " +
-              sessionData.session.access_token,
-
-            "apikey":
-              SUPABASE_ANON_KEY
-          },
-
-          body:JSON.stringify({
-            name:name,
-            email:email,
-            phone:phone,
-            password:password
-          })
+  const {
+    data,
+    error
+  } =
+    await sb.functions.invoke(
+      "create-employee",
+      {
+        body:{
+          name,
+          email,
+          phone,
+          password
         }
-      );
+      }
+    );
 
-    let result = {};
 
-    try{
+  $("createEmployeeButton").disabled =
+    false;
 
-      result =
-        await response.json();
 
-    }catch(parseError){
+  if(
+    error ||
+    !data?.success
+  ){
 
-      console.error(parseError);
+    $("employeeFormError").textContent =
+      data?.error ||
+      error?.message ||
+      "Création impossible.";
 
-    }
-
-    if(!response.ok){
-
-      throw new Error(
-        result.error ||
-        "Impossible de créer l'employé."
-      );
-
-    }
-
-    employeeFormMessage.textContent =
-      "Employé créé avec succès ✅";
-
-    document.getElementById(
-      "employeeName"
-    ).value = "";
-
-    document.getElementById(
-      "employeeEmail"
-    ).value = "";
-
-    document.getElementById(
-      "employeePhone"
-    ).value = "";
-
-    document.getElementById(
-      "employeePassword"
-    ).value = "";
-
-  }catch(error){
-
-    console.error(error);
-
-    employeeFormError.textContent =
-      error.message ||
-      "Impossible de créer l'employé.";
-
-  }finally{
-
-    createEmployeeButton.disabled =
-      false;
-
-    createEmployeeButton.textContent =
-      "Créer l'employé";
+    return;
 
   }
+
+
+  $("employeeFormMessage").textContent =
+    "Employé créé avec succès ✅";
+
+
+  [
+    "employeeName",
+    "employeeEmail",
+    "employeePhone",
+    "employeePassword"
+  ].forEach(
+    id => $(id).value = ""
+  );
+
+
+  loadEmployees();
 
 }
 
 
-/* BUTTON EVENTS */
+/* ==============================
+   EMPLOYEES LIST
+================================ */
 
-loginButton.addEventListener(
-  "click",
-  login
-);
+async function loadEmployees(){
 
-forgotButton.addEventListener(
-  "click",
-  forgotPassword
-);
-
-employeeLogoutButton.addEventListener(
-  "click",
-  logout
-);
-
-adminLogoutButton.addEventListener(
-  "click",
-  logout
-);
-
-savePasswordButton.addEventListener(
-  "click",
-  saveNewPassword
-);
-
-passwordInput.addEventListener(
-  "keydown",
-  function(event){
-
-    if(event.key === "Enter"){
-      login();
-    }
-
-  }
-);
-
-
-/* START APP */
-
-async function startApp(){
-
-  try{
-
-    const hash =
-      window.location.hash;
-
-    const search =
-      window.location.search;
-
-    const recoveryLink =
-      hash.includes("type=recovery") ||
-      search.includes("type=recovery");
-
-    if(recoveryLink){
-      return;
-    }
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.auth
-        .getSession();
-
-    if(error){
-
-      console.error(error);
-      return;
-
-    }
-
-    if(
-      data.session &&
-      data.session.user
-    ){
-
-      await showDashboard(
-        data.session.user
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from("profiles")
+      .select(
+        "id,full_name,role,phone"
+      )
+      .eq(
+        "role",
+        "employee"
+      )
+      .order(
+        "full_name"
       );
 
-    }
 
-  }catch(error){
+  if(error){
 
-    console.error(error);
+    $("employeesList").innerHTML =
+      `<p class="error">${esc(error.message)}</p>`;
+
+    return;
 
   }
+
+
+  if(!data?.length){
+
+    $("employeesList").innerHTML =
+      "<p>Aucun employé.</p>";
+
+    return;
+
+  }
+
+
+  $("employeesList").innerHTML =
+    data.map(
+      employee => `
+
+        <div class="item">
+
+          <h3>
+            ${esc(employee.full_name)}
+          </h3>
+
+          <div>
+            📞 ${esc(employee.phone || "—")}
+          </div>
+
+        </div>
+
+      `
+    ).join("");
 
 }
 
 
-/* START */
+/* ==============================
+   EMPLOYEE SELECT
+================================ */
 
-startApp();
+async function fillEmployees(){
 
-</script>
+  const {
+    data
+  } =
+    await sb
+      .from("profiles")
+      .select(
+        "id,full_name"
+      )
+      .eq(
+        "role",
+        "employee"
+      )
+      .order(
+        "full_name"
+      );
 
-</body>
-</html>
+
+  $("missionEmployee").innerHTML =
+    '<option value="">Choisir un employé</option>' +
+
+    (data || [])
+      .map(
+        employee =>
+          `<option value="${employee.id}">
+            ${esc(employee.full_name)}
+          </option>`
+      )
+      .join("");
+
+}
+
+
+async function prepareMissions(){
+
+  await fillEmployees();
+
+  await loadMissions(
+    "missionsList"
+  );
+
+}
+
+
+/* ==============================
+   CREATE MISSION
+================================ */
+
+async function createMission(){
+
+  const mission = {
+
+    title:
+      $("missionTitle")
+        .value
+        .trim(),
+
+    client_name:
+      $("missionClient")
+        .value
+        .trim(),
+
+    address:
+      $("missionAddress")
+        .value
+        .trim(),
+
+    city:
+      $("missionCity")
+        .value
+        .trim(),
+
+    mission_date:
+      $("missionDate")
+        .value,
+
+    start_time:
+      $("missionStart")
+        .value || null,
+
+    end_time:
+      $("missionEnd")
+        .value || null,
+
+    employee_id:
+      $("missionEmployee")
+        .value || null,
+
+    description:
+      $("missionDescription")
+        .value
+        .trim(),
+
+    status:
+      "planned"
+
+  };
+
+
+  if(
+    !mission.title ||
+    !mission.mission_date
+  ){
+
+    $("missionMsg").innerHTML =
+      '<p class="error">Titre et date obligatoires.</p>';
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from("missions")
+      .insert(mission)
+      .select()
+      .single();
+
+
+  if(error){
+
+    $("missionMsg").innerHTML =
+      `<p class="error">${esc(error.message)}</p>`;
+
+    return;
+
+  }
+
+
+  const checklist =
+    $("missionChecklist")
+      .value
+      .split(",")
+      .map(
+        item =>
+          item.trim()
+      )
+      .filter(Boolean);
+
+
+  if(checklist.length){
+
+    await sb
+      .from("checklist_items")
+      .insert(
+        checklist.map(
+          title => ({
+            mission_id:data.id,
+            title
+          })
+        )
+      );
+
+  }
+
+
+  $("missionMsg").innerHTML =
+    '<p
