@@ -1,184 +1,1059 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>  <html lang="fr">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>H Cleaning Services</title>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  <style>  
+*{  
+  box-sizing:border-box;  
+  font-family:Arial,sans-serif;  
+}  
+  
+body{  
+  margin:0;  
+  background:#f4f8fa;  
+  color:#16324a;  
+}  
+  
+.header{  
+  background:linear-gradient(135deg,#08a7a7,#1677c8);  
+  color:white;  
+  padding:28px 20px;  
+  text-align:center;  
+}  
+  
+.header h1{  
+  margin:0;  
+  font-size:25px;  
+}  
+  
+.header p{  
+  margin:7px 0 0;  
+  font-size:17px;  
+}  
+  
+.container{  
+  max-width:500px;  
+  margin:auto;  
+  padding:20px;  
+}  
+  
+.card{  
+  background:white;  
+  padding:24px;  
+  border-radius:18px;  
+  margin-top:20px;  
+  box-shadow:0 5px 20px rgba(0,0,0,.08);  
+}  
+  
+input{  
+  width:100%;  
+  padding:15px;  
+  margin-top:12px;  
+  border:1px solid #d5dfe5;  
+  border-radius:11px;  
+  font-size:16px;  
+}  
+  
+button{  
+  width:100%;  
+  padding:15px;  
+  margin-top:15px;  
+  border:0;  
+  border-radius:11px;  
+  background:#08a7a7;  
+  color:white;  
+  font-size:16px;  
+  font-weight:bold;  
+  cursor:pointer;  
+}  
+  
+button:disabled{  
+  opacity:.6;  
+  cursor:not-allowed;  
+}  
+  
+.link-button{  
+  background:transparent;  
+  color:#1677c8;  
+}  
+  
+.logout{  
+  background:#1677c8;  
+}  
+  
+.error{  
+  color:#c62828;  
+  margin-top:12px;  
+  font-weight:bold;  
+}  
+  
+.success{  
+  color:#158447;  
+  margin-top:12px;  
+  font-weight:bold;  
+}  
+  
+.status{  
+  display:inline-block;  
+  background:#dff7ea;  
+  color:#158447;  
+  padding:8px 13px;  
+  border-radius:20px;  
+  font-weight:bold;  
+}  
+  
+.task{  
+  border-left:4px solid #08a7a7;  
+  padding:14px;  
+  margin-top:15px;  
+  background:#f7fafb;  
+  border-radius:9px;  
+}  
+  
+.task h3{  
+  margin:0 0 9px;  
+}  
+  
+.admin-badge{  
+  display:inline-block;  
+  background:#e6f2ff;  
+  color:#1677c8;  
+  padding:8px 13px;  
+  border-radius:20px;  
+  font-weight:bold;  
+}  
+  
+.admin-grid{  
+  display:grid;  
+  grid-template-columns:1fr 1fr;  
+  gap:12px;  
+  margin-top:18px;  
+}  
+  
+.admin-item{  
+  background:#f7fafb;  
+  border-radius:14px;  
+  padding:18px 10px;  
+  text-align:center;  
+  border:1px solid #e4ecef;  
+}  
+  
+.admin-icon{  
+  font-size:28px;  
+  margin-bottom:8px;  
+}  
+  
+.admin-item strong{  
+  display:block;  
+  font-size:15px;  
+}  
+  
+.admin-item small{  
+  display:block;  
+  margin-top:5px;  
+  color:#667b8c;  
+}  
+  
+#employeeDashboard,  
+#adminDashboard,  
+#resetPassword{  
+  display:none;  
+}  
+</style>  </head>  <body>  <div class="header">  
+  <h1>H CLEANING SERVICES</h1>  
+  <p id="areaTitle">Espace Employé</p>  
+</div>  <div class="container">    <!-- LOGIN -->    <div id="login" class="card">  <h2>Connexion</h2>  
 
-<title>H Cleaning Services</title>
+<input  
+  id="email"  
+  type="email"  
+  placeholder="Adresse e-mail"  
+  autocomplete="email">  
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<input  
+  id="password"  
+  type="password"  
+  placeholder="Mot de passe"  
+  autocomplete="current-password">  
 
-<style>
-*{
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
-}
+<button id="loginButton" type="button">  
+  Se connecter  
+</button>  
 
-body{
-  margin:0;
-  background:#f4f8fa;
-  color:#16324a;
-}
+<button id="forgotButton" type="button" class="link-button">  
+  Mot de passe oublié ?  
+</button>  
 
-.header{
-  background:linear-gradient(135deg,#08a7a7,#1677c8);
-  color:white;
-  padding:28px 20px;
-  text-align:center;
-}
+<div id="error" class="error"></div>  
+<div id="message" class="success"></div>
 
-.header h1{
-  margin:0;
-  font-size:25px;
-}
+  </div>    <!-- RESET PASSWORD -->    <div id="resetPassword" class="card">  <h2>Nouveau mot de passe</h2>  
 
-.header p{
-  margin:7px 0 0;
-  font-size:17px;
-}
+<p>Choisissez votre nouveau mot de passe.</p>  
 
-.container{
-  max-width:500px;
-  margin:auto;
-  padding:20px;
-}
+<input  
+  id="newPassword"  
+  type="password"  
+  placeholder="Nouveau mot de passe"  
+  autocomplete="new-password">  
 
-.card{
-  background:white;
-  padding:24px;
-  border-radius:18px;
-  margin-top:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
-}
+<input  
+  id="confirmPassword"  
+  type="password"  
+  placeholder="Confirmer le mot de passe"  
+  autocomplete="new-password">  
 
-input{
-  width:100%;
-  padding:15px;
-  margin-top:12px;
-  border:1px solid #d5dfe5;
-  border-radius:11px;
-  font-size:16px;
-}
+<button id="savePasswordButton" type="button">  
+  Enregistrer le nouveau mot de passe  
+</button>  
 
-button{
-  width:100%;
-  padding:15px;
-  margin-top:15px;
-  border:0;
-  border-radius:11px;
-  background:#08a7a7;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
+<div id="resetError" class="error"></div>  
+<div id="resetMessage" class="success"></div>
 
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
+  </div>    <!-- EMPLOYEE DASHBOARD -->    <div id="employeeDashboard">  <div class="card">  
 
-.link-button{
-  background:transparent;
-  color:#1677c8;
-}
+  <h2 id="employeeWelcome">Bonjour 👋</h2>  
 
-.logout{
-  background:#1677c8;
-}
+  <p>Voici votre planning de la journée.</p>  
 
-.error{
-  color:#c62828;
-  margin-top:12px;
-  font-weight:bold;
-}
+  <span class="status">● Disponible</span>  
 
-.success{
-  color:#158447;
-  margin-top:12px;
-  font-weight:bold;
-}
+</div>  
 
-.status{
-  display:inline-block;
-  background:#dff7ea;
-  color:#158447;
-  padding:8px 13px;
-  border-radius:20px;
-  font-weight:bold;
-}
+<div class="card">  
 
-.task{
-  border-left:4px solid #08a7a7;
-  padding:14px;
-  margin-top:15px;
-  background:#f7fafb;
-  border-radius:9px;
-}
+  <h2>Mes tâches</h2>  
 
-.task h3{
-  margin:0 0 9px;
-}
+  <div class="task">  
 
-.admin-badge{
-  display:inline-block;
-  background:#e6f2ff;
-  color:#1677c8;
-  padding:8px 13px;
-  border-radius:20px;
-  font-weight:bold;
-}
+    <h3>Bureau Client</h3>  
 
-.admin-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:18px;
-}
+    <div>🕗 08:00 – 10:00</div>  
+    <div>📍 Verviers</div>  
 
-.admin-item{
-  background:#f7fafb;
-  border-radius:14px;
-  padding:18px 10px;
-  text-align:center;
-  border:1px solid #e4ecef;
-  cursor:pointer;
-}
+    <button type="button">  
+      Voir la tâche  
+    </button>  
 
-.admin-icon{
-  font-size:28px;
-  margin-bottom:8px;
-}
+  </div>  
 
-.admin-item strong{
-  display:block;
-  font-size:15px;
-}
+  <div class="task">  
 
-.admin-item small{
-  display:block;
-  margin-top:5px;
-  color:#667b8c;
-}
+    <h3>Nettoyage habitation</h3>  
 
-#employeeDashboard,
-#adminDashboard,
-#resetPassword,
-#employeesPage{
-  display:none;
-}
-</style>
-</head>
+    <div>🕚 11:00 – 13:00</div>  
+    <div>📍 Eupen</div>  
 
-<body>
+    <button type="button">  
+      Voir la tâche  
+    </button>  
 
-<div class="header">
-  <h1>H CLEANING SERVICES</h1>
-  <p id="areaTitle">Espace Employé</p>
+  </div>  
+
+  <button  
+    id="employeeLogoutButton"  
+    type="button"  
+    class="logout">  
+    Se déconnecter  
+  </button>  
+
 </div>
 
-<div class="container">
+  </div>    <!-- ADMIN DASHBOARD -->    <div id="adminDashboard">  <div class="card">  
 
-  <!-- LOGIN -->
-  <div id="login" class="card">
-    <h2>Connexion</h
+  <h2 id="adminWelcome">Bonjour 👋</h2>  
+
+  <p>Tableau de bord administrateur</p>  
+
+  <span class="admin-badge">  
+    ★ Administrateur  
+  </span>  
+
+</div>  
+
+<div class="card">  
+
+  <h2>Gestion H Cleaning</h2>  
+
+  <div class="admin-grid">
+
+<div class="admin-item" onclick="openEmployees()" style="cursor:pointer;">  
+  <div class="admin-icon">👥</div>  
+  <strong>Employés</strong>  
+  <small>Gérer l'équipe</small>  
+</div>  <div class="admin-item">  
+      <div class="admin-icon">📅</div>  
+      <strong>Planning</strong>  
+      <small>Organiser les tâches</small>  
+    </div>  
+
+    <div class="admin-item">  
+      <div class="admin-icon">🧹</div>  
+      <strong>Missions</strong>  
+      <small>Créer une mission</small>  
+    </div>  
+
+    <div class="admin-item">  
+      <div class="admin-icon">⏱️</div>  
+      <strong>Heures</strong>  
+      <small>Temps de travail</small>  
+    </div>  
+
+    <div class="admin-item">  
+      <div class="admin-icon">🏖️</div>  
+      <strong>Absences</strong>  
+      <small>Demandes de congé</small>  
+    </div>  
+
+    <div class="admin-item">  
+      <div class="admin-icon">📷</div>  
+      <strong>Photos</strong>  
+      <small>Avant / Après</small>  
+    </div>  
+
+    <div class="admin-item">  
+      <div class="admin-icon">⚠️</div>  
+      <strong>Problèmes</strong>  
+      <small>Incidents signalés</small>  
+    </div>  
+
+    <div class="admin-item">  
+      <div class="admin-icon">📊</div>  
+      <strong>Rapports</strong>  
+      <small>Suivi du travail</small>  
+    </div>  
+
+  </div>  
+
+  <button  
+    id="adminLogoutButton"  
+    type="button"  
+    class="logout">  
+    Se déconnecter  
+  </button>  
+
+</div>
+
+  </div>  
+<!-- EMPLOYEES PAGE -->  
+<div id="employeesPage" style="display:none;">    <div class="card">  
+    <h2>👥 Employés</h2>  
+    <p>Gestion de l'équipe</p>  <button type="button" onclick="addEmployee()">  
+  + Ajouter un employé  
+</button>  
+
+<br><br>  
+
+<button type="button" onclick="backToAdmin()">  
+  ← Retour  
+</button>
+
+  </div>  </div>  
+</div>  <script>  
+  
+/* SUPABASE */  
+  
+const SUPABASE_URL =  
+  "https://exymobulxbkseefxxmxe.supabase.co";  
+  
+const SUPABASE_ANON_KEY =  
+  "sb_publishable_WE_xrJP3u21brM2YKUxeEg_JpUeFuC4";  
+  
+const APP_URL =  
+  "https://hcleaningservices.github.io/hcleaningservices-app/";  
+  
+const supabaseClient =  
+  supabase.createClient(  
+    SUPABASE_URL,  
+    SUPABASE_ANON_KEY  
+  );  
+  
+  
+/* ELEMENTS */  
+  
+const loginPage =  
+  document.getElementById("login");  
+  
+const employeeDashboard =  
+  document.getElementById("employeeDashboard");  
+  
+const adminDashboard =  
+  document.getElementById("adminDashboard");  
+  
+const resetPage =  
+  document.getElementById("resetPassword");  
+  
+const areaTitle =  
+  document.getElementById("areaTitle");  
+  
+const emailInput =  
+  document.getElementById("email");  
+  
+const passwordInput =  
+  document.getElementById("password");  
+  
+const errorBox =  
+  document.getElementById("error");  
+  
+const messageBox =  
+  document.getElementById("message");  
+  
+const loginButton =  
+  document.getElementById("loginButton");  
+  
+const forgotButton =  
+  document.getElementById("forgotButton");  
+  
+const employeeLogoutButton =  
+  document.getElementById("employeeLogoutButton");  
+  
+const adminLogoutButton =  
+  document.getElementById("adminLogoutButton");  
+  
+const savePasswordButton =  
+  document.getElementById("savePasswordButton");  
+  
+  
+function clearMessages(){  
+  
+  errorBox.textContent = "";  
+  messageBox.textContent = "";  
+  
+}  
+  
+  
+function hidePrivatePages(){  
+document.getElementById("employeesPage").style.display = "none";  
+  employeeDashboard.style.display = "none";  
+  adminDashboard.style.display = "none";  
+  resetPage.style.display = "none";  
+  
+}  
+  
+  
+/* LOGIN */  
+  
+async function login(){  
+  
+  clearMessages();  
+  
+  const email =  
+    emailInput.value.trim();  
+  
+  const password =  
+    passwordInput.value;  
+  
+  if(!email){  
+  
+    errorBox.textContent =  
+      "Veuillez entrer votre adresse e-mail.";  
+  
+    return;  
+  
+  }  
+  
+  if(!password){  
+  
+    errorBox.textContent =  
+      "Veuillez entrer votre mot de passe.";  
+  
+    return;  
+  
+  }  
+  
+  loginButton.disabled = true;  
+  loginButton.textContent = "Connexion...";  
+  
+  try{  
+  
+    const {data,error} =  
+      await supabaseClient.auth  
+        .signInWithPassword({  
+          email:email,  
+          password:password  
+        });  
+  
+    if(error){  
+  
+      console.error(error);  
+  
+      errorBox.textContent =  
+        "E-mail ou mot de passe incorrect.";  
+  
+      return;  
+  
+    }  
+  
+    if(!data.user){  
+  
+      errorBox.textContent =  
+        "Connexion impossible.";  
+  
+      return;  
+  
+    }  
+  
+    await showDashboard(data.user);  
+  
+  }catch(error){  
+  
+    console.error(error);  
+  
+    errorBox.textContent =  
+      "Une erreur est survenue. Veuillez réessayer.";  
+  
+  }finally{  
+  
+    loginButton.disabled = false;  
+    loginButton.textContent = "Se connecter";  
+  
+  }  
+  
+}  
+  
+  
+/* FORGOT PASSWORD */  
+  
+async function forgotPassword(){  
+  
+  clearMessages();  
+  
+  const email =  
+    emailInput.value.trim();  
+  
+  if(!email){  
+  
+    errorBox.textContent =  
+      "Entrez votre adresse e-mail ci-dessus.";  
+  
+    emailInput.focus();  
+  
+    return;  
+  
+  }  
+  
+  forgotButton.disabled = true;  
+  forgotButton.textContent = "Envoi...";  
+  
+  try{  
+  
+    const {error} =  
+      await supabaseClient.auth  
+        .resetPasswordForEmail(  
+          email,  
+          {  
+            redirectTo:APP_URL  
+          }  
+        );  
+  
+    if(error){  
+  
+      console.error(error);  
+  
+      errorBox.textContent =  
+        "Impossible d'envoyer l'e-mail de réinitialisation.";  
+  
+      return;  
+  
+    }  
+  
+    messageBox.textContent =  
+      "E-mail envoyé. Vérifiez votre boîte de réception.";  
+  
+  }catch(error){  
+  
+    console.error(error);  
+  
+    errorBox.textContent =  
+      "Une erreur est survenue. Veuillez réessayer.";  
+  
+  }finally{  
+  
+    forgotButton.disabled = false;  
+    forgotButton.textContent =  
+      "Mot de passe oublié ?";  
+  
+  }  
+  
+}  
+  
+  
+/* PASSWORD RECOVERY */  
+  
+supabaseClient.auth.onAuthStateChange(  
+  async (event,session) => {  
+  
+    if(event === "PASSWORD_RECOVERY"){  
+  
+      loginPage.style.display = "none";  
+      employeeDashboard.style.display = "none";  
+      adminDashboard.style.display = "none";  
+      resetPage.style.display = "block";  
+  
+      areaTitle.textContent =  
+        "Nouveau mot de passe";  
+  
+    }  
+  
+  }  
+);  
+  
+  
+/* SAVE NEW PASSWORD */  
+  
+async function saveNewPassword(){  
+  
+  const password =  
+    document.getElementById("newPassword").value;  
+  
+  const confirmPassword =  
+    document.getElementById("confirmPassword").value;  
+  
+  const resetError =  
+    document.getElementById("resetError");  
+  
+  const resetMessage =  
+    document.getElementById("resetMessage");  
+  
+  resetError.textContent = "";  
+  resetMessage.textContent = "";  
+  
+  if(password.length < 6){  
+  
+    resetError.textContent =  
+      "Le mot de passe doit contenir au moins 6 caractères.";  
+  
+    return;  
+  
+  }  
+  
+  if(password !== confirmPassword){  
+  
+    resetError.textContent =  
+      "Les deux mots de passe ne correspondent pas.";  
+  
+    return;  
+  
+  }  
+  
+  savePasswordButton.disabled = true;  
+  savePasswordButton.textContent =  
+    "Enregistrement...";  
+  
+  try{  
+  
+    const {error} =  
+      await supabaseClient.auth  
+        .updateUser({  
+          password:password  
+        });  
+  
+    if(error){  
+  
+      console.error(error);  
+  
+      resetError.textContent =  
+        "Impossible de modifier le mot de passe.";  
+  
+      return;  
+  
+    }  
+  
+    resetMessage.textContent =  
+      "Mot de passe modifié avec succès.";  
+  
+    setTimeout(  
+      async function(){  
+  
+        await supabaseClient.auth.signOut();  
+  
+        window.location.replace(APP_URL);  
+  
+      },  
+      1500  
+    );  
+  
+  }catch(error){  
+  
+    console.error(error);  
+  
+    resetError.textContent =  
+      "Une erreur est survenue.";  
+  
+  }finally{  
+  
+    savePasswordButton.disabled = false;  
+  
+    savePasswordButton.textContent =  
+      "Enregistrer le nouveau mot de passe";  
+  
+  }  
+  
+}  
+  
+  
+/* DASHBOARD */  
+  
+async function showDashboard(user){  
+  
+  let fullName = "";  
+  let role = "";  
+  
+  try{  
+  
+    const {data:profile,error} =  
+      await supabaseClient  
+        .from("profiles")  
+        .select("full_name, role")  
+        .eq("id",user.id)  
+        .maybeSingle();  
+  
+    if(error){  
+  
+      console.error(  
+        "Profile error:",  
+        error  
+      );  
+  
+      throw new Error("PROFILE: " + error.message);  
+  
+    }  
+  
+    /*  
+      SECURITY:  
+      A logged-in account must also have  
+      a valid profile before dashboard access.  
+    */  
+  
+    if(!profile || !profile.role){  
+  
+      await supabaseClient.auth.signOut();  
+  
+      hidePrivatePages();  
+  
+      loginPage.style.display = "block";  
+  
+      areaTitle.textContent =  
+        "Espace Employé";  
+  
+      errorBox.textContent =  
+        "Votre compte n'est pas encore configuré. Contactez l'administrateur.";  
+  
+      return;  
+  
+    }  
+  
+    fullName =  
+      profile.full_name || "";  
+  
+    role =  
+      profile.role  
+        .toString()  
+        .trim()  
+        .toLowerCase();  
+  
+  }catch(error){  
+  
+    console.error(error);  
+  
+    await supabaseClient.auth.signOut();  
+  
+    hidePrivatePages();  
+  
+    loginPage.style.display = "block";  
+  
+    areaTitle.textContent =  
+      "Espace Employé";  
+  
+    errorBox.textContent = "Erreur: " + error.message;  
+  
+    return;  
+  
+  }  
+  
+  
+  loginPage.style.display = "none";  
+  resetPage.style.display = "none";  
+  employeeDashboard.style.display = "none";  
+  adminDashboard.style.display = "none";  
+  
+  
+  /* ADMIN */  
+  
+  if(role === "admin"){  
+  
+    areaTitle.textContent =  
+      "Espace Administrateur";  
+  
+    adminDashboard.style.display =  
+      "block";  
+  
+    const adminWelcome =  
+      document.getElementById(  
+        "adminWelcome"  
+      );  
+  
+    if(fullName){  
+  
+      adminWelcome.textContent =  
+        "Bonjour " +  
+        fullName +  
+        " 👋";  
+  
+    }else{  
+  
+      adminWelcome.textContent =  
+        "Bonjour 👋";  
+  
+    }  
+  
+    return;  
+  
+  }  
+  
+  
+  /* EMPLOYEE */  
+  
+  if(role === "employee"){  
+  
+    areaTitle.textContent =  
+      "Espace Employé";  
+  
+    employeeDashboard.style.display =  
+      "block";  
+  
+    const employeeWelcome =  
+      document.getElementById(  
+        "employeeWelcome"  
+      );  
+  
+    if(fullName){  
+  
+      employeeWelcome.textContent =  
+        "Bonjour " +  
+        fullName +  
+        " 👋";  
+  
+    }else{  
+  
+      employeeWelcome.textContent =  
+        "Bonjour 👋";  
+  
+    }  
+  
+    return;  
+  
+  }  
+  
+  
+  /* UNKNOWN ROLE */  
+  
+  await supabaseClient.auth.signOut();  
+  
+  hidePrivatePages();  
+  
+  loginPage.style.display = "block";  
+  
+  areaTitle.textContent =  
+    "Espace Employé";  
+  
+  errorBox.textContent =  
+    "Ce compte ne possède pas les autorisations nécessaires.";  
+  
+}  
+  
+  
+/* LOGOUT */  
+  
+async function logout(){  
+  
+  try{  
+  
+    await supabaseClient.auth.signOut();  
+  
+  }catch(error){  
+  
+    console.error(error);  
+  
+  }  
+  
+  hidePrivatePages();  
+  
+  loginPage.style.display = "block";  
+  
+  areaTitle.textContent =  
+    "Espace Employé";  
+  
+  passwordInput.value = "";  
+  
+  clearMessages();  
+  
+}  
+  
+  
+/* BUTTON EVENTS */  
+  
+loginButton.addEventListener(  
+  "click",  
+  login  
+);  
+  
+forgotButton.addEventListener(  
+  "click",  
+  forgotPassword  
+);  
+  
+employeeLogoutButton.addEventListener(  
+  "click",  
+  logout  
+);  
+  
+adminLogoutButton.addEventListener(  
+  "click",  
+  logout  
+);  
+  
+savePasswordButton.addEventListener(  
+  "click",  
+  saveNewPassword  
+);  
+  
+passwordInput.addEventListener(  
+  "keydown",  
+  function(event){  
+  
+    if(event.key === "Enter"){  
+      login();  
+    }  
+  
+  }  
+);  
+  
+  
+/* START APP */  
+  
+async function startApp(){  
+  
+  try{  
+  
+    const hash =  
+      window.location.hash;  
+  
+    const search =  
+      window.location.search;  
+  
+    const recoveryLink =  
+      hash.includes("type=recovery") ||  
+      search.includes("type=recovery");  
+  
+    if(recoveryLink){  
+      return;  
+    }  
+  
+    const {data,error} =  
+      await supabaseClient.auth  
+        .getSession();  
+  
+    if(error){  
+  
+      console.error(error);  
+  
+      return;  
+  
+    }  
+  
+    if(  
+      data.session &&  
+      data.session.user  
+    ){  
+  
+      await showDashboard(  
+        data.session.user  
+      );  
+  
+    }  
+  
+  }catch(error){  
+  
+    
+}catch(error){  
+  
+  console.error(error);  
+  
+}  
+  
+}  
+  
+function backToAdmin(){  
+  document.getElementById("employeesPage").style.display = "none";  
+  adminDashboard.style.display = "block";  
+}  
+  
+/* START APP */  
+  
+async function startApp(){  
+  
+  try{  
+  
+    const hash = window.location.hash;  
+    const search = window.location.search;  
+  
+    const recoveryLink =  
+      hash.includes("type=recovery") ||  
+      search.includes("type=recovery");  
+  
+    if(recoveryLink){  
+      return;  
+    }  
+  
+    const {data,error} =  
+      await supabaseClient.auth.getSession();  
+  
+    if(error){  
+      console.error(error);  
+      return;  
+    }  
+  
+    if(data.session && data.session.user){  
+      await showDashboard(data.session.user);  
+    }  
+  
+  }catch(error){  
+  
+    console.error(error);  
+  
+  }  
+  
+}  
+  
+  
+/* EMPLOYEES PAGE */  
+  
+function openEmployees(){  
+  
+  adminDashboard.style.display = "none";  
+  document.getElementById("employeesPage").style.display = "block";  
+  areaTitle.textContent = "Employés";  
+  
+}  
+  
+function backToAdmin(){  
+  
+  document.getElementById("employeesPage").style.display = "none";  
+  adminDashboard.style.display = "block";  
+  areaTitle.textContent = "Espace Administrateur";  
+  
+}  
+  
+function addEmployee(){  
+  
+  alert("Ajouter un employé");  
+  
+}  
+  
+  
+/* START */  
+  
+startApp();  
+  
+</script>  </body>  
+</html>
