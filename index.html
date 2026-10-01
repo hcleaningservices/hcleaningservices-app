@@ -87,6 +87,10 @@ button:disabled{
   background:#1677c8;
 }
 
+.cancel{
+  background:#718392;
+}
+
 .error{
   color:#c62828;
   margin-top:12px;
@@ -161,10 +165,21 @@ button:disabled{
   color:#667b8c;
 }
 
+.employee-form{
+  margin-top:22px;
+  padding-top:20px;
+  border-top:1px solid #e4ecef;
+}
+
+.employee-form h3{
+  margin-top:0;
+}
+
 #employeeDashboard,
 #adminDashboard,
 #resetPassword,
-#employeesPage{
+#employeesPage,
+#addEmployeeForm{
   display:none;
 }
 </style>
@@ -179,314 +194,282 @@ button:disabled{
 
 <div class="container">
 
-<!-- LOGIN -->
-<div id="login" class="card">
+  <!-- LOGIN -->
+  <div id="login" class="card">
 
-  <h2>Connexion</h2>
+    <h2>Connexion</h2>
 
-  <input
-    id="email"
-    type="email"
-    placeholder="Adresse e-mail"
-    autocomplete="email">
+    <input
+      id="email"
+      type="email"
+      placeholder="Adresse e-mail"
+      autocomplete="email">
 
-  <input
-    id="password"
-    type="password"
-    placeholder="Mot de passe"
-    autocomplete="current-password">
+    <input
+      id="password"
+      type="password"
+      placeholder="Mot de passe"
+      autocomplete="current-password">
 
-  <button id="loginButton" type="button">
-    Se connecter
-  </button>
+    <button id="loginButton" type="button">
+      Se connecter
+    </button>
 
-  <button
-    id="forgotButton"
-    type="button"
-    class="link-button">
-    Mot de passe oublié ?
-  </button>
+    <button
+      id="forgotButton"
+      type="button"
+      class="link-button">
+      Mot de passe oublié ?
+    </button>
 
-  <div id="error" class="error"></div>
-  <div id="message" class="success"></div>
-
-</div>
-
-
-<!-- RESET PASSWORD -->
-<div id="resetPassword" class="card">
-
-  <h2>Nouveau mot de passe</h2>
-
-  <p>Choisissez votre nouveau mot de passe.</p>
-
-  <input
-    id="newPassword"
-    type="password"
-    placeholder="Nouveau mot de passe"
-    autocomplete="new-password">
-
-  <input
-    id="confirmPassword"
-    type="password"
-    placeholder="Confirmer le mot de passe"
-    autocomplete="new-password">
-
-  <button
-    id="savePasswordButton"
-    type="button">
-    Enregistrer le nouveau mot de passe
-  </button>
-
-  <div id="resetError" class="error"></div>
-  <div id="resetMessage" class="success"></div>
-
-</div>
-
-
-<!-- EMPLOYEE DASHBOARD -->
-<div id="employeeDashboard">
-
-  <div class="card">
-
-    <h2 id="employeeWelcome">
-      Bonjour 👋
-    </h2>
-
-    <p>Voici votre planning de la journée.</p>
-
-    <span class="status">
-      ● Disponible
-    </span>
+    <div id="error" class="error"></div>
+    <div id="message" class="success"></div>
 
   </div>
 
 
-  <div class="card">
+  <!-- RESET PASSWORD -->
+  <div id="resetPassword" class="card">
 
-    <h2>Mes tâches</h2>
+    <h2>Nouveau mot de passe</h2>
 
-    <div class="task">
+    <p>Choisissez votre nouveau mot de passe.</p>
 
-      <h3>Bureau Client</h3>
+    <input
+      id="newPassword"
+      type="password"
+      placeholder="Nouveau mot de passe"
+      autocomplete="new-password">
 
-      <div>🕗 08:00 – 10:00</div>
-      <div>📍 Verviers</div>
+    <input
+      id="confirmPassword"
+      type="password"
+      placeholder="Confirmer le mot de passe"
+      autocomplete="new-password">
 
-      <button type="button">
-        Voir la tâche
+    <button
+      id="savePasswordButton"
+      type="button">
+      Enregistrer le nouveau mot de passe
+    </button>
+
+    <div id="resetError" class="error"></div>
+    <div id="resetMessage" class="success"></div>
+
+  </div>
+
+
+  <!-- EMPLOYEE DASHBOARD -->
+  <div id="employeeDashboard">
+
+    <div class="card">
+
+      <h2 id="employeeWelcome">Bonjour 👋</h2>
+
+      <p>Voici votre planning de la journée.</p>
+
+      <span class="status">
+        ● Disponible
+      </span>
+
+    </div>
+
+    <div class="card">
+
+      <h2>Mes tâches</h2>
+
+      <div class="task">
+        <h3>Bureau Client</h3>
+        <div>🕗 08:00 – 10:00</div>
+        <div>📍 Verviers</div>
+        <button type="button">Voir la tâche</button>
+      </div>
+
+      <div class="task">
+        <h3>Nettoyage habitation</h3>
+        <div>🕚 11:00 – 13:00</div>
+        <div>📍 Eupen</div>
+        <button type="button">Voir la tâche</button>
+      </div>
+
+      <button
+        id="employeeLogoutButton"
+        type="button"
+        class="logout">
+        Se déconnecter
       </button>
 
     </div>
 
+  </div>
 
-    <div class="task">
 
-      <h3>Nettoyage habitation</h3>
+  <!-- ADMIN DASHBOARD -->
+  <div id="adminDashboard">
 
-      <div>🕚 11:00 – 13:00</div>
-      <div>📍 Eupen</div>
+    <div class="card">
 
-      <button type="button">
-        Voir la tâche
+      <h2 id="adminWelcome">Bonjour 👋</h2>
+
+      <p>Tableau de bord administrateur</p>
+
+      <span class="admin-badge">
+        ★ Administrateur
+      </span>
+
+    </div>
+
+    <div class="card">
+
+      <h2>Gestion H Cleaning</h2>
+
+      <div class="admin-grid">
+
+        <div class="admin-item" onclick="openEmployees()">
+          <div class="admin-icon">👥</div>
+          <strong>Employés</strong>
+          <small>Gérer l'équipe</small>
+        </div>
+
+        <div class="admin-item">
+          <div class="admin-icon">📅</div>
+          <strong>Planning</strong>
+          <small>Organiser les tâches</small>
+        </div>
+
+        <div class="admin-item">
+          <div class="admin-icon">🧹</div>
+          <strong>Missions</strong>
+          <small>Créer une mission</small>
+        </div>
+
+        <div class="admin-item">
+          <div class="admin-icon">⏱️</div>
+          <strong>Heures</strong>
+          <small>Temps de travail</small>
+        </div>
+
+        <div class="admin-item">
+          <div class="admin-icon">🏖️</div>
+          <strong>Absences</strong>
+          <small>Demandes de congé</small>
+        </div>
+
+        <div class="admin-item">
+          <div class="admin-icon">📷</div>
+          <strong>Photos</strong>
+          <small>Avant / Après</small>
+        </div>
+
+        <div class="admin-item">
+          <div class="admin-icon">⚠️</div>
+          <strong>Problèmes</strong>
+          <small>Incidents signalés</small>
+        </div>
+
+        <div class="admin-item">
+          <div class="admin-icon">📊</div>
+          <strong>Rapports</strong>
+          <small>Suivi du travail</small>
+        </div>
+
+      </div>
+
+      <button
+        id="adminLogoutButton"
+        type="button"
+        class="logout">
+        Se déconnecter
       </button>
 
     </div>
 
-
-    <button
-      id="employeeLogoutButton"
-      type="button"
-      class="logout">
-      Se déconnecter
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- ADMIN DASHBOARD -->
-<div id="adminDashboard">
-
-  <div class="card">
-
-    <h2 id="adminWelcome">
-      Bonjour 👋
-    </h2>
-
-    <p>Tableau de bord administrateur</p>
-
-    <span class="admin-badge">
-      ★ Administrateur
-    </span>
-
   </div>
 
 
-  <div class="card">
+  <!-- EMPLOYEES PAGE -->
+  <div id="employeesPage">
 
-    <h2>Gestion H Cleaning</h2>
+    <div class="card">
 
-    <div class="admin-grid">
+      <h2>👥 Employés</h2>
 
-      <div
-        class="admin-item"
-        onclick="openEmployees()">
+      <p>Gestion de l'équipe</p>
 
-        <div class="admin-icon">👥</div>
-
-        <strong>Employés</strong>
-
-        <small>Gérer l'équipe</small>
-
-      </div>
+      <button
+        id="showEmployeeFormButton"
+        type="button"
+        onclick="addEmployee()">
+        + Ajouter un employé
+      </button>
 
 
-      <div class="admin-item">
+      <!-- ADD EMPLOYEE FORM -->
+      <div id="addEmployeeForm" class="employee-form">
 
-        <div class="admin-icon">📅</div>
+        <h3>Nouvel employé</h3>
 
-        <strong>Planning</strong>
+        <input
+          id="employeeName"
+          type="text"
+          placeholder="Nom et prénom"
+          autocomplete="name">
 
-        <small>Organiser les tâches</small>
+        <input
+          id="employeeEmail"
+          type="email"
+          placeholder="Adresse e-mail"
+          autocomplete="off">
 
-      </div>
+        <input
+          id="employeePhone"
+          type="tel"
+          placeholder="Téléphone"
+          autocomplete="tel">
 
+        <input
+          id="employeePassword"
+          type="password"
+          placeholder="Mot de passe"
+          autocomplete="new-password">
 
-      <div class="admin-item">
+        <button
+          id="createEmployeeButton"
+          type="button"
+          onclick="createEmployee()">
+          Créer l'employé
+        </button>
 
-        <div class="admin-icon">🧹</div>
+        <button
+          type="button"
+          class="cancel"
+          onclick="cancelAddEmployee()">
+          Annuler
+        </button>
 
-        <strong>Missions</strong>
+        <div
+          id="employeeFormError"
+          class="error">
+        </div>
 
-        <small>Créer une mission</small>
-
-      </div>
-
-
-      <div class="admin-item">
-
-        <div class="admin-icon">⏱️</div>
-
-        <strong>Heures</strong>
-
-        <small>Temps de travail</small>
-
-      </div>
-
-
-      <div class="admin-item">
-
-        <div class="admin-icon">🏖️</div>
-
-        <strong>Absences</strong>
-
-        <small>Demandes de congé</small>
-
-      </div>
-
-
-      <div class="admin-item">
-
-        <div class="admin-icon">📷</div>
-
-        <strong>Photos</strong>
-
-        <small>Avant / Après</small>
-
-      </div>
-
-
-      <div class="admin-item">
-
-        <div class="admin-icon">⚠️</div>
-
-        <strong>Problèmes</strong>
-
-        <small>Incidents signalés</small>
+        <div
+          id="employeeFormMessage"
+          class="success">
+        </div>
 
       </div>
 
 
-      <div class="admin-item">
-
-        <div class="admin-icon">📊</div>
-
-        <strong>Rapports</strong>
-
-        <small>Suivi du travail</small>
-
-      </div>
+      <button
+        type="button"
+        class="logout"
+        onclick="backToAdmin()">
+        ← Retour
+      </button>
 
     </div>
 
-
-    <button
-      id="adminLogoutButton"
-      type="button"
-      class="logout">
-      Se déconnecter
-    </button>
-
   </div>
-
-</div>
-
-
-<!-- EMPLOYEES PAGE -->
-<div id="employeesPage">
-
-  <div class="card">
-
-    <h2>👥 Employés</h2>
-
-    <p>Gestion de l'équipe</p>
-
-    <button
-      type="button"
-      onclick="addEmployee()">
-      + Ajouter un employé
-    </button>
-
-    <button
-      type="button"
-      class="logout"
-      onclick="backToAdmin()">
-      ← Retour
-    </button>
-<div id="addEmployeeForm" style="display:none; margin-top:20px;">
-
-  <h3>Ajouter un employé</h3>
-
-  <input
-    id="employeeName"
-    type="text"
-    placeholder="Nom et prénom">
-
-  <input
-    id="employeeEmail"
-    type="email"
-    placeholder="Adresse e-mail">
-
-  <input
-    id="employeePhone"
-    type="tel"
-    placeholder="Téléphone">
-
-  <input
-    id="employeePassword"
-    type="password"
-    placeholder="Mot de passe">
-
-  <button type="button" onclick="createEmployee()">
-    Créer l'employé
-  </button>
-
-</div>
-  </div>
-
-</div>
 
 </div>
 
@@ -525,6 +508,9 @@ const adminDashboard =
 const employeesPage =
   document.getElementById("employeesPage");
 
+const addEmployeeForm =
+  document.getElementById("addEmployeeForm");
+
 const resetPage =
   document.getElementById("resetPassword");
 
@@ -550,19 +536,22 @@ const forgotButton =
   document.getElementById("forgotButton");
 
 const employeeLogoutButton =
-  document.getElementById(
-    "employeeLogoutButton"
-  );
+  document.getElementById("employeeLogoutButton");
 
 const adminLogoutButton =
-  document.getElementById(
-    "adminLogoutButton"
-  );
+  document.getElementById("adminLogoutButton");
 
 const savePasswordButton =
-  document.getElementById(
-    "savePasswordButton"
-  );
+  document.getElementById("savePasswordButton");
+
+const createEmployeeButton =
+  document.getElementById("createEmployeeButton");
+
+const employeeFormError =
+  document.getElementById("employeeFormError");
+
+const employeeFormMessage =
+  document.getElementById("employeeFormMessage");
 
 
 /* CLEAR MESSAGES */
@@ -579,17 +568,11 @@ function clearMessages(){
 
 function hidePrivatePages(){
 
-  employeesPage.style.display =
-    "none";
-
-  employeeDashboard.style.display =
-    "none";
-
-  adminDashboard.style.display =
-    "none";
-
-  resetPage.style.display =
-    "none";
+  employeesPage.style.display = "none";
+  employeeDashboard.style.display = "none";
+  adminDashboard.style.display = "none";
+  resetPage.style.display = "none";
+  addEmployeeForm.style.display = "none";
 
 }
 
@@ -606,7 +589,6 @@ async function login(){
   const password =
     passwordInput.value;
 
-
   if(!email){
 
     errorBox.textContent =
@@ -615,7 +597,6 @@ async function login(){
     return;
 
   }
-
 
   if(!password){
 
@@ -626,24 +607,17 @@ async function login(){
 
   }
 
-
   loginButton.disabled = true;
-
-  loginButton.textContent =
-    "Connexion...";
-
+  loginButton.textContent = "Connexion...";
 
   try{
 
     const {data,error} =
       await supabaseClient.auth
         .signInWithPassword({
-
           email:email,
           password:password
-
         });
-
 
     if(error){
 
@@ -656,7 +630,6 @@ async function login(){
 
     }
 
-
     if(!data.user){
 
       errorBox.textContent =
@@ -666,11 +639,7 @@ async function login(){
 
     }
 
-
-    await showDashboard(
-      data.user
-    );
-
+    await showDashboard(data.user);
 
   }catch(error){
 
@@ -679,14 +648,10 @@ async function login(){
     errorBox.textContent =
       "Une erreur est survenue. Veuillez réessayer.";
 
-
   }finally{
 
-    loginButton.disabled =
-      false;
-
-    loginButton.textContent =
-      "Se connecter";
+    loginButton.disabled = false;
+    loginButton.textContent = "Se connecter";
 
   }
 
@@ -702,7 +667,6 @@ async function forgotPassword(){
   const email =
     emailInput.value.trim();
 
-
   if(!email){
 
     errorBox.textContent =
@@ -714,28 +678,19 @@ async function forgotPassword(){
 
   }
 
-
-  forgotButton.disabled =
-    true;
-
-  forgotButton.textContent =
-    "Envoi...";
-
+  forgotButton.disabled = true;
+  forgotButton.textContent = "Envoi...";
 
   try{
 
     const {error} =
       await supabaseClient.auth
         .resetPasswordForEmail(
-
           email,
-
           {
             redirectTo:APP_URL
           }
-
         );
-
 
     if(error){
 
@@ -748,10 +703,8 @@ async function forgotPassword(){
 
     }
 
-
     messageBox.textContent =
       "E-mail envoyé. Vérifiez votre boîte de réception.";
-
 
   }catch(error){
 
@@ -760,14 +713,10 @@ async function forgotPassword(){
     errorBox.textContent =
       "Une erreur est survenue. Veuillez réessayer.";
 
-
   }finally{
 
-    forgotButton.disabled =
-      false;
-
-    forgotButton.textContent =
-      "Mot de passe oublié ?";
+    forgotButton.disabled = false;
+    forgotButton.textContent = "Mot de passe oublié ?";
 
   }
 
@@ -777,18 +726,15 @@ async function forgotPassword(){
 /* PASSWORD RECOVERY */
 
 supabaseClient.auth.onAuthStateChange(
-
   async (event,session) => {
 
     if(event === "PASSWORD_RECOVERY"){
 
-      loginPage.style.display =
-        "none";
+      loginPage.style.display = "none";
 
       hidePrivatePages();
 
-      resetPage.style.display =
-        "block";
+      resetPage.style.display = "block";
 
       areaTitle.textContent =
         "Nouveau mot de passe";
@@ -796,7 +742,6 @@ supabaseClient.auth.onAuthStateChange(
     }
 
   }
-
 );
 
 
@@ -805,29 +750,19 @@ supabaseClient.auth.onAuthStateChange(
 async function saveNewPassword(){
 
   const password =
-    document.getElementById(
-      "newPassword"
-    ).value;
+    document.getElementById("newPassword").value;
 
   const confirmPassword =
-    document.getElementById(
-      "confirmPassword"
-    ).value;
+    document.getElementById("confirmPassword").value;
 
   const resetError =
-    document.getElementById(
-      "resetError"
-    );
+    document.getElementById("resetError");
 
   const resetMessage =
-    document.getElementById(
-      "resetMessage"
-    );
-
+    document.getElementById("resetMessage");
 
   resetError.textContent = "";
   resetMessage.textContent = "";
-
 
   if(password.length < 6){
 
@@ -838,7 +773,6 @@ async function saveNewPassword(){
 
   }
 
-
   if(password !== confirmPassword){
 
     resetError.textContent =
@@ -848,24 +782,16 @@ async function saveNewPassword(){
 
   }
 
-
-  savePasswordButton.disabled =
-    true;
-
-  savePasswordButton.textContent =
-    "Enregistrement...";
-
+  savePasswordButton.disabled = true;
+  savePasswordButton.textContent = "Enregistrement...";
 
   try{
 
     const {error} =
       await supabaseClient.auth
         .updateUser({
-
           password:password
-
         });
-
 
     if(error){
 
@@ -878,28 +804,19 @@ async function saveNewPassword(){
 
     }
 
-
     resetMessage.textContent =
       "Mot de passe modifié avec succès.";
 
-
     setTimeout(
-
       async function(){
 
-        await supabaseClient.auth
-          .signOut();
+        await supabaseClient.auth.signOut();
 
-        window.location.replace(
-          APP_URL
-        );
+        window.location.replace(APP_URL);
 
       },
-
       1500
-
     );
-
 
   }catch(error){
 
@@ -908,11 +825,9 @@ async function saveNewPassword(){
     resetError.textContent =
       "Une erreur est survenue.";
 
-
   }finally{
 
-    savePasswordButton.disabled =
-      false;
+    savePasswordButton.disabled = false;
 
     savePasswordButton.textContent =
       "Enregistrer le nouveau mot de passe";
@@ -929,7 +844,6 @@ async function showDashboard(user){
   let fullName = "";
   let role = "";
 
-
   try{
 
     const {
@@ -938,15 +852,9 @@ async function showDashboard(user){
     } =
       await supabaseClient
         .from("profiles")
-        .select(
-          "full_name, role"
-        )
-        .eq(
-          "id",
-          user.id
-        )
+        .select("full_name, role")
+        .eq("id",user.id)
         .maybeSingle();
-
 
     if(error){
 
@@ -956,25 +864,21 @@ async function showDashboard(user){
       );
 
       throw new Error(
-        "PROFILE: " +
-        error.message
+        "PROFILE: " + error.message
       );
 
     }
-
 
     if(
       !profile ||
       !profile.role
     ){
 
-      await supabaseClient.auth
-        .signOut();
+      await supabaseClient.auth.signOut();
 
       hidePrivatePages();
 
-      loginPage.style.display =
-        "block";
+      loginPage.style.display = "block";
 
       areaTitle.textContent =
         "Espace Employé";
@@ -986,7 +890,6 @@ async function showDashboard(user){
 
     }
 
-
     fullName =
       profile.full_name || "";
 
@@ -996,33 +899,27 @@ async function showDashboard(user){
         .trim()
         .toLowerCase();
 
-
   }catch(error){
 
     console.error(error);
 
-    await supabaseClient.auth
-      .signOut();
+    await supabaseClient.auth.signOut();
 
     hidePrivatePages();
 
-    loginPage.style.display =
-      "block";
+    loginPage.style.display = "block";
 
     areaTitle.textContent =
       "Espace Employé";
 
     errorBox.textContent =
-      "Erreur: " +
-      error.message;
+      "Erreur: " + error.message;
 
     return;
 
   }
 
-
-  loginPage.style.display =
-    "none";
+  loginPage.style.display = "none";
 
   hidePrivatePages();
 
@@ -1037,20 +934,13 @@ async function showDashboard(user){
     adminDashboard.style.display =
       "block";
 
-
     const adminWelcome =
-      document.getElementById(
-        "adminWelcome"
-      );
-
+      document.getElementById("adminWelcome");
 
     adminWelcome.textContent =
       fullName
-        ? "Bonjour " +
-          fullName +
-          " 👋"
+        ? "Bonjour " + fullName + " 👋"
         : "Bonjour 👋";
-
 
     return;
 
@@ -1067,20 +957,13 @@ async function showDashboard(user){
     employeeDashboard.style.display =
       "block";
 
-
     const employeeWelcome =
-      document.getElementById(
-        "employeeWelcome"
-      );
-
+      document.getElementById("employeeWelcome");
 
     employeeWelcome.textContent =
       fullName
-        ? "Bonjour " +
-          fullName +
-          " 👋"
+        ? "Bonjour " + fullName + " 👋"
         : "Bonjour 👋";
-
 
     return;
 
@@ -1089,13 +972,11 @@ async function showDashboard(user){
 
   /* UNKNOWN ROLE */
 
-  await supabaseClient.auth
-    .signOut();
+  await supabaseClient.auth.signOut();
 
   hidePrivatePages();
 
-  loginPage.style.display =
-    "block";
+  loginPage.style.display = "block";
 
   areaTitle.textContent =
     "Espace Employé";
@@ -1112,8 +993,7 @@ async function logout(){
 
   try{
 
-    await supabaseClient.auth
-      .signOut();
+    await supabaseClient.auth.signOut();
 
   }catch(error){
 
@@ -1121,11 +1001,9 @@ async function logout(){
 
   }
 
-
   hidePrivatePages();
 
-  loginPage.style.display =
-    "block";
+  loginPage.style.display = "block";
 
   areaTitle.textContent =
     "Espace Employé";
@@ -1147,6 +1025,9 @@ function openEmployees(){
   employeesPage.style.display =
     "block";
 
+  addEmployeeForm.style.display =
+    "none";
+
   areaTitle.textContent =
     "Employés";
 
@@ -1154,6 +1035,9 @@ function openEmployees(){
 
 
 function backToAdmin(){
+
+  addEmployeeForm.style.display =
+    "none";
 
   employeesPage.style.display =
     "none";
@@ -1167,33 +1051,197 @@ function backToAdmin(){
 }
 
 
-  function addEmployee(){
+function addEmployee(){
 
-  document.getElementById("addEmployeeForm").style.display = "block";
+  employeeFormError.textContent = "";
+  employeeFormMessage.textContent = "";
+
+  addEmployeeForm.style.display =
+    "block";
+
+  document.getElementById(
+    "employeeName"
+  ).focus();
+
+}
+
+
+function cancelAddEmployee(){
+
+  addEmployeeForm.style.display =
+    "none";
+
+  employeeFormError.textContent = "";
+  employeeFormMessage.textContent = "";
+
+}
+
+
+/* CREATE REAL EMPLOYEE */
+
 async function createEmployee(){
 
   const name =
-    document.getElementById("employeeName").value.trim();
+    document.getElementById(
+      "employeeName"
+    ).value.trim();
 
   const email =
-    document.getElementById("employeeEmail").value.trim();
+    document.getElementById(
+      "employeeEmail"
+    ).value.trim();
 
   const phone =
-    document.getElementById("employeePhone").value.trim();
+    document.getElementById(
+      "employeePhone"
+    ).value.trim();
 
   const password =
-    document.getElementById("employeePassword").value;
+    document.getElementById(
+      "employeePassword"
+    ).value;
 
-  if(!name || !email || !password){
+  employeeFormError.textContent = "";
+  employeeFormMessage.textContent = "";
 
-    alert("Veuillez remplir le nom, l'e-mail et le mot de passe.");
+  if(!name){
+
+    employeeFormError.textContent =
+      "Veuillez entrer le nom de l'employé.";
+
     return;
 
   }
 
-  alert("Formulaire prêt pour : " + name);
+  if(!email){
 
-}
+    employeeFormError.textContent =
+      "Veuillez entrer l'adresse e-mail.";
+
+    return;
+
+  }
+
+  if(password.length < 6){
+
+    employeeFormError.textContent =
+      "Le mot de passe doit contenir au moins 6 caractères.";
+
+    return;
+
+  }
+
+  createEmployeeButton.disabled = true;
+
+  createEmployeeButton.textContent =
+    "Création...";
+
+  try{
+
+    const {
+      data:sessionData,
+      error:sessionError
+    } =
+      await supabaseClient.auth
+        .getSession();
+
+    if(
+      sessionError ||
+      !sessionData.session
+    ){
+
+      throw new Error(
+        "Votre session administrateur a expiré. Reconnectez-vous."
+      );
+
+    }
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/functions/v1/create-employee",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":"application/json",
+
+            "Authorization":
+              "Bearer " +
+              sessionData.session.access_token,
+
+            "apikey":
+              SUPABASE_ANON_KEY
+          },
+
+          body:JSON.stringify({
+            name:name,
+            email:email,
+            phone:phone,
+            password:password
+          })
+        }
+      );
+
+    let result = {};
+
+    try{
+
+      result =
+        await response.json();
+
+    }catch(parseError){
+
+      console.error(parseError);
+
+    }
+
+    if(!response.ok){
+
+      throw new Error(
+        result.error ||
+        "Impossible de créer l'employé."
+      );
+
+    }
+
+    employeeFormMessage.textContent =
+      "Employé créé avec succès ✅";
+
+    document.getElementById(
+      "employeeName"
+    ).value = "";
+
+    document.getElementById(
+      "employeeEmail"
+    ).value = "";
+
+    document.getElementById(
+      "employeePhone"
+    ).value = "";
+
+    document.getElementById(
+      "employeePassword"
+    ).value = "";
+
+  }catch(error){
+
+    console.error(error);
+
+    employeeFormError.textContent =
+      error.message ||
+      "Impossible de créer l'employé.";
+
+  }finally{
+
+    createEmployeeButton.disabled =
+      false;
+
+    createEmployeeButton.textContent =
+      "Créer l'employé";
+
+  }
+
 }
 
 
@@ -1225,19 +1273,14 @@ savePasswordButton.addEventListener(
 );
 
 passwordInput.addEventListener(
-
   "keydown",
-
   function(event){
 
     if(event.key === "Enter"){
-
       login();
-
     }
 
   }
-
 );
 
 
@@ -1253,22 +1296,13 @@ async function startApp(){
     const search =
       window.location.search;
 
-
     const recoveryLink =
-      hash.includes(
-        "type=recovery"
-      ) ||
-      search.includes(
-        "type=recovery"
-      );
-
+      hash.includes("type=recovery") ||
+      search.includes("type=recovery");
 
     if(recoveryLink){
-
       return;
-
     }
-
 
     const {
       data,
@@ -1277,15 +1311,12 @@ async function startApp(){
       await supabaseClient.auth
         .getSession();
 
-
     if(error){
 
       console.error(error);
-
       return;
 
     }
-
 
     if(
       data.session &&
@@ -1297,7 +1328,6 @@ async function startApp(){
       );
 
     }
-
 
   }catch(error){
 
