@@ -179,340 +179,1091 @@ button:disabled{
 
 <div class="container">
 
-  <!-- LOGIN -->
-  <div id="login" class="card">
+<!-- LOGIN -->
+<div id="login" class="card">
 
-    <h2>Connexion</h2>
+  <h2>Connexion</h2>
 
-    <input
-      id="email"
-      type="email"
-      placeholder="Adresse e-mail"
-      autocomplete="email">
+  <input
+    id="email"
+    type="email"
+    placeholder="Adresse e-mail"
+    autocomplete="email">
 
-    <input
-      id="password"
-      type="password"
-      placeholder="Mot de passe"
-      autocomplete="current-password">
+  <input
+    id="password"
+    type="password"
+    placeholder="Mot de passe"
+    autocomplete="current-password">
 
-    <button id="loginButton" type="button">
-      Se connecter
-    </button>
+  <button id="loginButton" type="button">
+    Se connecter
+  </button>
+
+  <button
+    id="forgotButton"
+    type="button"
+    class="link-button">
+    Mot de passe oublié ?
+  </button>
+
+  <div id="error" class="error"></div>
+  <div id="message" class="success"></div>
+
+</div>
+
+
+<!-- RESET PASSWORD -->
+<div id="resetPassword" class="card">
+
+  <h2>Nouveau mot de passe</h2>
+
+  <p>Choisissez votre nouveau mot de passe.</p>
+
+  <input
+    id="newPassword"
+    type="password"
+    placeholder="Nouveau mot de passe"
+    autocomplete="new-password">
+
+  <input
+    id="confirmPassword"
+    type="password"
+    placeholder="Confirmer le mot de passe"
+    autocomplete="new-password">
+
+  <button
+    id="savePasswordButton"
+    type="button">
+    Enregistrer le nouveau mot de passe
+  </button>
+
+  <div id="resetError" class="error"></div>
+  <div id="resetMessage" class="success"></div>
+
+</div>
+
+
+<!-- EMPLOYEE DASHBOARD -->
+<div id="employeeDashboard">
+
+  <div class="card">
+
+    <h2 id="employeeWelcome">
+      Bonjour 👋
+    </h2>
+
+    <p>Voici votre planning de la journée.</p>
+
+    <span class="status">
+      ● Disponible
+    </span>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>Mes tâches</h2>
+
+    <div class="task">
+
+      <h3>Bureau Client</h3>
+
+      <div>🕗 08:00 – 10:00</div>
+      <div>📍 Verviers</div>
+
+      <button type="button">
+        Voir la tâche
+      </button>
+
+    </div>
+
+
+    <div class="task">
+
+      <h3>Nettoyage habitation</h3>
+
+      <div>🕚 11:00 – 13:00</div>
+      <div>📍 Eupen</div>
+
+      <button type="button">
+        Voir la tâche
+      </button>
+
+    </div>
+
 
     <button
-      id="forgotButton"
+      id="employeeLogoutButton"
       type="button"
-      class="link-button">
-      Mot de passe oublié ?
+      class="logout">
+      Se déconnecter
     </button>
 
-    <div id="error" class="error"></div>
-    <div id="message" class="success"></div>
+  </div>
+
+</div>
+
+
+<!-- ADMIN DASHBOARD -->
+<div id="adminDashboard">
+
+  <div class="card">
+
+    <h2 id="adminWelcome">
+      Bonjour 👋
+    </h2>
+
+    <p>Tableau de bord administrateur</p>
+
+    <span class="admin-badge">
+      ★ Administrateur
+    </span>
 
   </div>
 
 
-  <!-- RESET PASSWORD -->
-  <div id="resetPassword" class="card">
+  <div class="card">
 
-    <h2>Nouveau mot de passe</h2>
+    <h2>Gestion H Cleaning</h2>
 
-    <p>Choisissez votre nouveau mot de passe.</p>
+    <div class="admin-grid">
 
-    <input
-      id="newPassword"
-      type="password"
-      placeholder="Nouveau mot de passe"
-      autocomplete="new-password">
+      <div
+        class="admin-item"
+        onclick="openEmployees()">
 
-    <input
-      id="confirmPassword"
-      type="password"
-      placeholder="Confirmer le mot de passe"
-      autocomplete="new-password">
+        <div class="admin-icon">👥</div>
+
+        <strong>Employés</strong>
+
+        <small>Gérer l'équipe</small>
+
+      </div>
+
+
+      <div class="admin-item">
+
+        <div class="admin-icon">📅</div>
+
+        <strong>Planning</strong>
+
+        <small>Organiser les tâches</small>
+
+      </div>
+
+
+      <div class="admin-item">
+
+        <div class="admin-icon">🧹</div>
+
+        <strong>Missions</strong>
+
+        <small>Créer une mission</small>
+
+      </div>
+
+
+      <div class="admin-item">
+
+        <div class="admin-icon">⏱️</div>
+
+        <strong>Heures</strong>
+
+        <small>Temps de travail</small>
+
+      </div>
+
+
+      <div class="admin-item">
+
+        <div class="admin-icon">🏖️</div>
+
+        <strong>Absences</strong>
+
+        <small>Demandes de congé</small>
+
+      </div>
+
+
+      <div class="admin-item">
+
+        <div class="admin-icon">📷</div>
+
+        <strong>Photos</strong>
+
+        <small>Avant / Après</small>
+
+      </div>
+
+
+      <div class="admin-item">
+
+        <div class="admin-icon">⚠️</div>
+
+        <strong>Problèmes</strong>
+
+        <small>Incidents signalés</small>
+
+      </div>
+
+
+      <div class="admin-item">
+
+        <div class="admin-icon">📊</div>
+
+        <strong>Rapports</strong>
+
+        <small>Suivi du travail</small>
+
+      </div>
+
+    </div>
+
 
     <button
-      id="savePasswordButton"
-      type="button">
-      Enregistrer le nouveau mot de passe
+      id="adminLogoutButton"
+      type="button"
+      class="logout">
+      Se déconnecter
     </button>
 
-    <div id="resetError" class="error"></div>
-    <div id="resetMessage" class="success"></div>
+  </div>
+
+</div>
+
+
+<!-- EMPLOYEES PAGE -->
+<div id="employeesPage">
+
+  <div class="card">
+
+    <h2>👥 Employés</h2>
+
+    <p>Gestion de l'équipe</p>
+
+    <button
+      type="button"
+      onclick="addEmployee()">
+      + Ajouter un employé
+    </button>
+
+    <button
+      type="button"
+      class="logout"
+      onclick="backToAdmin()">
+      ← Retour
+    </button>
 
   </div>
 
+</div>
 
-  <!-- EMPLOYEE DASHBOARD -->
-  <div id="employeeDashboard">
+</div>
 
-    <div class="card">
 
-      <h2 id="employeeWelcome">
-        Bonjour 👋
-      </h2>
+<script>
 
-      <p>
-        Voici votre planning de la journée.
-      </p>
+/* SUPABASE */
 
-      <span class="status">
-        ● Disponible
-      </span>
+const SUPABASE_URL =
+  "https://exymobulxbkseefxxmxe.supabase.co";
 
-    </div>
+const SUPABASE_ANON_KEY =
+  "sb_publishable_WE_xrJP3u21brM2YKUxeEg_JpUeFuC4";
 
+const APP_URL =
+  "https://hcleaningservices.github.io/hcleaningservices-app/";
 
-    <div class="card">
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 
-      <h2>Mes tâches</h2>
 
-      <div class="task">
+/* ELEMENTS */
 
-        <h3>Bureau Client</h3>
+const loginPage =
+  document.getElementById("login");
 
-        <div>🕗 08:00 – 10:00</div>
-        <div>📍 Verviers</div>
+const employeeDashboard =
+  document.getElementById("employeeDashboard");
 
-        <button type="button">
-          Voir la tâche
-        </button>
+const adminDashboard =
+  document.getElementById("adminDashboard");
 
-      </div>
+const employeesPage =
+  document.getElementById("employeesPage");
 
+const resetPage =
+  document.getElementById("resetPassword");
 
-      <div class="task">
+const areaTitle =
+  document.getElementById("areaTitle");
 
-        <h3>Nettoyage habitation</h3>
+const emailInput =
+  document.getElementById("email");
 
-        <div>🕚 11:00 – 13:00</div>
-        <div>📍 Eupen</div>
+const passwordInput =
+  document.getElementById("password");
 
-        <button type="button">
-          Voir la tâche
-        </button>
+const errorBox =
+  document.getElementById("error");
 
-      </div>
+const messageBox =
+  document.getElementById("message");
 
+const loginButton =
+  document.getElementById("loginButton");
 
-      <button
-        id="employeeLogoutButton"
-        type="button"
-        class="logout">
-        Se déconnecter
-      </button>
+const forgotButton =
+  document.getElementById("forgotButton");
 
-    </div>
+const employeeLogoutButton =
+  document.getElementById(
+    "employeeLogoutButton"
+  );
 
-  </div>
+const adminLogoutButton =
+  document.getElementById(
+    "adminLogoutButton"
+  );
 
+const savePasswordButton =
+  document.getElementById(
+    "savePasswordButton"
+  );
 
-  <!-- ADMIN DASHBOARD -->
-  <div id="adminDashboard">
 
-    <div class="card">
+/* CLEAR MESSAGES */
 
-      <h2 id="adminWelcome">
-        Bonjour 👋
-      </h2>
+function clearMessages(){
 
-      <p>
-        Tableau de bord administrateur
-      </p>
+  errorBox.textContent = "";
+  messageBox.textContent = "";
 
-      <span class="admin-badge">
-        ★ Administrateur
-      </span>
+}
 
-    </div>
 
+/* HIDE PRIVATE PAGES */
 
-    <div class="card">
+function hidePrivatePages(){
 
-      <h2>Gestion H Cleaning</h2>
+  employeesPage.style.display =
+    "none";
 
-      <div class="admin-grid">
+  employeeDashboard.style.display =
+    "none";
 
+  adminDashboard.style.display =
+    "none";
 
-        <!-- EMPLOYEES -->
-        <div
-          class="admin-item"
-          onclick="openEmployees()">
+  resetPage.style.display =
+    "none";
 
-          <div class="admin-icon">
-            👥
-          </div>
+}
 
-          <strong>
-            Employés
-          </strong>
 
-          <small>
-            Gérer l'équipe
-          </small>
+/* LOGIN */
 
-        </div>
+async function login(){
 
+  clearMessages();
 
-        <!-- PLANNING -->
-        <div class="admin-item">
+  const email =
+    emailInput.value.trim();
 
-          <div class="admin-icon">
-            📅
-          </div>
+  const password =
+    passwordInput.value;
 
-          <strong>
-            Planning
-          </strong>
 
-          <small>
-            Organiser les tâches
-          </small>
+  if(!email){
 
-        </div>
+    errorBox.textContent =
+      "Veuillez entrer votre adresse e-mail.";
 
+    return;
 
-        <!-- MISSIONS -->
-        <div class="admin-item">
+  }
 
-          <div class="admin-icon">
-            🧹
-          </div>
 
-          <strong>
-            Missions
-          </strong>
+  if(!password){
 
-          <small>
-            Créer une mission
-          </small>
+    errorBox.textContent =
+      "Veuillez entrer votre mot de passe.";
 
-        </div>
+    return;
 
+  }
 
-        <!-- HOURS -->
-        <div class="admin-item">
 
-          <div class="admin-icon">
-            ⏱️
-          </div>
+  loginButton.disabled = true;
 
-          <strong>
-            Heures
-          </strong>
+  loginButton.textContent =
+    "Connexion...";
 
-          <small>
-            Temps de travail
-          </small>
 
-        </div>
+  try{
 
+    const {data,error} =
+      await supabaseClient.auth
+        .signInWithPassword({
 
-        <!-- ABSENCES -->
-        <div class="admin-item">
+          email:email,
+          password:password
 
-          <div class="admin-icon">
-            🏖️
-          </div>
+        });
 
-          <strong>
-            Absences
-          </strong>
 
-          <small>
-            Demandes de congé
-          </small>
+    if(error){
 
-        </div>
+      console.error(error);
 
+      errorBox.textContent =
+        "E-mail ou mot de passe incorrect.";
 
-        <!-- PHOTOS -->
-        <div class="admin-item">
+      return;
 
-          <div class="admin-icon">
-            📷
-          </div>
+    }
 
-          <strong>
-            Photos
-          </strong>
 
-          <small>
-            Avant / Après
-          </small>
+    if(!data.user){
 
-        </div>
+      errorBox.textContent =
+        "Connexion impossible.";
 
+      return;
 
-        <!-- PROBLEMS -->
-        <div class="admin-item">
+    }
 
-          <div class="admin-icon">
-            ⚠️
-          </div>
 
-          <strong>
-            Problèmes
-          </strong>
+    await showDashboard(
+      data.user
+    );
 
-          <small>
-            Incidents signalés
-          </small>
 
-        </div>
+  }catch(error){
 
+    console.error(error);
 
-        <!-- REPORTS -->
-        <div class="admin-item">
+    errorBox.textContent =
+      "Une erreur est survenue. Veuillez réessayer.";
 
-          <div class="admin-icon">
-            📊
-          </div>
 
-          <strong>
-            Rapports
-          </strong>
+  }finally{
 
-          <small>
-            Suivi du travail
-          </small>
+    loginButton.disabled =
+      false;
 
-        </div>
+    loginButton.textContent =
+      "Se connecter";
 
-      </div>
+  }
 
+}
 
-      <button
-        id="adminLogoutButton"
-        type="button"
-        class="logout">
-        Se déconnecter
-      </button>
 
-    </div>
+/* FORGOT PASSWORD */
 
-  </div>
+async function forgotPassword(){
 
+  clearMessages();
 
-  <!-- EMPLOYEES PAGE -->
-  <div id="employeesPage">
+  const email =
+    emailInput.value.trim();
 
-    <div class="card">
 
-      <h2>
-        👥 Employés
-      </h2>
+  if(!email){
 
-      <p>
-        Gestion de l'équipe
-      </p>
+    errorBox.textContent =
+      "Entrez votre adresse e-mail ci-dessus.";
 
-      <button
-        type="button"
-        onclick="addEmployee()">
-        + Ajouter un employé
-      </button>
+    emailInput.focus();
 
-      <button
-        type
+    return;
+
+  }
+
+
+  forgotButton.disabled =
+    true;
+
+  forgotButton.textContent =
+    "Envoi...";
+
+
+  try{
+
+    const {error} =
+      await supabaseClient.auth
+        .resetPasswordForEmail(
+
+          email,
+
+          {
+            redirectTo:APP_URL
+          }
+
+        );
+
+
+    if(error){
+
+      console.error(error);
+
+      errorBox.textContent =
+        "Impossible d'envoyer l'e-mail de réinitialisation.";
+
+      return;
+
+    }
+
+
+    messageBox.textContent =
+      "E-mail envoyé. Vérifiez votre boîte de réception.";
+
+
+  }catch(error){
+
+    console.error(error);
+
+    errorBox.textContent =
+      "Une erreur est survenue. Veuillez réessayer.";
+
+
+  }finally{
+
+    forgotButton.disabled =
+      false;
+
+    forgotButton.textContent =
+      "Mot de passe oublié ?";
+
+  }
+
+}
+
+
+/* PASSWORD RECOVERY */
+
+supabaseClient.auth.onAuthStateChange(
+
+  async (event,session) => {
+
+    if(event === "PASSWORD_RECOVERY"){
+
+      loginPage.style.display =
+        "none";
+
+      hidePrivatePages();
+
+      resetPage.style.display =
+        "block";
+
+      areaTitle.textContent =
+        "Nouveau mot de passe";
+
+    }
+
+  }
+
+);
+
+
+/* SAVE NEW PASSWORD */
+
+async function saveNewPassword(){
+
+  const password =
+    document.getElementById(
+      "newPassword"
+    ).value;
+
+  const confirmPassword =
+    document.getElementById(
+      "confirmPassword"
+    ).value;
+
+  const resetError =
+    document.getElementById(
+      "resetError"
+    );
+
+  const resetMessage =
+    document.getElementById(
+      "resetMessage"
+    );
+
+
+  resetError.textContent = "";
+  resetMessage.textContent = "";
+
+
+  if(password.length < 6){
+
+    resetError.textContent =
+      "Le mot de passe doit contenir au moins 6 caractères.";
+
+    return;
+
+  }
+
+
+  if(password !== confirmPassword){
+
+    resetError.textContent =
+      "Les deux mots de passe ne correspondent pas.";
+
+    return;
+
+  }
+
+
+  savePasswordButton.disabled =
+    true;
+
+  savePasswordButton.textContent =
+    "Enregistrement...";
+
+
+  try{
+
+    const {error} =
+      await supabaseClient.auth
+        .updateUser({
+
+          password:password
+
+        });
+
+
+    if(error){
+
+      console.error(error);
+
+      resetError.textContent =
+        "Impossible de modifier le mot de passe.";
+
+      return;
+
+    }
+
+
+    resetMessage.textContent =
+      "Mot de passe modifié avec succès.";
+
+
+    setTimeout(
+
+      async function(){
+
+        await supabaseClient.auth
+          .signOut();
+
+        window.location.replace(
+          APP_URL
+        );
+
+      },
+
+      1500
+
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    resetError.textContent =
+      "Une erreur est survenue.";
+
+
+  }finally{
+
+    savePasswordButton.disabled =
+      false;
+
+    savePasswordButton.textContent =
+      "Enregistrer le nouveau mot de passe";
+
+  }
+
+}
+
+
+/* DASHBOARD */
+
+async function showDashboard(user){
+
+  let fullName = "";
+  let role = "";
+
+
+  try{
+
+    const {
+      data:profile,
+      error
+    } =
+      await supabaseClient
+        .from("profiles")
+        .select(
+          "full_name, role"
+        )
+        .eq(
+          "id",
+          user.id
+        )
+        .maybeSingle();
+
+
+    if(error){
+
+      console.error(
+        "Profile error:",
+        error
+      );
+
+      throw new Error(
+        "PROFILE: " +
+        error.message
+      );
+
+    }
+
+
+    if(
+      !profile ||
+      !profile.role
+    ){
+
+      await supabaseClient.auth
+        .signOut();
+
+      hidePrivatePages();
+
+      loginPage.style.display =
+        "block";
+
+      areaTitle.textContent =
+        "Espace Employé";
+
+      errorBox.textContent =
+        "Votre compte n'est pas encore configuré. Contactez l'administrateur.";
+
+      return;
+
+    }
+
+
+    fullName =
+      profile.full_name || "";
+
+    role =
+      profile.role
+        .toString()
+        .trim()
+        .toLowerCase();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    await supabaseClient.auth
+      .signOut();
+
+    hidePrivatePages();
+
+    loginPage.style.display =
+      "block";
+
+    areaTitle.textContent =
+      "Espace Employé";
+
+    errorBox.textContent =
+      "Erreur: " +
+      error.message;
+
+    return;
+
+  }
+
+
+  loginPage.style.display =
+    "none";
+
+  hidePrivatePages();
+
+
+  /* ADMIN */
+
+  if(role === "admin"){
+
+    areaTitle.textContent =
+      "Espace Administrateur";
+
+    adminDashboard.style.display =
+      "block";
+
+
+    const adminWelcome =
+      document.getElementById(
+        "adminWelcome"
+      );
+
+
+    adminWelcome.textContent =
+      fullName
+        ? "Bonjour " +
+          fullName +
+          " 👋"
+        : "Bonjour 👋";
+
+
+    return;
+
+  }
+
+
+  /* EMPLOYEE */
+
+  if(role === "employee"){
+
+    areaTitle.textContent =
+      "Espace Employé";
+
+    employeeDashboard.style.display =
+      "block";
+
+
+    const employeeWelcome =
+      document.getElementById(
+        "employeeWelcome"
+      );
+
+
+    employeeWelcome.textContent =
+      fullName
+        ? "Bonjour " +
+          fullName +
+          " 👋"
+        : "Bonjour 👋";
+
+
+    return;
+
+  }
+
+
+  /* UNKNOWN ROLE */
+
+  await supabaseClient.auth
+    .signOut();
+
+  hidePrivatePages();
+
+  loginPage.style.display =
+    "block";
+
+  areaTitle.textContent =
+    "Espace Employé";
+
+  errorBox.textContent =
+    "Ce compte ne possède pas les autorisations nécessaires.";
+
+}
+
+
+/* LOGOUT */
+
+async function logout(){
+
+  try{
+
+    await supabaseClient.auth
+      .signOut();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+
+  hidePrivatePages();
+
+  loginPage.style.display =
+    "block";
+
+  areaTitle.textContent =
+    "Espace Employé";
+
+  passwordInput.value = "";
+
+  clearMessages();
+
+}
+
+
+/* EMPLOYEES PAGE */
+
+function openEmployees(){
+
+  adminDashboard.style.display =
+    "none";
+
+  employeesPage.style.display =
+    "block";
+
+  areaTitle.textContent =
+    "Employés";
+
+}
+
+
+function backToAdmin(){
+
+  employeesPage.style.display =
+    "none";
+
+  adminDashboard.style.display =
+    "block";
+
+  areaTitle.textContent =
+    "Espace Administrateur";
+
+}
+
+
+function addEmployee(){
+
+  alert(
+    "Ajouter un employé"
+  );
+
+}
+
+
+/* BUTTON EVENTS */
+
+loginButton.addEventListener(
+  "click",
+  login
+);
+
+forgotButton.addEventListener(
+  "click",
+  forgotPassword
+);
+
+employeeLogoutButton.addEventListener(
+  "click",
+  logout
+);
+
+adminLogoutButton.addEventListener(
+  "click",
+  logout
+);
+
+savePasswordButton.addEventListener(
+  "click",
+  saveNewPassword
+);
+
+passwordInput.addEventListener(
+
+  "keydown",
+
+  function(event){
+
+    if(event.key === "Enter"){
+
+      login();
+
+    }
+
+  }
+
+);
+
+
+/* START APP */
+
+async function startApp(){
+
+  try{
+
+    const hash =
+      window.location.hash;
+
+    const search =
+      window.location.search;
+
+
+    const recoveryLink =
+      hash.includes(
+        "type=recovery"
+      ) ||
+      search.includes(
+        "type=recovery"
+      );
+
+
+    if(recoveryLink){
+
+      return;
+
+    }
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth
+        .getSession();
+
+
+    if(error){
+
+      console.error(error);
+
+      return;
+
+    }
+
+
+    if(
+      data.session &&
+      data.session.user
+    ){
+
+      await showDashboard(
+        data.session.user
+      );
+
+    }
+
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* START */
+
+startApp();
+
+</script>
+
+</body>
+</html>
