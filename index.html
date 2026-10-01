@@ -2,192 +2,194 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>H Cleaning Services</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-body{
-  margin:0;
-  background:#f4f8fa;
-  color:#16324a;
+body {
+  margin: 0;
+  background: #f4f8fa;
+  color: #16324a;
 }
 
-.header{
-  background:linear-gradient(135deg,#08a7a7,#1677c8);
-  color:#fff;
-  padding:25px 18px;
-  text-align:center;
+.header {
+  background: linear-gradient(135deg,#08a7a7,#1677c8);
+  color: white;
+  padding: 25px 18px;
+  text-align: center;
 }
 
-.header h1{
-  margin:0;
-  font-size:24px;
+.header h1 {
+  margin: 0;
+  font-size: 24px;
 }
 
-.container{
-  max-width:600px;
-  margin:auto;
-  padding:18px;
+.container {
+  max-width: 720px;
+  margin: auto;
+  padding: 18px;
 }
 
-.card{
-  background:#fff;
-  padding:21px;
-  border-radius:18px;
-  margin-top:17px;
-  box-shadow:0 5px 20px #00000012;
+.card {
+  background: white;
+  padding: 21px;
+  border-radius: 18px;
+  margin-top: 17px;
+  box-shadow: 0 5px 20px #00000012;
 }
 
 input,
 select,
-textarea{
-  width:100%;
-  padding:13px;
-  margin-top:10px;
-  border:1px solid #d5dfe5;
-  border-radius:10px;
-  font-size:15px;
+textarea {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  border: 1px solid #d5dfe5;
+  border-radius: 10px;
+  font-size: 15px;
 }
 
-textarea{
-  min-height:85px;
+textarea {
+  min-height: 85px;
 }
 
-button{
-  width:100%;
-  padding:14px;
-  margin-top:12px;
-  border:0;
-  border-radius:10px;
-  background:#08a7a7;
-  color:#fff;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  border: 0;
+  border-radius: 10px;
+  background: #08a7a7;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-button:disabled{
-  opacity:.6;
+button:disabled {
+  opacity: .6;
 }
 
-.blue{
-  background:#1677c8;
+.blue {
+  background: #1677c8;
 }
 
-.gray{
-  background:#718392;
+.gray {
+  background: #718392;
 }
 
-.danger{
-  background:#c62828;
+.danger {
+  background: #c62828;
 }
 
-.link{
-  background:transparent;
-  color:#1677c8;
+.link {
+  background: transparent;
+  color: #1677c8;
 }
 
-.error{
-  color:#c62828;
-  font-weight:bold;
-  margin-top:10px;
+.error {
+  color: #c62828;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
-.success{
-  color:#158447;
-  font-weight:bold;
-  margin-top:10px;
+.success {
+  color: #158447;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
-.badge{
-  display:inline-block;
-  padding:7px 11px;
-  border-radius:18px;
-  background:#e6f2ff;
-  color:#1677c8;
-  font-weight:bold;
+.badge {
+  display: inline-block;
+  padding: 7px 11px;
+  border-radius: 18px;
+  background: #e6f2ff;
+  color: #1677c8;
+  font-weight: bold;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:11px;
-  margin-top:15px;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+  margin-top: 15px;
 }
 
-.tile{
-  background:#f7fafb;
-  border:1px solid #e4ecef;
-  border-radius:13px;
-  padding:16px 8px;
-  text-align:center;
-  cursor:pointer;
+.tile {
+  background: #f7fafb;
+  border: 1px solid #e4ecef;
+  border-radius: 13px;
+  padding: 16px 8px;
+  text-align: center;
+  cursor: pointer;
 }
 
-.tile .icon{
-  font-size:27px;
+.tile .icon {
+  font-size: 27px;
 }
 
 .tile strong,
-.tile small{
-  display:block;
-  margin-top:5px;
+.tile small {
+  display: block;
+  margin-top: 5px;
 }
 
-.tile small{
-  color:#667b8c;
+.tile small {
+  color: #667b8c;
 }
 
-.item{
-  background:#f7fafb;
-  border-left:4px solid #08a7a7;
-  border-radius:9px;
-  padding:13px;
-  margin-top:12px;
+.item {
+  background: #f7fafb;
+  border-left: 4px solid #08a7a7;
+  border-radius: 9px;
+  padding: 13px;
+  margin-top: 12px;
 }
 
-.item h3{
-  margin:0 0 7px;
+.item h3 {
+  margin: 0 0 7px;
 }
 
-.row{
-  display:flex;
-  gap:8px;
+.row {
+  display: flex;
+  gap: 8px;
 }
 
-.row > *{
-  flex:1;
+.row > * {
+  flex: 1;
 }
 
 .page,
 #employeeDashboard,
 #adminDashboard,
-#resetPassword{
-  display:none;
+#resetPassword {
+  display: none;
 }
 
-.muted{
-  color:#667b8c;
+.check {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  margin: 9px 0;
 }
 
-.check{
-  display:flex;
-  gap:9px;
-  align-items:center;
-  margin:9px 0;
+.check input {
+  width: auto;
+  margin: 0;
 }
 
-.check input{
-  width:auto;
-  margin:0;
+@media(max-width:520px) {
+  .row {
+    flex-direction: column;
+  }
 }
 </style>
 </head>
@@ -196,7 +198,7 @@ button:disabled{
 
 <div class="header">
   <h1>H CLEANING SERVICES</h1>
-  <p id="areaTitle">Espace Employé</p>
+  <p id="areaTitle">Connexion</p>
 </div>
 
 <div class="container">
@@ -205,30 +207,30 @@ button:disabled{
 
 <div id="login" class="card">
 
-  <h2>Connexion</h2>
+<h2>Connexion</h2>
 
-  <input
-    id="email"
-    type="email"
-    placeholder="Adresse e-mail">
+<input
+  id="email"
+  type="email"
+  placeholder="Adresse e-mail"
+  autocomplete="email">
 
-  <input
-    id="password"
-    type="password"
-    placeholder="Mot de passe">
+<input
+  id="password"
+  type="password"
+  placeholder="Mot de passe"
+  autocomplete="current-password">
 
-  <button id="loginButton">
-    Se connecter
-  </button>
+<button id="loginButton">
+Se connecter
+</button>
 
-  <button
-    id="forgotButton"
-    class="link">
-    Mot de passe oublié ?
-  </button>
+<button id="forgotButton" class="link">
+Mot de passe oublié ?
+</button>
 
-  <div id="error" class="error"></div>
-  <div id="message" class="success"></div>
+<div id="error" class="error"></div>
+<div id="message" class="success"></div>
 
 </div>
 
@@ -237,24 +239,24 @@ button:disabled{
 
 <div id="resetPassword" class="card">
 
-  <h2>Nouveau mot de passe</h2>
+<h2>Nouveau mot de passe</h2>
 
-  <input
-    id="newPassword"
-    type="password"
-    placeholder="Nouveau mot de passe">
+<input
+  id="newPassword"
+  type="password"
+  placeholder="Nouveau mot de passe">
 
-  <input
-    id="confirmPassword"
-    type="password"
-    placeholder="Confirmer le mot de passe">
+<input
+  id="confirmPassword"
+  type="password"
+  placeholder="Confirmer le mot de passe">
 
-  <button id="savePasswordButton">
-    Enregistrer
-  </button>
+<button id="savePasswordButton">
+Enregistrer
+</button>
 
-  <div id="resetError" class="error"></div>
-  <div id="resetMessage" class="success"></div>
+<div id="resetError" class="error"></div>
+<div id="resetMessage" class="success"></div>
 
 </div>
 
@@ -263,142 +265,84 @@ button:disabled{
 
 <div id="adminDashboard">
 
-  <div class="card">
+<div class="card">
 
-    <h2 id="adminWelcome">
-      Bonjour 👋
-    </h2>
+<h2 id="adminWelcome">
+Bonjour 👋
+</h2>
 
-    <p>
-      Tableau de bord administrateur
-    </p>
+<p>Tableau de bord administrateur</p>
 
-    <span class="badge">
-      ★ Administrateur
-    </span>
+<span class="badge">
+★ Administrateur
+</span>
 
-  </div>
+</div>
 
 
-  <div class="card">
+<div class="card">
 
-    <h2>Gestion H Cleaning</h2>
+<h2>Gestion H Cleaning</h2>
 
-    <div class="grid">
+<div class="grid">
 
-      <div
-        class="tile"
-        onclick="go('employeesPage','Employés');loadEmployees()">
+<div class="tile" data-nav="employees">
+<div class="icon">👥</div>
+<strong>Employés</strong>
+<small>Gérer l'équipe</small>
+</div>
 
-        <div class="icon">👥</div>
+<div class="tile" data-nav="planning">
+<div class="icon">📅</div>
+<strong>Planning</strong>
+<small>Voir le planning</small>
+</div>
 
-        <strong>Employés</strong>
+<div class="tile" data-nav="missions">
+<div class="icon">🧹</div>
+<strong>Missions</strong>
+<small>Créer / gérer</small>
+</div>
 
-        <small>Gérer l'équipe</small>
+<div class="tile" data-nav="hours">
+<div class="icon">⏱️</div>
+<strong>Heures</strong>
+<small>Temps de travail</small>
+</div>
 
-      </div>
+<div class="tile" data-nav="absences">
+<div class="icon">🏖️</div>
+<strong>Absences</strong>
+<small>Demandes</small>
+</div>
 
+<div class="tile" data-nav="photos">
+<div class="icon">📷</div>
+<strong>Photos</strong>
+<small>Avant / Après</small>
+</div>
 
-      <div
-        class="tile"
-        onclick="go('planningPage','Planning');loadMissions('planningList')">
+<div class="tile" data-nav="problems">
+<div class="icon">⚠️</div>
+<strong>Problèmes</strong>
+<small>Incidents</small>
+</div>
 
-        <div class="icon">📅</div>
+<div class="tile" data-nav="reports">
+<div class="icon">📊</div>
+<strong>Rapports</strong>
+<small>Vue générale</small>
+</div>
 
-        <strong>Planning</strong>
+</div>
 
-        <small>Voir le planning</small>
+<button
+  id="adminLogoutButton"
+  class="blue">
+Se déconnecter
+</button>
 
-      </div>
-
-
-      <div
-        class="tile"
-        onclick="go('missionsPage','Missions');prepareMissions()">
-
-        <div class="icon">🧹</div>
-
-        <strong>Missions</strong>
-
-        <small>Créer / gérer</small>
-
-      </div>
-
-
-      <div
-        class="tile"
-        onclick="go('hoursPage','Heures');loadHours()">
-
-        <div class="icon">⏱️</div>
-
-        <strong>Heures</strong>
-
-        <small>Temps de travail</small>
-
-      </div>
-
-
-      <div
-        class="tile"
-        onclick="go('absencesPage','Absences');loadAbsences(true)">
-
-        <div class="icon">🏖️</div>
-
-        <strong>Absences</strong>
-
-        <small>Demandes</small>
-
-      </div>
-
-
-      <div
-        class="tile"
-        onclick="go('photosPage','Photos')">
-
-        <div class="icon">📷</div>
-
-        <strong>Photos</strong>
-
-        <small>Avant / Après</small>
-
-      </div>
-
-
-      <div
-        class="tile"
-        onclick="go('problemsPage','Problèmes');loadProblems()">
-
-        <div class="icon">⚠️</div>
-
-        <strong>Problèmes</strong>
-
-        <small>Incidents</small>
-
-      </div>
-
-
-      <div
-        class="tile"
-        onclick="go('reportsPage','Rapports');loadReports()">
-
-        <div class="icon">📊</div>
-
-        <strong>Rapports</strong>
-
-        <small>Vue générale</small>
-
-      </div>
-
-    </div>
-
-
-    <button
-      id="adminLogoutButton"
-      class="blue">
-      Se déconnecter
-    </button>
-
-  </div>
+</div>
 
 </div>
 
@@ -407,47 +351,43 @@ button:disabled{
 
 <div id="employeeDashboard">
 
-  <div class="card">
+<div class="card">
 
-    <h2 id="employeeWelcome">
-      Bonjour 👋
-    </h2>
+<h2 id="employeeWelcome">
+Bonjour 👋
+</h2>
 
-    <p>
-      Vos missions et outils de travail.
-    </p>
+<p>
+Vos missions et outils de travail.
+</p>
 
-    <span class="badge">
-      ● Employé
-    </span>
+<span class="badge">
+● Employé
+</span>
 
-  </div>
+</div>
 
+<div class="card">
 
-  <div class="card">
+<button data-nav="employeeMissions">
+🧹 Mes missions
+</button>
 
-    <button
-      onclick="go('employeeMissionsPage','Mes missions');loadEmployeeMissions()">
-      🧹 Mes missions
-    </button>
+<button data-nav="employeeAbsences">
+🏖️ Mes absences
+</button>
 
-    <button
-      onclick="go('employeeAbsencePage','Mes absences');loadAbsences(false)">
-      🏖️ Mes absences
-    </button>
+<button data-nav="employeeProblems">
+⚠️ Signaler un problème
+</button>
 
-    <button
-      onclick="go('employeeProblemPage','Signaler un problème');loadMissionOptions()">
-      ⚠️ Signaler un problème
-    </button>
+<button
+  id="employeeLogoutButton"
+  class="blue">
+Se déconnecter
+</button>
 
-    <button
-      id="employeeLogoutButton"
-      class="blue">
-      Se déconnecter
-    </button>
-
-  </div>
+</div>
 
 </div>
 
@@ -456,292 +396,246 @@ button:disabled{
 
 <div id="employeesPage" class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2>👥 Employés</h2>
+<h2>👥 Employés</h2>
 
-    <button onclick="toggle('employeeForm')">
-      + Ajouter un employé
-    </button>
+<button id="toggleEmployeeForm">
++ Ajouter un employé
+</button>
 
+<div
+  id="employeeForm"
+  style="display:none">
 
-    <div
-      id="employeeForm"
-      style="display:none">
+<input
+  id="employeeName"
+  placeholder="Nom et prénom">
 
-      <input
-        id="employeeName"
-        placeholder="Nom et prénom">
+<input
+  id="employeeEmail"
+  type="email"
+  placeholder="Adresse e-mail">
 
-      <input
-        id="employeeEmail"
-        type="email"
-        placeholder="Adresse e-mail">
+<input
+  id="employeePhone"
+  placeholder="Téléphone">
 
-      <input
-        id="employeePhone"
-        placeholder="Téléphone">
+<input
+  id="employeePassword"
+  type="password"
+  placeholder="Mot de passe (min. 6 caractères)">
 
-      <input
-        id="employeePassword"
-        type="password"
-        placeholder="Mot de passe (min. 6 caractères)">
+<button id="createEmployeeButton">
+Créer l'employé
+</button>
 
-      <button
-        id="createEmployeeButton"
-        onclick="createEmployee()">
-        Créer l'employé
-      </button>
+<div
+  id="employeeFormError"
+  class="error">
+</div>
 
-      <div
-        id="employeeFormError"
-        class="error">
-      </div>
+<div
+  id="employeeFormMessage"
+  class="success">
+</div>
 
-      <div
-        id="employeeFormMessage"
-        class="success">
-      </div>
+</div>
 
-    </div>
+<div id="employeesList"></div>
 
+<button class="blue homeBtn">
+← Retour
+</button>
 
-    <div id="employeesList"></div>
-
-    <button
-      class="blue"
-      onclick="home()">
-      ← Retour
-    </button>
-
-  </div>
-
+</div>
 </div>
 
 
 <!-- PLANNING -->
 
-<div
-  id="planningPage"
-  class="page">
+<div id="planningPage" class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2>📅 Planning</h2>
+<h2>📅 Planning</h2>
 
-    <div id="planningList"></div>
+<div id="planningList"></div>
 
-    <button
-      class="blue"
-      onclick="home()">
-      ← Retour
-    </button>
+<button class="blue homeBtn">
+← Retour
+</button>
 
-  </div>
-
+</div>
 </div>
 
 
 <!-- MISSIONS -->
 
-<div
-  id="missionsPage"
-  class="page">
+<div id="missionsPage" class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2>🧹 Missions</h2>
+<h2>🧹 Missions</h2>
 
-    <input
-      id="missionTitle"
-      placeholder="Titre">
+<input
+  id="missionTitle"
+  placeholder="Titre">
 
-    <input
-      id="missionClient"
-      placeholder="Client">
+<input
+  id="missionClient"
+  placeholder="Client">
 
-    <input
-      id="missionAddress"
-      placeholder="Adresse">
+<input
+  id="missionAddress"
+  placeholder="Adresse">
 
-    <input
-      id="missionCity"
-      placeholder="Ville">
+<input
+  id="missionCity"
+  placeholder="Ville">
 
-    <input
-      id="missionDate"
-      type="date">
+<input
+  id="missionDate"
+  type="date">
 
-    <div class="row">
+<div class="row">
 
-      <input
-        id="missionStart"
-        type="time">
+<input
+  id="missionStart"
+  type="time">
 
-      <input
-        id="missionEnd"
-        type="time">
+<input
+  id="missionEnd"
+  type="time">
 
-    </div>
+</div>
 
+<select id="missionEmployee">
 
-    <select id="missionEmployee">
+<option value="">
+Choisir un employé
+</option>
 
-      <option value="">
-        Choisir un employé
-      </option>
+</select>
 
-    </select>
+<textarea
+  id="missionDescription"
+  placeholder="Instructions">
+</textarea>
 
+<input
+  id="missionChecklist"
+  placeholder="Checklist séparée par des virgules">
 
-    <textarea
-      id="missionDescription"
-      placeholder="Instructions">
-    </textarea>
+<button id="createMissionButton">
+Créer la mission
+</button>
 
+<div id="missionMsg"></div>
 
-    <input
-      id="missionChecklist"
-      placeholder="Checklist séparée par des virgules">
+<div id="missionsList"></div>
 
+<button class="blue homeBtn">
+← Retour
+</button>
 
-    <button onclick="createMission()">
-      Créer la mission
-    </button>
-
-
-    <div id="missionMsg"></div>
-
-    <div id="missionsList"></div>
-
-
-    <button
-      class="blue"
-      onclick="home()">
-      ← Retour
-    </button>
-
-  </div>
-
+</div>
 </div>
 
 
 <!-- HOURS -->
 
-<div
-  id="hoursPage"
-  class="page">
+<div id="hoursPage" class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2>⏱️ Heures</h2>
+<h2>⏱️ Heures</h2>
 
-    <div id="hoursList"></div>
+<div id="hoursList"></div>
 
-    <button
-      class="blue"
-      onclick="home()">
-      ← Retour
-    </button>
+<button class="blue homeBtn">
+← Retour
+</button>
 
-  </div>
-
+</div>
 </div>
 
 
-<!-- ADMIN ABSENCES -->
+<!-- ABSENCES ADMIN -->
 
-<div
-  id="absencesPage"
-  class="page">
+<div id="absencesPage" class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2>🏖️ Absences</h2>
+<h2>🏖️ Absences</h2>
 
-    <div id="absencesList"></div>
+<div id="absencesList"></div>
 
-    <button
-      class="blue"
-      onclick="home()">
-      ← Retour
-    </button>
+<button class="blue homeBtn">
+← Retour
+</button>
 
-  </div>
-
+</div>
 </div>
 
 
 <!-- PHOTOS -->
 
-<div
-  id="photosPage"
-  class="page">
+<div id="photosPage" class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2>📷 Photos Avant / Après</h2>
+<h2>
+📷 Photos Avant / Après
+</h2>
 
-    <p>
-      Cette section est prête.
-      L'envoi des photos sera activé
-      après la création du stockage Supabase.
-    </p>
+<p>
+La section est prête.
+L'envoi des photos sera activé après
+la configuration de Supabase Storage.
+</p>
 
-    <button
-      class="blue"
-      onclick="home()">
-      ← Retour
-    </button>
+<button class="blue homeBtn">
+← Retour
+</button>
 
-  </div>
-
+</div>
 </div>
 
 
-<!-- PROBLEMS -->
+<!-- PROBLEMS ADMIN -->
 
-<div
-  id="problemsPage"
-  class="page">
+<div id="problemsPage" class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2>⚠️ Problèmes</h2>
+<h2>⚠️ Problèmes</h2>
 
-    <div id="problemsList"></div>
+<div id="problemsList"></div>
 
-    <button
-      class="blue"
-      onclick="home()">
-      ← Retour
-    </button>
+<button class="blue homeBtn">
+← Retour
+</button>
 
-  </div>
-
+</div>
 </div>
 
 
 <!-- REPORTS -->
 
-<div
-  id="reportsPage"
-  class="page">
+<div id="reportsPage" class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2>📊 Rapports</h2>
+<h2>📊 Rapports</h2>
 
-    <div id="reportsContent"></div>
+<div id="reportsContent"></div>
 
-    <button
-      class="blue"
-      onclick="home()">
-      ← Retour
-    </button>
+<button class="blue homeBtn">
+← Retour
+</button>
 
-  </div>
-
+</div>
 </div>
 
 
@@ -751,20 +645,17 @@ button:disabled{
   id="employeeMissionsPage"
   class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2>🧹 Mes missions</h2>
+<h2>🧹 Mes missions</h2>
 
-    <div id="employeeMissionsList"></div>
+<div id="employeeMissionsList"></div>
 
-    <button
-      class="blue"
-      onclick="home()">
-      ← Retour
-    </button>
+<button class="blue homeBtn">
+← Retour
+</button>
 
-  </div>
-
+</div>
 </div>
 
 
@@ -774,39 +665,39 @@ button:disabled{
   id="missionDetailPage"
   class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2 id="detailTitle">
-      Mission
-    </h2>
+<h2 id="detailTitle">
+Mission
+</h2>
 
-    <div id="missionDetail"></div>
+<div id="missionDetail"></div>
 
-    <div id="checklistArea"></div>
+<div id="checklistArea"></div>
 
-    <div class="row">
+<div class="row">
 
-      <button onclick="startWork()">
-        ▶ Démarrer
-      </button>
+<button id="startWorkButton">
+▶ Démarrer
+</button>
 
-      <button
-        class="blue"
-        onclick="finishWork()">
-        ⏹ Terminer
-      </button>
+<button
+  id="finishWorkButton"
+  class="blue">
+⏹ Terminer
+</button>
 
-    </div>
+</div>
 
+<div id="workMessage"></div>
 
-    <button
-      class="gray"
-      onclick="go('employeeMissionsPage','Mes missions');loadEmployeeMissions()">
-      ← Missions
-    </button>
+<button
+  id="backToMissionsButton"
+  class="gray">
+← Missions
+</button>
 
-  </div>
-
+</div>
 </div>
 
 
@@ -816,46 +707,44 @@ button:disabled{
   id="employeeAbsencePage"
   class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2>🏖️ Demande d'absence</h2>
+<h2>
+🏖️ Demande d'absence
+</h2>
 
-    <label>Du</label>
+<label>Du</label>
 
-    <input
-      id="absenceStart"
-      type="date">
+<input
+  id="absenceStart"
+  type="date">
 
-    <label>Au</label>
+<label>Au</label>
 
-    <input
-      id="absenceEnd"
-      type="date">
+<input
+  id="absenceEnd"
+  type="date">
 
-    <textarea
-      id="absenceReason"
-      placeholder="Motif">
-    </textarea>
+<textarea
+  id="absenceReason"
+  placeholder="Motif">
+</textarea>
 
+<button id="requestAbsenceButton">
+Envoyer
+</button>
 
-    <button onclick="requestAbsence()">
-      Envoyer
-    </button>
+<div id="absenceMsg"></div>
 
+<h3>Mes demandes</h3>
 
-    <div id="absenceMsg"></div>
+<div id="myAbsences"></div>
 
-    <div id="myAbsences"></div>
+<button class="blue homeBtn">
+← Retour
+</button>
 
-
-    <button
-      class="blue"
-      onclick="home()">
-      ← Retour
-    </button>
-
-  </div>
-
+</div>
 </div>
 
 
@@ -865,402 +754,529 @@ button:disabled{
   id="employeeProblemPage"
   class="page">
 
-  <div class="card">
+<div class="card">
 
-    <h2>⚠️ Signaler un problème</h2>
+<h2>
+⚠️ Signaler un problème
+</h2>
 
-    <select id="problemMission">
+<select id="problemMission">
 
-      <option value="">
-        Mission (facultatif)
-      </option>
+<option value="">
+Mission (facultatif)
+</option>
 
-    </select>
+</select>
 
+<textarea
+  id="problemDescription"
+  placeholder="Décrivez le problème ou dommage">
+</textarea>
 
-    <textarea
-      id="problemDescription"
-      placeholder="Décrivez le problème ou dommage">
-    </textarea>
+<button id="reportProblemButton">
+Envoyer
+</button>
 
+<div id="problemMsg"></div>
 
-    <button onclick="reportProblem()">
-      Envoyer
-    </button>
+<button class="blue homeBtn">
+← Retour
+</button>
 
-
-    <div id="problemMsg"></div>
-
-
-    <button
-      class="blue"
-      onclick="home()">
-      ← Retour
-    </button>
-
-  </div>
-
+</div>
 </div>
 
 </div>
-
 
 <script>
 
 /* ==============================
    SUPABASE
-================================ */
+============================== */
 
 const SUPABASE_URL =
-  "https://exymobulxbkseefxxmxe.supabase.co";
+"https://exymobulxbkseefxxmxe.supabase.co";
 
 const SUPABASE_ANON_KEY =
-  "sb_publishable_WE_xrJP3u21brM2YKUxeEg_JpUeFuC4";
+"sb_publishable_WE_xrJP3u21brM2YKUxeEg_JpUeFuC4";
 
 const APP_URL =
-  "https://hcleaningservices.github.io/hcleaningservices-app/";
+"https://hcleaningservices.github.io/hcleaningservices-app/";
 
 const sb =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
-
-
-let currentRole = "";
-let currentUser = null;
-let currentMission = null;
-
-
-const $ =
-  id => document.getElementById(id);
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
 
 /* ==============================
-   NAVIGATION
-================================ */
+   APP STATE
+============================== */
 
-function hide(){
+let currentUser = null;
+let currentRole = "";
+let currentMission = null;
 
-  document
-    .querySelectorAll(".page")
-    .forEach(
-      page =>
-        page.style.display = "none"
-    );
-
-  $("adminDashboard").style.display =
-    "none";
-
-  $("employeeDashboard").style.display =
-    "none";
-
-  $("resetPassword").style.display =
-    "none";
-
-}
-
-
-function go(id,title){
-
-  hide();
-
-  $(id).style.display =
-    "block";
-
-  $("areaTitle").textContent =
-    title;
-
-}
-
-
-function home(){
-
-  hide();
-
-  if(currentRole === "admin"){
-
-    $("adminDashboard").style.display =
-      "block";
-
-    $("areaTitle").textContent =
-      "Espace Administrateur";
-
-  }else{
-
-    $("employeeDashboard").style.display =
-      "block";
-
-    $("areaTitle").textContent =
-      "Espace Employé";
-
-  }
-
-}
-
-
-function toggle(id){
-
-  const element = $(id);
-
-  element.style.display =
-    element.style.display === "none"
-      ? "block"
-      : "none";
-
-}
+const $ =
+id => document.getElementById(id);
 
 
 /* ==============================
    HELPERS
-================================ */
+============================== */
 
-function esc(value){
+const esc = value =>
+String(value ?? "")
+.replace(
+  /[&<>"']/g,
+  character => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[character]
+);
 
-  return String(value ?? "")
-    .replace(
-      /[&<>"']/g,
-      character => ({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#39;"
-      })[character]
-    );
 
+const stat = status => ({
+
+planned:"Planifiée",
+in_progress:"En cours",
+completed:"Terminée",
+
+pending:"En attente",
+approved:"Approuvée",
+rejected:"Refusée",
+
+open:"Ouvert",
+closed:"Résolu"
+
+}[status] || status || "—");
+
+
+const dt = value =>
+value
+? new Date(value).toLocaleString("fr-BE")
+: "—";
+
+
+function msg(id,text,success=false) {
+
+  const element = $(id);
+
+  if (!element) return;
+
+  element.innerHTML =
+  `<p class="${success ? "success" : "error"}">
+    ${esc(text)}
+  </p>`;
 }
 
 
-function stat(status){
+function hideAll() {
 
-  return ({
-    planned:"Planifiée",
-    in_progress:"En cours",
-    completed:"Terminée",
-    pending:"En attente",
-    approved:"Approuvée",
-    rejected:"Refusée",
-    open:"Ouvert",
-    closed:"Résolu"
-  })[status] || status || "—";
+  document
+  .querySelectorAll(".page")
+  .forEach(page =>
+    page.style.display = "none"
+  );
 
+  [
+    "adminDashboard",
+    "employeeDashboard",
+    "resetPassword"
+  ]
+  .forEach(id =>
+    $(id).style.display = "none"
+  );
 }
 
 
-function dt(value){
+function go(id,title) {
 
-  return value
-    ? new Date(value)
-        .toLocaleString("fr-BE")
-    : "—";
+  hideAll();
 
+  $(id).style.display = "block";
+
+  $("areaTitle").textContent =
+  title;
+}
+
+
+function home() {
+
+  hideAll();
+
+  if (currentRole === "admin") {
+
+    $("adminDashboard")
+    .style.display = "block";
+
+    $("areaTitle")
+    .textContent =
+    "Espace Administrateur";
+
+  } else {
+
+    $("employeeDashboard")
+    .style.display = "block";
+
+    $("areaTitle")
+    .textContent =
+    "Espace Employé";
+  }
 }
 
 
 /* ==============================
    LOGIN
-================================ */
+============================== */
 
-async function login(){
+async function login() {
 
   $("error").textContent = "";
+  $("message").textContent = "";
 
   const email =
-    $("email").value.trim();
+  $("email").value.trim();
 
   const password =
-    $("password").value;
+  $("password").value;
 
-
-  const {
-    data,
-    error
-  } =
-    await sb.auth
-      .signInWithPassword({
-        email,
-        password
-      });
-
-
-  if(error){
+  if (!email || !password) {
 
     $("error").textContent =
-      "E-mail ou mot de passe incorrect.";
+    "Veuillez saisir votre e-mail et votre mot de passe.";
 
     return;
-
   }
 
+  const button =
+  $("loginButton");
 
-  await dashboard(
-    data.user
-  );
+  button.disabled = true;
+  button.textContent =
+  "Connexion...";
 
+  try {
+
+    const {
+      data,
+      error
+    } =
+    await sb.auth
+    .signInWithPassword({
+      email,
+      password
+    });
+
+    if (error)
+      throw error;
+
+    await loadDashboard(
+      data.user
+    );
+
+  } catch(error) {
+
+    $("error").textContent =
+    "Connexion impossible : " +
+    (error.message || error);
+
+  } finally {
+
+    button.disabled = false;
+
+    button.textContent =
+    "Se connecter";
+  }
 }
 
 
 /* ==============================
    DASHBOARD
-================================ */
+============================== */
 
-async function dashboard(user){
+async function loadDashboard(user) {
 
-  currentUser =
-    user;
-
+  currentUser = user;
 
   const {
     data:profile,
     error
   } =
-    await sb
-      .from("profiles")
-      .select(
-        "full_name,role"
-      )
-      .eq(
-        "id",
-        user.id
-      )
-      .maybeSingle();
+  await sb
+  .from("profiles")
+  .select(
+    "id,full_name,role,phone"
+  )
+  .eq("id",user.id)
+  .maybeSingle();
 
 
-  if(error || !profile){
+  if (error) {
 
     $("error").textContent =
-      "Compte non configuré.";
+    "Connexion réussie, mais profil inaccessible : " +
+    error.message;
 
     return;
-
   }
 
 
-  $("login").style.display =
-    "none";
+  if (!profile) {
+
+    $("error").textContent =
+    "Connexion réussie, mais aucun profil n'existe pour ce compte.";
+
+    return;
+  }
 
 
   currentRole =
-    (profile.role || "")
-      .toLowerCase();
+  String(profile.role || "")
+  .trim()
+  .toLowerCase();
 
 
-  hide();
+  if (
+    ![
+      "admin",
+      "employee"
+    ]
+    .includes(currentRole)
+  ) {
 
+    $("error").textContent =
+    "Rôle non reconnu : " +
+    (profile.role || "vide");
 
-  if(currentRole === "admin"){
-
-    $("adminWelcome").textContent =
-      "Bonjour " +
-      (profile.full_name || "") +
-      " 👋";
-
-    $("adminDashboard").style.display =
-      "block";
-
-    $("areaTitle").textContent =
-      "Espace Administrateur";
-
-  }else{
-
-    $("employeeWelcome").textContent =
-      "Bonjour " +
-      (profile.full_name || "") +
-      " 👋";
-
-    $("employeeDashboard").style.display =
-      "block";
-
-    $("areaTitle").textContent =
-      "Espace Employé";
-
+    return;
   }
 
+
+  $("login")
+  .style.display = "none";
+
+  hideAll();
+
+
+  if (currentRole === "admin") {
+
+    $("adminWelcome")
+    .textContent =
+    `Bonjour ${profile.full_name || ""} 👋`;
+
+    $("adminDashboard")
+    .style.display = "block";
+
+    $("areaTitle")
+    .textContent =
+    "Espace Administrateur";
+
+  } else {
+
+    $("employeeWelcome")
+    .textContent =
+    `Bonjour ${profile.full_name || ""} 👋`;
+
+    $("employeeDashboard")
+    .style.display = "block";
+
+    $("areaTitle")
+    .textContent =
+    "Espace Employé";
+  }
 }
 
 
 /* ==============================
    LOGOUT
-================================ */
+============================== */
 
-async function logout(){
+async function logout() {
 
   await sb.auth.signOut();
 
-  currentRole = "";
   currentUser = null;
+  currentRole = "";
+  currentMission = null;
 
-  hide();
+  hideAll();
 
-  $("login").style.display =
-    "block";
+  $("login")
+  .style.display = "block";
 
-  $("areaTitle").textContent =
-    "Espace Employé";
+  $("areaTitle")
+  .textContent =
+  "Connexion";
 
-  $("password").value =
-    "";
-
+  $("password").value = "";
 }
 
 
 /* ==============================
-   CREATE EMPLOYEE
-================================ */
+   PASSWORD RESET
+============================== */
 
-async function createEmployee(){
-
-  const name =
-    $("employeeName")
-      .value
-      .trim();
+async function forgotPassword() {
 
   const email =
-    $("employeeEmail")
-      .value
-      .trim();
+  $("email").value.trim();
 
-  const phone =
-    $("employeePhone")
-      .value
-      .trim();
+  if (!email) {
 
-  const password =
-    $("employeePassword")
-      .value;
-
-
-  $("employeeFormError").textContent =
-    "";
-
-  $("employeeFormMessage").textContent =
-    "";
-
-
-  if(
-    !name ||
-    !email ||
-    password.length < 6
-  ){
-
-    $("employeeFormError").textContent =
-      "Nom, e-mail et mot de passe de 6 caractères minimum obligatoires.";
+    $("error").textContent =
+    "Entrez d'abord votre adresse e-mail.";
 
     return;
-
   }
 
 
-  $("createEmployeeButton").disabled =
-    true;
+  const {error} =
+  await sb.auth
+  .resetPasswordForEmail(
+    email,
+    {
+      redirectTo:APP_URL
+    }
+  );
 
 
-  const {
-    data,
-    error
-  } =
-    await sb.functions.invoke(
+  if (error) {
+
+    $("error")
+    .textContent =
+    error.message;
+
+  } else {
+
+    $("message")
+    .textContent =
+    "Un e-mail de réinitialisation a été envoyé.";
+  }
+}
+
+
+async function saveNewPassword() {
+
+  const password =
+  $("newPassword").value;
+
+  const confirmation =
+  $("confirmPassword").value;
+
+
+  if (password.length < 6) {
+
+    $("resetError")
+    .textContent =
+    "Minimum 6 caractères.";
+
+    return;
+  }
+
+
+  if (
+    password !==
+    confirmation
+  ) {
+
+    $("resetError")
+    .textContent =
+    "Les mots de passe ne correspondent pas.";
+
+    return;
+  }
+
+
+  const {error} =
+  await sb.auth
+  .updateUser({
+    password
+  });
+
+
+  if (error) {
+
+    $("resetError")
+    .textContent =
+    error.message;
+
+  } else {
+
+    $("resetMessage")
+    .textContent =
+    "Mot de passe enregistré ✅";
+
+    setTimeout(
+      () => home(),
+      900
+    );
+  }
+}
+
+
+/* ==============================
+   EMPLOYEE CREATION
+============================== */
+
+async function createEmployee() {
+
+  const name =
+  $("employeeName")
+  .value.trim();
+
+  const email =
+  $("employeeEmail")
+  .value.trim();
+
+  const phone =
+  $("employeePhone")
+  .value.trim();
+
+  const password =
+  $("employeePassword")
+  .value;
+
+
+  $("employeeFormError")
+  .textContent = "";
+
+  $("employeeFormMessage")
+  .textContent = "";
+
+
+  if (
+    !name ||
+    !email ||
+    password.length < 6
+  ) {
+
+    $("employeeFormError")
+    .textContent =
+    "Nom, e-mail et mot de passe de 6 caractères minimum obligatoires.";
+
+    return;
+  }
+
+
+  const button =
+  $("createEmployeeButton");
+
+  button.disabled = true;
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+    await sb.functions
+    .invoke(
       "create-employee",
       {
         body:{
@@ -1273,224 +1289,237 @@ async function createEmployee(){
     );
 
 
-  $("createEmployeeButton").disabled =
-    false;
+    if (
+      error ||
+      !data?.success
+    ) {
+
+      throw new Error(
+        data?.error ||
+        error?.message ||
+        "Création impossible."
+      );
+    }
 
 
-  if(
-    error ||
-    !data?.success
-  ){
-
-    $("employeeFormError").textContent =
-      data?.error ||
-      error?.message ||
-      "Création impossible.";
-
-    return;
-
-  }
-
-
-  $("employeeFormMessage").textContent =
+    $("employeeFormMessage")
+    .textContent =
     "Employé créé avec succès ✅";
 
 
-  [
-    "employeeName",
-    "employeeEmail",
-    "employeePhone",
-    "employeePassword"
-  ].forEach(
-    id => $(id).value = ""
-  );
+    [
+      "employeeName",
+      "employeeEmail",
+      "employeePhone",
+      "employeePassword"
+    ]
+    .forEach(id =>
+      $(id).value = ""
+    );
 
 
-  loadEmployees();
+    await loadEmployees();
 
+
+  } catch(error) {
+
+    $("employeeFormError")
+    .textContent =
+    error.message;
+
+  } finally {
+
+    button.disabled = false;
+  }
 }
 
 
 /* ==============================
-   EMPLOYEES LIST
-================================ */
+   LOAD EMPLOYEES
+============================== */
 
-async function loadEmployees(){
+async function loadEmployees() {
 
   const {
     data,
     error
   } =
-    await sb
-      .from("profiles")
-      .select(
-        "id,full_name,role,phone"
-      )
-      .eq(
-        "role",
-        "employee"
-      )
-      .order(
-        "full_name"
-      );
+  await sb
+  .from("profiles")
+  .select(
+    "id,full_name,role,phone"
+  )
+  .eq("role","employee")
+  .order("full_name");
 
 
-  if(error){
+  if (error) {
 
-    $("employeesList").innerHTML =
-      `<p class="error">${esc(error.message)}</p>`;
+    msg(
+      "employeesList",
+      error.message
+    );
 
     return;
-
   }
 
 
-  if(!data?.length){
+  if (!data?.length) {
 
-    $("employeesList").innerHTML =
-      "<p>Aucun employé.</p>";
+    $("employeesList")
+    .innerHTML =
+    "<p>Aucun employé.</p>";
 
     return;
-
   }
 
 
-  $("employeesList").innerHTML =
-    data.map(
-      employee => `
+  $("employeesList")
+  .innerHTML =
+  data.map(employee => `
 
-        <div class="item">
+    <div class="item">
 
-          <h3>
-            ${esc(employee.full_name)}
-          </h3>
+      <h3>
+        👤
+        ${esc(
+          employee.full_name ||
+          "Employé"
+        )}
+      </h3>
 
-          <div>
-            📞 ${esc(employee.phone || "—")}
-          </div>
+      <div>
+        📞
+        ${esc(
+          employee.phone ||
+          "—"
+        )}
+      </div>
 
-        </div>
+    </div>
 
-      `
-    ).join("");
-
+  `).join("");
 }
 
 
 /* ==============================
    EMPLOYEE SELECT
-================================ */
+============================== */
 
-async function fillEmployees(){
+async function fillEmployees() {
 
   const {
-    data
+    data,
+    error
   } =
-    await sb
-      .from("profiles")
-      .select(
-        "id,full_name"
-      )
-      .eq(
-        "role",
-        "employee"
-      )
-      .order(
-        "full_name"
-      );
+  await sb
+  .from("profiles")
+  .select(
+    "id,full_name"
+  )
+  .eq("role","employee")
+  .order("full_name");
 
 
-  $("missionEmployee").innerHTML =
-    '<option value="">Choisir un employé</option>' +
+  if (error)
+    return;
 
-    (data || [])
-      .map(
-        employee =>
-          `<option value="${employee.id}">
-            ${esc(employee.full_name)}
-          </option>`
-      )
-      .join("");
 
+  $("missionEmployee")
+  .innerHTML =
+
+  '<option value="">Choisir un employé</option>' +
+
+  (data || [])
+  .map(employee => `
+
+    <option value="${esc(employee.id)}">
+
+      ${esc(
+        employee.full_name ||
+        "Employé"
+      )}
+
+    </option>
+
+  `)
+  .join("");
 }
 
 
-async function prepareMissions(){
+async function prepareMissions() {
 
   await fillEmployees();
 
   await loadMissions(
     "missionsList"
   );
-
 }
 
 
 /* ==============================
    CREATE MISSION
-================================ */
+============================== */
 
-async function createMission(){
+async function createMission() {
+
+  $("missionMsg")
+  .innerHTML = "";
+
 
   const mission = {
 
     title:
-      $("missionTitle")
-        .value
-        .trim(),
+    $("missionTitle")
+    .value.trim(),
 
     client_name:
-      $("missionClient")
-        .value
-        .trim(),
+    $("missionClient")
+    .value.trim(),
 
     address:
-      $("missionAddress")
-        .value
-        .trim(),
+    $("missionAddress")
+    .value.trim(),
 
     city:
-      $("missionCity")
-        .value
-        .trim(),
+    $("missionCity")
+    .value.trim(),
 
     mission_date:
-      $("missionDate")
-        .value,
+    $("missionDate")
+    .value,
 
     start_time:
-      $("missionStart")
-        .value || null,
+    $("missionStart")
+    .value || null,
 
     end_time:
-      $("missionEnd")
-        .value || null,
+    $("missionEnd")
+    .value || null,
 
     employee_id:
-      $("missionEmployee")
-        .value || null,
+    $("missionEmployee")
+    .value || null,
 
     description:
-      $("missionDescription")
-        .value
-        .trim(),
+    $("missionDescription")
+    .value.trim(),
 
-    status:
-      "planned"
-
+    status:"planned"
   };
 
 
-  if(
+  if (
     !mission.title ||
     !mission.mission_date
-  ){
+  ) {
 
-    $("missionMsg").innerHTML =
-      '<p class="error">Titre et date obligatoires.</p>';
+    msg(
+      "missionMsg",
+      "Titre et date obligatoires."
+    );
 
     return;
-
   }
 
 
@@ -1498,49 +1527,2321 @@ async function createMission(){
     data,
     error
   } =
-    await sb
-      .from("missions")
-      .insert(mission)
-      .select()
-      .single();
+  await sb
+  .from("missions")
+  .insert(mission)
+  .select()
+  .single();
 
 
-  if(error){
+  if (error) {
 
-    $("missionMsg").innerHTML =
-      `<p class="error">${esc(error.message)}</p>`;
+    msg(
+      "missionMsg",
+      error.message
+    );
 
     return;
-
   }
 
 
   const checklist =
-    $("missionChecklist")
-      .value
-      .split(",")
-      .map(
-        item =>
-          item.trim()
-      )
-      .filter(Boolean);
+  $("missionChecklist")
+  .value
+  .split(",")
+  .map(item =>
+    item.trim()
+  )
+  .filter(Boolean);
 
 
-  if(checklist.length){
+  if (checklist.length) {
 
+    const {error} =
     await sb
-      .from("checklist_items")
-      .insert(
-        checklist.map(
-          title => ({
-            mission_id:data.id,
-            title
-          })
-        )
-      );
+    .from("checklist_items")
+    .insert(
 
+      checklist.map(
+        title => ({
+          mission_id:data.id,
+          title,
+          completed:false
+        })
+      )
+
+    );
+
+
+    if (error)
+      console.error(error);
   }
 
 
-  $("missionMsg").innerHTML =
-    '<p
+  msg(
+    "missionMsg",
+    "Mission créée avec succès ✅",
+    true
+  );
+
+
+  [
+    "missionTitle",
+    "missionClient",
+    "missionAddress",
+    "missionCity",
+    "missionDate",
+    "missionStart",
+    "missionEnd",
+    "missionDescription",
+    "missionChecklist"
+  ]
+  .forEach(id =>
+    $(id).value = ""
+  );
+
+
+  $("missionEmployee")
+  .value = "";
+
+
+  await loadMissions(
+    "missionsList"
+  );
+}
+
+
+/* ==============================
+   LOAD MISSIONS
+============================== */
+
+async function loadMissions(
+  targetId
+) {
+
+  const target =
+  $(targetId);
+
+
+  target.innerHTML =
+  "<p>Chargement...</p>";
+
+
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from("missions")
+  .select(`
+    id,
+    title,
+    client_name,
+    address,
+    city,
+    mission_date,
+    start_time,
+    end_time,
+    description,
+    status,
+    employee_id
+  `)
+  .order(
+    "mission_date",
+    {
+      ascending:true
+    }
+  );
+
+
+  if (error) {
+
+    msg(
+      targetId,
+      error.message
+    );
+
+    return;
+  }
+
+
+  if (!data?.length) {
+
+    target.innerHTML =
+    "<p>Aucune mission.</p>";
+
+    return;
+  }
+
+
+  const employeeIds =
+  [
+    ...new Set(
+      data
+      .map(m =>
+        m.employee_id
+      )
+      .filter(Boolean)
+    )
+  ];
+
+
+  let employees = {};
+
+
+  if (employeeIds.length) {
+
+    const {data:profiles} =
+    await sb
+    .from("profiles")
+    .select(
+      "id,full_name"
+    )
+    .in(
+      "id",
+      employeeIds
+    );
+
+
+    (profiles || [])
+    .forEach(profile => {
+
+      employees[
+        profile.id
+      ] =
+      profile.full_name;
+
+    });
+  }
+
+
+  target.innerHTML =
+  data.map(mission => `
+
+    <div class="item">
+
+      <h3>
+        🧹
+        ${esc(mission.title)}
+      </h3>
+
+      <div>
+        <b>Date :</b>
+        ${esc(
+          mission.mission_date ||
+          "—"
+        )}
+      </div>
+
+      <div>
+        <b>Horaire :</b>
+        ${esc(
+          mission.start_time ||
+          "—"
+        )}
+        -
+        ${esc(
+          mission.end_time ||
+          "—"
+        )}
+      </div>
+
+      <div>
+        <b>Client :</b>
+        ${esc(
+          mission.client_name ||
+          "—"
+        )}
+      </div>
+
+      <div>
+        <b>Adresse :</b>
+        ${esc(
+          mission.address ||
+          "—"
+        )}
+
+        ${
+          mission.city
+          ? "- " +
+          esc(mission.city)
+          : ""
+        }
+      </div>
+
+      <div>
+        <b>Employé :</b>
+
+        ${esc(
+          employees[
+            mission.employee_id
+          ] ||
+          "Non assigné"
+        )}
+      </div>
+
+      <div>
+        <b>Statut :</b>
+        ${esc(
+          stat(mission.status)
+        )}
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+
+/* ==============================
+   EMPLOYEE MISSIONS
+============================== */
+
+async function loadEmployeeMissions() {
+
+  const target =
+  $("employeeMissionsList");
+
+
+  target.innerHTML =
+  "<p>Chargement...</p>";
+
+
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from("missions")
+  .select(`
+    id,
+    title,
+    client_name,
+    address,
+    city,
+    mission_date,
+    start_time,
+    end_time,
+    description,
+    status
+  `)
+  .eq(
+    "employee_id",
+    currentUser.id
+  )
+  .order(
+    "mission_date",
+    {
+      ascending:true
+    }
+  );
+
+
+  if (error) {
+
+    msg(
+      "employeeMissionsList",
+      error.message
+    );
+
+    return;
+  }
+
+
+  if (!data?.length) {
+
+    target.innerHTML =
+    "<p>Vous n'avez aucune mission.</p>";
+
+    return;
+  }
+
+
+  target.innerHTML =
+  data.map(mission => `
+
+    <div
+      class="item"
+      data-mid="${esc(mission.id)}"
+      style="cursor:pointer">
+
+      <h3>
+        🧹
+        ${esc(mission.title)}
+      </h3>
+
+      <div>
+        📅
+        ${esc(
+          mission.mission_date ||
+          "—"
+        )}
+      </div>
+
+      <div>
+        🕐
+        ${esc(
+          mission.start_time ||
+          "—"
+        )}
+        -
+        ${esc(
+          mission.end_time ||
+          "—"
+        )}
+      </div>
+
+      <div>
+        📍
+        ${esc(
+          mission.address ||
+          "—"
+        )}
+
+        ${
+          mission.city
+          ? "- " +
+          esc(mission.city)
+          : ""
+        }
+      </div>
+
+      <div>
+        <b>
+          ${esc(
+            stat(mission.status)
+          )}
+        </b>
+      </div>
+
+      <small>
+        Appuyez pour ouvrir
+      </small>
+
+    </div>
+
+  `).join("");
+
+
+  target
+  .querySelectorAll(
+    "[data-mid]"
+  )
+  .forEach(element => {
+
+    element.onclick =
+    () =>
+    openMission(
+      element.dataset.mid
+    );
+
+  });
+}
+
+
+/* ==============================
+   OPEN MISSION
+============================== */
+
+async function openMission(id) {
+
+  const {
+    data:mission,
+    error
+  } =
+  await sb
+  .from("missions")
+  .select(`
+    id,
+    title,
+    client_name,
+    address,
+    city,
+    mission_date,
+    start_time,
+    end_time,
+    description,
+    status,
+    employee_id
+  `)
+  .eq("id",id)
+  .single();
+
+
+  if (error) {
+
+    alert(error.message);
+
+    return;
+  }
+
+
+  if (
+    currentRole === "employee" &&
+    mission.employee_id !==
+    currentUser.id
+  ) {
+
+    alert(
+      "Cette mission ne vous est pas attribuée."
+    );
+
+    return;
+  }
+
+
+  currentMission =
+  mission;
+
+
+  $("detailTitle")
+  .textContent =
+  mission.title ||
+  "Mission";
+
+
+  $("missionDetail")
+  .innerHTML = `
+
+    <div class="item">
+
+      <div>
+        <b>Client :</b>
+        ${esc(
+          mission.client_name ||
+          "—"
+        )}
+      </div>
+
+      <div>
+        <b>Date :</b>
+        ${esc(
+          mission.mission_date ||
+          "—"
+        )}
+      </div>
+
+      <div>
+        <b>Horaire :</b>
+        ${esc(
+          mission.start_time ||
+          "—"
+        )}
+        -
+        ${esc(
+          mission.end_time ||
+          "—"
+        )}
+      </div>
+
+      <div>
+        <b>Adresse :</b>
+        ${esc(
+          mission.address ||
+          "—"
+        )}
+
+        ${
+          mission.city
+          ? "- " +
+          esc(mission.city)
+          : ""
+        }
+      </div>
+
+      <div>
+        <b>Statut :</b>
+        ${esc(
+          stat(mission.status)
+        )}
+      </div>
+
+      <div style="margin-top:10px">
+
+        <b>
+          Instructions :
+        </b>
+
+        <br>
+
+        ${esc(
+          mission.description ||
+          "Aucune instruction."
+        )}
+
+      </div>
+
+    </div>
+  `;
+
+
+  go(
+    "missionDetailPage",
+    "Mission"
+  );
+
+
+  await loadChecklist(id);
+}
+
+
+/* ==============================
+   CHECKLIST
+============================== */
+
+async function loadChecklist(id) {
+
+  const target =
+  $("checklistArea");
+
+
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from("checklist_items")
+  .select(
+    "id,title,completed"
+  )
+  .eq(
+    "mission_id",
+    id
+  )
+  .order("id");
+
+
+  if (error) {
+
+    msg(
+      "checklistArea",
+      error.message
+    );
+
+    return;
+  }
+
+
+  target.innerHTML =
+  "<h3>Checklist</h3>" +
+
+  (
+    data?.length
+
+    ?
+
+    data.map(item => `
+
+      <label class="check">
+
+        <input
+          type="checkbox"
+          data-cid="${esc(item.id)}"
+          ${item.completed ? "checked" : ""}>
+
+        <span>
+          ${esc(item.title)}
+        </span>
+
+      </label>
+
+    `).join("")
+
+    :
+
+    "<p>Aucune tâche.</p>"
+  );
+
+
+  target
+  .querySelectorAll(
+    "[data-cid]"
+  )
+  .forEach(box => {
+
+    box.onchange =
+    async () => {
+
+      const {error} =
+      await sb
+      .from("checklist_items")
+      .update({
+        completed:
+        box.checked
+      })
+      .eq(
+        "id",
+        box.dataset.cid
+      );
+
+
+      if (error) {
+
+        alert(error.message);
+
+        box.checked =
+        !box.checked;
+      }
+    };
+  });
+}
+
+
+/* ==============================
+   START WORK
+============================== */
+
+async function startWork() {
+
+  if (
+    !currentUser ||
+    !currentMission
+  )
+    return;
+
+
+  const {
+    data:existing,
+    error:checkError
+  } =
+  await sb
+  .from("work_logs")
+  .select("id")
+  .eq(
+    "mission_id",
+    currentMission.id
+  )
+  .eq(
+    "employee_id",
+    currentUser.id
+  )
+  .is(
+    "end_time",
+    null
+  )
+  .maybeSingle();
+
+
+  if (checkError) {
+
+    msg(
+      "workMessage",
+      checkError.message
+    );
+
+    return;
+  }
+
+
+  if (existing) {
+
+    msg(
+      "workMessage",
+      "Cette mission est déjà démarrée."
+    );
+
+    return;
+  }
+
+
+  const {error} =
+  await sb
+  .from("work_logs")
+  .insert({
+
+    mission_id:
+    currentMission.id,
+
+    employee_id:
+    currentUser.id,
+
+    start_time:
+    new Date()
+    .toISOString()
+
+  });
+
+
+  if (error) {
+
+    msg(
+      "workMessage",
+      error.message
+    );
+
+    return;
+  }
+
+
+  await sb
+  .from("missions")
+  .update({
+    status:"in_progress"
+  })
+  .eq(
+    "id",
+    currentMission.id
+  );
+
+
+  msg(
+    "workMessage",
+    "Travail démarré ✅",
+    true
+  );
+
+
+  await openMission(
+    currentMission.id
+  );
+}
+
+
+/* ==============================
+   FINISH WORK
+============================== */
+
+async function finishWork() {
+
+  if (
+    !currentUser ||
+    !currentMission
+  )
+    return;
+
+
+  const {
+    data:workLog,
+    error:findError
+  } =
+  await sb
+  .from("work_logs")
+  .select(
+    "id,start_time"
+  )
+  .eq(
+    "mission_id",
+    currentMission.id
+  )
+  .eq(
+    "employee_id",
+    currentUser.id
+  )
+  .is(
+    "end_time",
+    null
+  )
+  .order(
+    "start_time",
+    {
+      ascending:false
+    }
+  )
+  .limit(1)
+  .maybeSingle();
+
+
+  if (findError) {
+
+    msg(
+      "workMessage",
+      findError.message
+    );
+
+    return;
+  }
+
+
+  if (!workLog) {
+
+    msg(
+      "workMessage",
+      "Vous devez d'abord démarrer la mission."
+    );
+
+    return;
+  }
+
+
+  const end =
+  new Date();
+
+
+  const minutes =
+  Math.max(
+    0,
+    Math.round(
+      (
+        end -
+        new Date(
+          workLog.start_time
+        )
+      ) /
+      60000
+    )
+  );
+
+
+  const {error} =
+  await sb
+  .from("work_logs")
+  .update({
+
+    end_time:
+    end.toISOString(),
+
+    total_minutes:
+    minutes
+
+  })
+  .eq(
+    "id",
+    workLog.id
+  );
+
+
+  if (error) {
+
+    msg(
+      "workMessage",
+      error.message
+    );
+
+    return;
+  }
+
+
+  await sb
+  .from("missions")
+  .update({
+    status:"completed"
+  })
+  .eq(
+    "id",
+    currentMission.id
+  );
+
+
+  msg(
+    "workMessage",
+    "Mission terminée ✅",
+    true
+  );
+
+
+  await openMission(
+    currentMission.id
+  );
+}
+
+
+/* ==============================
+   HOURS
+============================== */
+
+async function loadHours() {
+
+  const target =
+  $("hoursList");
+
+
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from("work_logs")
+  .select(`
+    id,
+    employee_id,
+    mission_id,
+    start_time,
+    end_time,
+    total_minutes
+  `)
+  .order(
+    "start_time",
+    {
+      ascending:false
+    }
+  );
+
+
+  if (error) {
+
+    msg(
+      "hoursList",
+      error.message
+    );
+
+    return;
+  }
+
+
+  if (!data?.length) {
+
+    target.innerHTML =
+    "<p>Aucune heure enregistrée.</p>";
+
+    return;
+  }
+
+
+  const employeeIds =
+  [
+    ...new Set(
+      data
+      .map(row =>
+        row.employee_id
+      )
+      .filter(Boolean)
+    )
+  ];
+
+
+  const missionIds =
+  [
+    ...new Set(
+      data
+      .map(row =>
+        row.mission_id
+      )
+      .filter(Boolean)
+    )
+  ];
+
+
+  let employees = {};
+  let missions = {};
+
+
+  if (employeeIds.length) {
+
+    const {data:profiles} =
+    await sb
+    .from("profiles")
+    .select(
+      "id,full_name"
+    )
+    .in(
+      "id",
+      employeeIds
+    );
+
+
+    (profiles || [])
+    .forEach(profile => {
+
+      employees[
+        profile.id
+      ] =
+      profile.full_name;
+
+    });
+  }
+
+
+  if (missionIds.length) {
+
+    const {data:missionData} =
+    await sb
+    .from("missions")
+    .select(
+      "id,title"
+    )
+    .in(
+      "id",
+      missionIds
+    );
+
+
+    (missionData || [])
+    .forEach(mission => {
+
+      missions[
+        mission.id
+      ] =
+      mission.title;
+
+    });
+  }
+
+
+  target.innerHTML =
+  data.map(row => {
+
+    const minutes =
+    Number(
+      row.total_minutes ||
+      0
+    );
+
+
+    return `
+
+      <div class="item">
+
+        <h3>
+          ⏱️
+          ${esc(
+            employees[
+              row.employee_id
+            ] ||
+            "Employé"
+          )}
+        </h3>
+
+        <div>
+          <b>Mission :</b>
+          ${esc(
+            missions[
+              row.mission_id
+            ] ||
+            "—"
+          )}
+        </div>
+
+        <div>
+          <b>Début :</b>
+          ${esc(
+            dt(row.start_time)
+          )}
+        </div>
+
+        <div>
+          <b>Fin :</b>
+          ${esc(
+            dt(row.end_time)
+          )}
+        </div>
+
+        <div>
+          <b>Durée :</b>
+
+          ${
+            Math.floor(
+              minutes / 60
+            )
+          }
+          h
+
+          ${
+            minutes % 60
+          }
+          min
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+
+/* ==============================
+   ABSENCE REQUEST
+============================== */
+
+async function requestAbsence() {
+
+  const start =
+  $("absenceStart")
+  .value;
+
+  const end =
+  $("absenceEnd")
+  .value;
+
+  const reason =
+  $("absenceReason")
+  .value.trim();
+
+
+  if (
+    !start ||
+    !end
+  ) {
+
+    msg(
+      "absenceMsg",
+      "Veuillez sélectionner les dates."
+    );
+
+    return;
+  }
+
+
+  if (end < start) {
+
+    msg(
+      "absenceMsg",
+      "La date de fin doit être après la date de début."
+    );
+
+    return;
+  }
+
+
+  const {error} =
+  await sb
+  .from("absences")
+  .insert({
+
+    employee_id:
+    currentUser.id,
+
+    start_date:start,
+
+    end_date:end,
+
+    reason,
+
+    status:"pending"
+
+  });
+
+
+  if (error) {
+
+    msg(
+      "absenceMsg",
+      error.message
+    );
+
+    return;
+  }
+
+
+  msg(
+    "absenceMsg",
+    "Demande envoyée avec succès ✅",
+    true
+  );
+
+
+  $("absenceStart")
+  .value = "";
+
+  $("absenceEnd")
+  .value = "";
+
+  $("absenceReason")
+  .value = "";
+
+
+  await loadAbsences(
+    false
+  );
+}
+
+
+/* ==============================
+   LOAD ABSENCES
+============================== */
+
+async function loadAbsences(
+  admin
+) {
+
+  const target =
+  admin
+  ? $("absencesList")
+  : $("myAbsences");
+
+
+  let query =
+  sb
+  .from("absences")
+  .select(`
+    id,
+    employee_id,
+    start_date,
+    end_date,
+    reason,
+    status,
+    created_at
+  `)
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
+
+
+  if (!admin) {
+
+    query =
+    query.eq(
+      "employee_id",
+      currentUser.id
+    );
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await query;
+
+
+  if (error) {
+
+    target.innerHTML =
+    `<p class="error">
+      ${esc(error.message)}
+    </p>`;
+
+    return;
+  }
+
+
+  if (!data?.length) {
+
+    target.innerHTML =
+    "<p>Aucune demande d'absence.</p>";
+
+    return;
+  }
+
+
+  let employees = {};
+
+
+  if (admin) {
+
+    const ids =
+    [
+      ...new Set(
+        data
+        .map(row =>
+          row.employee_id
+        )
+        .filter(Boolean)
+      )
+    ];
+
+
+    if (ids.length) {
+
+      const {data:profiles} =
+      await sb
+      .from("profiles")
+      .select(
+        "id,full_name"
+      )
+      .in(
+        "id",
+        ids
+      );
+
+
+      (profiles || [])
+      .forEach(profile => {
+
+        employees[
+          profile.id
+        ] =
+        profile.full_name;
+
+      });
+    }
+  }
+
+
+  target.innerHTML =
+  data.map(row => `
+
+    <div class="item">
+
+      ${
+        admin
+        ?
+        `<h3>
+          👤
+          ${esc(
+            employees[
+              row.employee_id
+            ] ||
+            "Employé"
+          )}
+        </h3>`
+        :
+        ""
+      }
+
+      <div>
+        <b>Du :</b>
+        ${esc(row.start_date)}
+      </div>
+
+      <div>
+        <b>Au :</b>
+        ${esc(row.end_date)}
+      </div>
+
+      <div>
+        <b>Motif :</b>
+        ${esc(
+          row.reason ||
+          "—"
+        )}
+      </div>
+
+      <div>
+        <b>Statut :</b>
+        ${esc(
+          stat(row.status)
+        )}
+      </div>
+
+      ${
+        admin &&
+        row.status === "pending"
+
+        ?
+
+        `<div class="row">
+
+          <button
+            data-aid="${esc(row.id)}"
+            data-status="approved">
+
+            ✓ Approuver
+
+          </button>
+
+          <button
+            class="danger"
+            data-aid="${esc(row.id)}"
+            data-status="rejected">
+
+            ✕ Refuser
+
+          </button>
+
+        </div>`
+
+        :
+
+        ""
+      }
+
+    </div>
+
+  `).join("");
+
+
+  if (admin) {
+
+    target
+    .querySelectorAll(
+      "[data-aid]"
+    )
+    .forEach(button => {
+
+      button.onclick =
+      () =>
+      updateAbsence(
+        button.dataset.aid,
+        button.dataset.status
+      );
+
+    });
+  }
+}
+
+
+/* ==============================
+   UPDATE ABSENCE
+============================== */
+
+async function updateAbsence(
+  id,
+  status
+) {
+
+  const {error} =
+  await sb
+  .from("absences")
+  .update({
+    status
+  })
+  .eq(
+    "id",
+    id
+  );
+
+
+  if (error) {
+
+    alert(
+      error.message
+    );
+
+  } else {
+
+    await loadAbsences(
+      true
+    );
+  }
+}
+
+
+/* ==============================
+   PROBLEM MISSION OPTIONS
+============================== */
+
+async function loadMissionOptions() {
+
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from("missions")
+  .select(
+    "id,title,mission_date"
+  )
+  .eq(
+    "employee_id",
+    currentUser.id
+  )
+  .order(
+    "mission_date",
+    {
+      ascending:false
+    }
+  );
+
+
+  if (error)
+    return;
+
+
+  $("problemMission")
+  .innerHTML =
+
+  '<option value="">Mission (facultatif)</option>' +
+
+  (data || [])
+  .map(mission => `
+
+    <option value="${esc(mission.id)}">
+
+      ${esc(
+        mission.mission_date ||
+        ""
+      )}
+
+      —
+
+      ${esc(
+        mission.title ||
+        "Mission"
+      )}
+
+    </option>
+
+  `)
+  .join("");
+}
+
+
+/* ==============================
+   REPORT PROBLEM
+============================== */
+
+async function reportProblem() {
+
+  const description =
+  $("problemDescription")
+  .value.trim();
+
+  const mission_id =
+  $("problemMission")
+  .value || null;
+
+
+  if (!description) {
+
+    msg(
+      "problemMsg",
+      "Veuillez décrire le problème."
+    );
+
+    return;
+  }
+
+
+  const {error} =
+  await sb
+  .from("problems")
+  .insert({
+
+    employee_id:
+    currentUser.id,
+
+    mission_id,
+
+    description,
+
+    status:"open"
+
+  });
+
+
+  if (error) {
+
+    msg(
+      "problemMsg",
+      error.message
+    );
+
+    return;
+  }
+
+
+  msg(
+    "problemMsg",
+    "Problème signalé avec succès ✅",
+    true
+  );
+
+
+  $("problemDescription")
+  .value = "";
+
+  $("problemMission")
+  .value = "";
+}
+
+
+/* ==============================
+   LOAD PROBLEMS
+============================== */
+
+async function loadProblems() {
+
+  const target =
+  $("problemsList");
+
+
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from("problems")
+  .select(`
+    id,
+    employee_id,
+    mission_id,
+    description,
+    status,
+    created_at
+  `)
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
+
+
+  if (error) {
+
+    msg(
+      "problemsList",
+      error.message
+    );
+
+    return;
+  }
+
+
+  if (!data?.length) {
+
+    target.innerHTML =
+    "<p>Aucun problème signalé.</p>";
+
+    return;
+  }
+
+
+  const ids =
+  [
+    ...new Set(
+      data
+      .map(row =>
+        row.employee_id
+      )
+      .filter(Boolean)
+    )
+  ];
+
+
+  let employees = {};
+
+
+  if (ids.length) {
+
+    const {data:profiles} =
+    await sb
+    .from("profiles")
+    .select(
+      "id,full_name"
+    )
+    .in(
+      "id",
+      ids
+    );
+
+
+    (profiles || [])
+    .forEach(profile => {
+
+      employees[
+        profile.id
+      ] =
+      profile.full_name;
+
+    });
+  }
+
+
+  target.innerHTML =
+  data.map(row => `
+
+    <div class="item">
+
+      <h3>
+        ⚠️
+        ${esc(
+          employees[
+            row.employee_id
+          ] ||
+          "Employé"
+        )}
+      </h3>
+
+      <div>
+        ${esc(
+          row.description
+        )}
+      </div>
+
+      <div>
+        <b>Statut :</b>
+        ${esc(
+          stat(row.status)
+        )}
+      </div>
+
+      ${
+        row.status === "open"
+
+        ?
+
+        `<button
+          data-pid="${esc(row.id)}"
+          class="blue">
+
+          Marquer résolu
+
+        </button>`
+
+        :
+
+        ""
+      }
+
+    </div>
+
+  `).join("");
+
+
+  target
+  .querySelectorAll(
+    "[data-pid]"
+  )
+  .forEach(button => {
+
+    button.onclick =
+    async () => {
+
+      const {error} =
+      await sb
+      .from("problems")
+      .update({
+        status:"closed"
+      })
+      .eq(
+        "id",
+        button.dataset.pid
+      );
+
+
+      if (error) {
+
+        alert(
+          error.message
+        );
+
+      } else {
+
+        loadProblems();
+      }
+    };
+
+  });
+}
+
+
+/* ==============================
+   REPORTS
+============================== */
+
+async function loadReports() {
+
+  const target =
+  $("reportsContent");
+
+
+  target.innerHTML =
+  "<p>Chargement...</p>";
+
+
+  const [
+    missions,
+    workLogs,
+    absences,
+    problems
+  ] =
+  await Promise.all([
+
+    sb
+    .from("missions")
+    .select(
+      "id",
+      {
+        count:"exact",
+        head:true
+      }
+    ),
+
+    sb
+    .from("work_logs")
+    .select(
+      "total_minutes"
+    ),
+
+    sb
+    .from("absences")
+    .select(
+      "id,status"
+    ),
+
+    sb
+    .from("problems")
+    .select(
+      "id,status"
+    )
+
+  ]);
+
+
+  if (
+    missions.error ||
+    workLogs.error ||
+    absences.error ||
+    problems.error
+  ) {
+
+    target.innerHTML =
+    '<p class="error">Impossible de charger tous les rapports.</p>';
+
+    return;
+  }
+
+
+  const minutes =
+  (workLogs.data || [])
+  .reduce(
+    (
+      total,
+      row
+    ) =>
+    total +
+    Number(
+      row.total_minutes ||
+      0
+    ),
+    0
+  );
+
+
+  target.innerHTML = `
+
+    <div class="grid">
+
+      <div class="item">
+
+        <h3>
+          ${missions.count || 0}
+        </h3>
+
+        <div>
+          Missions
+        </div>
+
+      </div>
+
+
+      <div class="item">
+
+        <h3>
+
+          ${
+            Math.floor(
+              minutes / 60
+            )
+          }
+          h
+
+          ${
+            minutes % 60
+          }
+          min
+
+        </h3>
+
+        <div>
+          Heures
+        </div>
+
+      </div>
+
+
+      <div class="item">
+
+        <h3>
+
+          ${
+            (absences.data || [])
+            .filter(
+              row =>
+              row.status ===
+              "pending"
+            )
+            .length
+          }
+
+        </h3>
+
+        <div>
+          Absences en attente
+        </div>
+
+      </div>
+
+
+      <div class="item">
+
+        <h3>
+
+          ${
+            (problems.data || [])
+            .filter(
+              row =>
+              row.status ===
+              "open"
+            )
+            .length
+          }
+
+        </h3>
+
+        <div>
+          Problèmes ouverts
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* ==============================
+   BUTTONS / NAVIGATION
+============================== */
+
+function wire() {
+
+  $("loginButton")
+  .onclick =
+  login;
+
+
+  $("forgotButton")
+  .onclick =
+  forgotPassword;
+
+
+  $("savePasswordButton")
+  .onclick =
+  saveNewPassword;
+
+
+  $("adminLogoutButton")
+  .onclick =
+  logout;
+
+
+  $("employeeLogoutButton")
+  .onclick =
+  logout;
+
+
+  $("toggleEmployeeForm")
+  .onclick =
+  () => {
+
+    $("employeeForm")
+    .style.display =
+
+    $("employeeForm")
+    .style.display === "none"
+
+    ?
+
+    "block"
+
+    :
+
+    "none";
+  };
+
+
+  $("createEmployeeButton")
+  .onclick =
+  createEmployee;
+
+
+  $("createMissionButton")
+  .onclick =
+  createMission;
+
+
+  $("startWorkButton")
+  .onclick =
+  startWork;
+
+
+  $("finishWorkButton")
+  .onclick =
+  finishWork;
+
+
+  $("backToMissionsButton")
+  .onclick =
+  () => {
+
+    go(
+      "employeeMissionsPage",
+      "Mes missions"
+    );
+
+    loadEmployeeMissions();
+  };
+
+
+  $("requestAbsenceButton")
+  .onclick =
+  requestAbsence;
+
+
+  $("reportProblemButton")
+  .onclick =
+  reportProblem;
+
+
+  document
+  .querySelectorAll(
+    ".homeBtn"
+  )
+  .forEach(button => {
+
+    button.onclick =
+    home;
+
+  });
+
+
+  document
+  .querySelectorAll(
+    "[data-nav]"
+  )
+  .forEach(element => {
+
+    element.onclick =
+    async () => {
+
+      const navigation =
+      element.dataset.nav;
+
+
+      if (
+        navigation ===
+        "employees"
+      ) {
+
+        go(
+          "employeesPage",
+          "Employés"
+        );
+
+        await loadEmployees();
+      }
+
+
+      if (
+        navigation ===
+        "planning"
+      ) {
+
+        go(
+          "planningPage",
+          "Planning"
+        );
+
+        await loadMissions(
+          "planningList"
+        );
+      }
+
+
+      if (
+        navigation ===
+        "missions"
+      ) {
+
+        go(
+          "missionsPage",
+          "Missions"
+        );
+
+        await prepareMissions();
+      }
+
+
+      if (
+        navigation ===
+        "hours"
+      ) {
+
+        go(
+          "hoursPage",
+          "Heures"
+        );
+
+        await loadHours();
+      }
+
+
+      if (
+        navigation ===
+        "absences"
+      ) {
+
+        go(
+          "absencesPage",
+          "Absences"
+        );
+
+        await loadAbsences(
+          true
+        );
+      }
+
+
+      if (
+        navigation ===
+        "photos"
+      ) {
+
+        go(
+          "photosPage",
+          "Photos"
+        );
+      }
+
+
+      if (
+        navigation ===
+        "problems"
+      ) {
+
+        go(
+          "problemsPage",
+          "Problèmes"
+        );
+
+        await loadProblems();
+      }
+
+
+      if (
+        navigation ===
+        "reports"
+      ) {
+
+        go(
+          "reportsPage",
+          "Rapports"
+        );
+
+        await loadReports();
+      }
+
+
+      if (
+        navigation ===
+        "employeeMissions"
+      ) {
+
+        go(
+          "employeeMissionsPage",
+          "Mes missions"
+        );
+
+        await loadEmployeeMissions();
+      }
+
+
+      if (
+        navigation ===
+        "employeeAbsences"
+      ) {
+
+        go(
+          "employeeAbsencePage",
+          "Mes absences"
+        );
+
+        await loadAbsences(
+          false
+        );
+      }
+
+
+      if (
+        navigation ===
+        "employeeProblems"
+      ) {
+
+        go(
+          "employeeProblemPage",
+          "Signaler un problème"
+        );
+
+        await loadMissionOptions();
+      }
+    };
+
+  });
+
+
+  $("password")
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key ===
+        "Enter"
+      ) {
+
+        login();
+      }
+    }
+  );
+}
+
+
+/* ==============================
+   START APP
+============================== */
+
+async function init() {
+
+  wire();
+
+
+  const hash =
+  location.hash || "";
+
+
+  if (
+    hash.includes(
+      "type=recovery"
+    )
+  ) {
+
+    $("login")
+    .style.display =
+    "none";
+
+    $("resetPassword")
+    .style.display =
+    "block";
+
+    $("areaTitle")
+    .textContent =
+    "Nouveau mot de passe";
+
+    return;
+  }
+
+
+  const {
+    data:{
+      session
+    }
+  } =
+  await sb.auth
+  .getSession();
+
+
+  if (
+    session?.user
+  ) {
+
+    await loadDashboard(
+      session.user
+    );
+  }
+}
+
+
+init()
+.catch(error => {
+
+  $("error")
+  .textContent =
+  "Erreur de démarrage : " +
+  (
+    error.message ||
+    error
+  );
+
+  console.error(error);
+
+});
+
+</script>
+
+</body>
+</html>
