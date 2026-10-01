@@ -793,8 +793,7 @@ async function showDashboard(user){
     areaTitle.textContent =
       "Espace Employé";
 
-    errorBox.textContent =
-      "Impossible de vérifier votre compte. Veuillez réessayer.";
+    errorBox.textContent = "Erreur: " + error.message;
 
     return;
 
