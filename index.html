@@ -1024,7 +1024,14 @@ async function startApp(){
     console.error(error);
 
   }
+function backToAdmin(){
+  document.getElementById("employeesPage").style.display = "none";
+  adminDashboard.style.display = "block";
+}
 
+function addEmployee(){
+  alert("Ajouter un employé");
+  }
 }
 function openEmployees(){
   adminDashboard.style.display = "none";
