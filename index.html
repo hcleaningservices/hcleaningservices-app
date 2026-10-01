@@ -455,7 +455,35 @@ button:disabled{
       onclick="backToAdmin()">
       ← Retour
     </button>
+<div id="addEmployeeForm" style="display:none; margin-top:20px;">
 
+  <h3>Ajouter un employé</h3>
+
+  <input
+    id="employeeName"
+    type="text"
+    placeholder="Nom et prénom">
+
+  <input
+    id="employeeEmail"
+    type="email"
+    placeholder="Adresse e-mail">
+
+  <input
+    id="employeePhone"
+    type="tel"
+    placeholder="Téléphone">
+
+  <input
+    id="employeePassword"
+    type="password"
+    placeholder="Mot de passe">
+
+  <button type="button" onclick="createEmployee()">
+    Créer l'employé
+  </button>
+
+</div>
   </div>
 
 </div>
@@ -1139,12 +1167,33 @@ function backToAdmin(){
 }
 
 
-function addEmployee(){
+  function addEmployee(){
 
-  alert(
-    "Ajouter un employé"
-  );
+  document.getElementById("addEmployeeForm").style.display = "block";
+async function createEmployee(){
 
+  const name =
+    document.getElementById("employeeName").value.trim();
+
+  const email =
+    document.getElementById("employeeEmail").value.trim();
+
+  const phone =
+    document.getElementById("employeePhone").value.trim();
+
+  const password =
+    document.getElementById("employeePassword").value;
+
+  if(!name || !email || !password){
+
+    alert("Veuillez remplir le nom, l'e-mail et le mot de passe.");
+    return;
+
+  }
+
+  alert("Formulaire prêt pour : " + name);
+
+}
 }
 
 
