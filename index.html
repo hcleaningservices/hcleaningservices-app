@@ -1022,7 +1022,14 @@ async function startApp(){
   }catch(error){
 
     console.error(error);
+function backToAdmin(){
+  document.getElementById("employeesPage").style.display = "none";
+  document.getElementById("adminDashboard").style.display = "block";
+}
 
+function addEmployee(){
+  alert("Ajouter un employé");
+}
   }
 function backToAdmin(){
   document.getElementById("employeesPage").style.display = "none";
