@@ -1041,11 +1041,8 @@ async function startApp(){
 
   try{
 
-    const hash =
-      window.location.hash;
-
-    const search =
-      window.location.search;
+    const hash = window.location.hash;
+    const search = window.location.search;
 
     const recoveryLink =
       hash.includes("type=recovery") ||
@@ -1056,21 +1053,15 @@ async function startApp(){
     }
 
     const {data,error} =
-      await supabaseClient.auth
-        .getSession();
+      await supabaseClient.auth.getSession();
 
     if(error){
       console.error(error);
       return;
     }
 
-    if(
-      data.session &&
-      data.session.user
-    ){
-      await showDashboard(
-        data.session.user
-      );
+    if(data.session && data.session.user){
+      await showDashboard(data.session.user);
     }
 
   }catch(error){
@@ -1088,27 +1079,20 @@ function openEmployees(){
 
   adminDashboard.style.display = "none";
 
-  document.getElementById(
-    "employeesPage"
-  ).style.display = "block";
+  document.getElementById("employeesPage").style.display = "block";
 
-  areaTitle.textContent =
-    "Employés";
+  areaTitle.textContent = "Employés";
 
 }
 
 
 function backToAdmin(){
 
-  document.getElementById(
-    "employeesPage"
-  ).style.display = "none";
+  document.getElementById("employeesPage").style.display = "none";
 
-  adminDashboard.style.display =
-    "block";
+  adminDashboard.style.display = "block";
 
-  areaTitle.textContent =
-    "Espace Administrateur";
+  areaTitle.textContent = "Espace Administrateur";
 
 }
 
