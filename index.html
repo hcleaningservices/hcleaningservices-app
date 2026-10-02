@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+O<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -1871,17 +1871,11 @@ async function loadMissions(
           stat(mission.status)
         )}
       </div>
-      ${
-        currentRole === "admin"
-        ? `
-          <button
-            class="danger"
-            onclick="deleteMission('${mission.id}')">
-            🗑 Supprimer la mission
-          </button>
-        `
-        : ""
-      }
+      <button
+  class="danger"
+  onclick="deleteMission('${mission.id}')">
+  🗑 Supprimer la mission
+</button>
     </div>
 
   `).join("");
