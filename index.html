@@ -2379,8 +2379,58 @@ async function finishWork() {
         "id",
         work.id
       );
+  if (error) {
 
-  if (error)
+    msg(
+      "workMessage",
+      error.message
+    );
+
+    return;
+  }
+
+  const {
+    error: missionError
+  } = await sb
+    .from("missions")
+    .update({
+      status: "completed"
+    })
+    .eq(
+      "id",
+      currentMission.id
+    );
+
+  if (missionError) {
+
+    msg(
+      "workMessage",
+      missionError.message
+    );
+
+    return;
+  }
+
+  const minutes = Math.max(
+    0,
+    Math.round(
+      (
+        finishedAt -
+        new Date(work.started_at)
+      ) / 60000
+    )
+  );
+
+  await openMission(
+    currentMission.id
+  );
+
+  msg(
+    "workMessage",
+    `Mission terminée ✅ — ${Math.floor(minutes / 60)} h ${minutes % 60} min`,
+    true
+  );
+}
 
 
 /* ==============================
