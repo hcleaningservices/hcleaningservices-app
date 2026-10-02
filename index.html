@@ -2314,53 +2314,48 @@ async function finishWork() {
   if (
     !currentUser ||
     !currentMission
-  )
-    return;
-
+  ) return;
 
   const {
-    data:workLog,
-    error:findError
-  } =
-  await sb
-  .from("work_logs")
-  .select(
-    "id,start_time"
-  )
-  .eq(
-    "mission_id",
-    currentMission.id
-  )
-  .eq(
-    "employee_id",
-    currentUser.id
-  )
-  .is(
-    "end_time",
-    null
-  )
-  .order(
-    "start_time",
-    {
-      ascending:false
-    }
-  )
-  .limit(1)
-  .maybeSingle();
+    data: work,
+    error: checkError
+  } = await sb
+    .from("work_hours")
+    .select(
+      "id,started_at"
+    )
+    .eq(
+      "mission_id",
+      currentMission.id
+    )
+    .eq(
+      "employee_id",
+      currentUser.id
+    )
+    .is(
+      "finished_at",
+      null
+    )
+    .order(
+      "started_at",
+      {
+        ascending: false
+      }
+    )
+    .limit(1)
+    .maybeSingle();
 
-
-  if (findError) {
+  if (checkError) {
 
     msg(
       "workMessage",
-      findError.message
+      checkError.message
     );
 
     return;
   }
 
-
-  if (!workLog) {
+  if (!work) {
 
     msg(
       "workMessage",
@@ -2370,77 +2365,22 @@ async function finishWork() {
     return;
   }
 
+  const finishedAt =
+    new Date();
 
-  const end =
-  new Date();
+  const { error } =
+    await sb
+      .from("work_hours")
+      .update({
+        finished_at:
+          finishedAt.toISOString()
+      })
+      .eq(
+        "id",
+        work.id
+      );
 
-
-  const minutes =
-  Math.max(
-    0,
-    Math.round(
-      (
-        end -
-        new Date(
-          workLog.start_time
-        )
-      ) /
-      60000
-    )
-  );
-
-
-  const {error} =
-  await sb
-  .from("work_logs")
-  .update({
-
-    end_time:
-    end.toISOString(),
-
-    total_minutes:
-    minutes
-
-  })
-  .eq(
-    "id",
-    workLog.id
-  );
-
-
-  if (error) {
-
-    msg(
-      "workMessage",
-      error.message
-    );
-
-    return;
-  }
-
-
-  await sb
-  .from("missions")
-  .update({
-    status:"completed"
-  })
-  .eq(
-    "id",
-    currentMission.id
-  );
-
-
-  msg(
-    "workMessage",
-    "Mission terminée ✅",
-    true
-  );
-
-
-  await openMission(
-    currentMission.id
-  );
-}
+  if (error)
 
 
 /* ==============================
