@@ -1421,7 +1421,23 @@ async function loadEmployees() {
   `).join("");
 }
 
+async function openEmployee(employeeId) {
+  const { data: employee, error } = await sb
+    .from("profiles")
+    .select("id,full_name,role,phone")
+    .eq("id", employeeId)
+    .single();
 
+  if (error || !employee) {
+    alert("Impossible de charger l'employé.");
+    return;
+  }
+
+  alert(
+    "Employé : " + (employee.full_name || "—") +
+    "\nTéléphone : " + (employee.phone || "—")
+  );
+}
 /* ==============================
    EMPLOYEE SELECT
 ============================== */
