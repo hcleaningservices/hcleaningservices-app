@@ -1871,13 +1871,58 @@ async function loadMissions(
           stat(mission.status)
         )}
       </div>
-
+      ${
+        currentRole === "admin"
+        ? `
+          <button
+            class="danger"
+            onclick="deleteMission('${mission.id}')">
+            🗑 Supprimer la mission
+          </button>
+        `
+        : ""
+      }
     </div>
 
   `).join("");
 }
 
+async function deleteMission(missionId) {
 
+  if (currentRole !== "admin") {
+    alert("Action non autorisée.");
+    return;
+  }
+
+  const confirmed = confirm(
+    "Voulez-vous vraiment supprimer cette mission ?"
+  );
+
+  if (!confirmed) return;
+
+  const { error } = await sb
+    .from("missions")
+    .delete()
+    .eq("id", missionId);
+
+  if (error) {
+    alert(
+      "Impossible de supprimer la mission : " +
+      error.message
+    );
+    return;
+  }
+
+  alert("Mission supprimée ✅");
+
+  if ($("missionsPage").style.display !== "none") {
+    await loadMissions("missionsList");
+  }
+
+  if ($("planningPage").style.display !== "none") {
+    await loadMissions("planningList");
+  }
+}
 /* ==============================
    EMPLOYEE MISSIONS
 ============================== */
