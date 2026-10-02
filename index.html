@@ -3871,6 +3871,24 @@ init()
   console.error(error);
 
 });
+
+init()
+.catch(error => {
+
+  $("error")
+  .textContent =
+  "Erreur de démarrage : " +
+  (
+    error.message ||
+    error
+  );
+
+  console.error(error);
+
+});
+
+</script>
+
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -3881,7 +3899,6 @@ if ("serviceWorker" in navigator) {
   });
 }
 </script>
-
 
 </body>
 </html>
