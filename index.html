@@ -1400,25 +1400,23 @@ async function loadEmployees() {
   .innerHTML =
   data.map(employee => `
 
-    <div class="item">
+    <div class="item"
+     onclick="openEmployee('${employee.id}')"
+     style="cursor:pointer;">
 
-      <h3>
-        👤
-        ${esc(
-          employee.full_name ||
-          "Employé"
-        )}
-      </h3>
+  <h3>
+    👤 ${esc(employee.full_name || "Employé")}
+  </h3>
 
-      <div>
-        📞
-        ${esc(
-          employee.phone ||
-          "—"
-        )}
-      </div>
+  <div>
+    📞 ${esc(employee.phone || "—")}
+  </div>
 
-    </div>
+  <div style="margin-top:10px;">
+    <strong>Voir le profil →</strong>
+  </div>
+
+</div>
 
   `).join("");
 }
