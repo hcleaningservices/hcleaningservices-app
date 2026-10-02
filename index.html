@@ -2441,31 +2441,29 @@ async function finishWork() {
 
 async function loadHours() {
 
-  const target =
-  $("hoursList");
+  const target = $("hoursList");
 
+  target.innerHTML = "<p>Chargement...</p>";
 
   const {
     data,
     error
-  } =
-  await sb
-  .from("work_logs")
-  .select(`
-    id,
-    employee_id,
-    mission_id,
-    start_time,
-    end_time,
-    total_minutes
-  `)
-  .order(
-    "start_time",
-    {
-      ascending:false
-    }
-  );
-
+  } = await sb
+    .from("work_hours")
+    .select(`
+      id,
+      employee_id,
+      mission_id,
+      started_at,
+      finished_at,
+      created_at
+    `)
+    .order(
+      "started_at",
+      {
+        ascending: false
+      }
+    );
 
   if (error) {
 
@@ -2477,164 +2475,174 @@ async function loadHours() {
     return;
   }
 
-
   if (!data?.length) {
 
     target.innerHTML =
-    "<p>Aucune heure enregistrée.</p>";
+      "<p>Aucune heure enregistrée.</p>";
 
     return;
   }
 
-
-  const employeeIds =
-  [
+  const employeeIds = [
     ...new Set(
       data
-      .map(row =>
-        row.employee_id
-      )
-      .filter(Boolean)
+        .map(row =>
+          row.employee_id
+        )
+        .filter(Boolean)
     )
   ];
 
-
-  const missionIds =
-  [
+  const missionIds = [
     ...new Set(
       data
-      .map(row =>
-        row.mission_id
-      )
-      .filter(Boolean)
+        .map(row =>
+          row.mission_id
+        )
+        .filter(Boolean)
     )
   ];
-
 
   let employees = {};
   let missions = {};
 
-
   if (employeeIds.length) {
 
-    const {data:profiles} =
-    await sb
-    .from("profiles")
-    .select(
-      "id,full_name"
-    )
-    .in(
-      "id",
-      employeeIds
-    );
-
+    const {
+      data: profiles
+    } = await sb
+      .from("profiles")
+      .select(
+        "id,full_name"
+      )
+      .in(
+        "id",
+        employeeIds
+      );
 
     (profiles || [])
-    .forEach(profile => {
+      .forEach(profile => {
 
-      employees[
-        profile.id
-      ] =
-      profile.full_name;
+        employees[
+          profile.id
+        ] =
+          profile.full_name;
 
-    });
+      });
   }
-
 
   if (missionIds.length) {
 
-    const {data:missionData} =
-    await sb
-    .from("missions")
-    .select(
-      "id,title"
-    )
-    .in(
-      "id",
-      missionIds
-    );
-
+    const {
+      data: missionData
+    } = await sb
+      .from("missions")
+      .select(
+        "id,title"
+      )
+      .in(
+        "id",
+        missionIds
+      );
 
     (missionData || [])
-    .forEach(mission => {
+      .forEach(mission => {
 
-      missions[
-        mission.id
-      ] =
-      mission.title;
+        missions[
+          mission.id
+        ] =
+          mission.title;
 
-    });
+      });
   }
 
-
   target.innerHTML =
-  data.map(row => {
+    data.map(row => {
 
-    const minutes =
-    Number(
-      row.total_minutes ||
-      0
-    );
+      let minutes = 0;
 
+      if (
+        row.started_at &&
+        row.finished_at
+      ) {
 
-    return `
+        minutes = Math.max(
+          0,
+          Math.round(
+            (
+              new Date(
+                row.finished_at
+              ) -
+              new Date(
+                row.started_at
+              )
+            ) / 60000
+          )
+        );
+      }
 
-      <div class="item">
+      return `
+        <div class="item">
 
-        <h3>
-          ⏱️
-          ${esc(
-            employees[
-              row.employee_id
-            ] ||
-            "Employé"
-          )}
-        </h3>
+          <h3>
+            ⏱️
+            ${esc(
+              employees[
+                row.employee_id
+              ] ||
+              "Employé"
+            )}
+          </h3>
 
-        <div>
-          <b>Mission :</b>
-          ${esc(
-            missions[
-              row.mission_id
-            ] ||
-            "—"
-          )}
+          <div>
+            <b>Mission :</b>
+            ${esc(
+              missions[
+                row.mission_id
+              ] ||
+              "—"
+            )}
+          </div>
+
+          <div>
+            <b>Début :</b>
+            ${esc(
+              dt(
+                row.started_at
+              )
+            )}
+          </div>
+
+          <div>
+            <b>Fin :</b>
+            ${
+              row.finished_at
+                ? esc(
+                    dt(
+                      row.finished_at
+                    )
+                  )
+                : "En cours"
+            }
+          </div>
+
+          <div>
+            <b>Durée :</b>
+            ${
+              row.finished_at
+                ? `${Math.floor(
+                    minutes / 60
+                  )} h ${
+                    minutes % 60
+                  } min`
+                : "En cours"
+            }
+          </div>
+
         </div>
+      `;
 
-        <div>
-          <b>Début :</b>
-          ${esc(
-            dt(row.start_time)
-          )}
-        </div>
-
-        <div>
-          <b>Fin :</b>
-          ${esc(
-            dt(row.end_time)
-          )}
-        </div>
-
-        <div>
-          <b>Durée :</b>
-
-          ${
-            Math.floor(
-              minutes / 60
-            )
-          }
-          h
-
-          ${
-            minutes % 60
-          }
-          min
-        </div>
-
-      </div>
-    `;
-
-  }).join("");
+    }).join("");
 }
 
 
@@ -3305,82 +3313,116 @@ async function loadProblems() {
 
 async function loadReports() {
 
-  const target =
-  $("reportsContent");
-
+  const target = $("reportsContent");
 
   target.innerHTML =
-  "<p>Chargement...</p>";
-
+    "<p>Chargement...</p>";
 
   const [
     missions,
-    workLogs,
+    workHours,
     absences,
     problems
-  ] =
-  await Promise.all([
+  ] = await Promise.all([
 
     sb
-    .from("missions")
-    .select(
-      "id",
-      {
-        count:"exact",
-        head:true
-      }
-    ),
+      .from("missions")
+      .select(
+        "id",
+        {
+          count: "exact",
+          head: true
+        }
+      ),
 
     sb
-    .from("work_logs")
-    .select(
-      "total_minutes"
-    ),
+      .from("work_hours")
+      .select(
+        "started_at,finished_at"
+      ),
 
     sb
-    .from("absences")
-    .select(
-      "id,status"
-    ),
+      .from("absences")
+      .select(
+        "id,status"
+      ),
 
     sb
-    .from("problems")
-    .select(
-      "id,status"
-    )
+      .from("problems")
+      .select(
+        "id,status"
+      )
 
   ]);
 
-
   if (
     missions.error ||
-    workLogs.error ||
+    workHours.error ||
     absences.error ||
     problems.error
   ) {
 
+    const error =
+      missions.error ||
+      workHours.error ||
+      absences.error ||
+      problems.error;
+
     target.innerHTML =
-    '<p class="error">Impossible de charger tous les rapports.</p>';
+      `<p class="error">${esc(error.message)}</p>`;
 
     return;
   }
 
+  let totalMinutes = 0;
 
-  const minutes =
-  (workLogs.data || [])
-  .reduce(
-    (
-      total,
-      row
-    ) =>
-    total +
-    Number(
-      row.total_minutes ||
-      0
-    ),
-    0
-  );
+  (workHours.data || [])
+    .forEach(row => {
 
+      if (
+        row.started_at &&
+        row.finished_at
+      ) {
+
+        const minutes =
+          Math.max(
+            0,
+            Math.round(
+              (
+                new Date(row.finished_at) -
+                new Date(row.started_at)
+              ) / 60000
+            )
+          );
+
+        totalMinutes += minutes;
+      }
+
+    });
+
+  const totalHours =
+    Math.floor(
+      totalMinutes / 60
+    );
+
+  const remainingMinutes =
+    totalMinutes % 60;
+
+  const pendingAbsences =
+    (absences.data || [])
+      .filter(
+        row =>
+          row.status === "pending"
+      )
+      .length;
+
+  const openProblems =
+    (problems.data || [])
+      .filter(
+        row =>
+          row.status === "open"
+      )
+      .length;
 
   target.innerHTML = `
 
@@ -3402,23 +3444,12 @@ async function loadReports() {
       <div class="item">
 
         <h3>
-
-          ${
-            Math.floor(
-              minutes / 60
-            )
-          }
-          h
-
-          ${
-            minutes % 60
-          }
-          min
-
+          ${totalHours} h
+          ${remainingMinutes} min
         </h3>
 
         <div>
-          Heures
+          Heures travaillées
         </div>
 
       </div>
@@ -3427,17 +3458,7 @@ async function loadReports() {
       <div class="item">
 
         <h3>
-
-          ${
-            (absences.data || [])
-            .filter(
-              row =>
-              row.status ===
-              "pending"
-            )
-            .length
-          }
-
+          ${pendingAbsences}
         </h3>
 
         <div>
@@ -3450,17 +3471,7 @@ async function loadReports() {
       <div class="item">
 
         <h3>
-
-          ${
-            (problems.data || [])
-            .filter(
-              row =>
-              row.status ===
-              "open"
-            )
-            .length
-          }
-
+          ${openProblems}
         </h3>
 
         <div>
