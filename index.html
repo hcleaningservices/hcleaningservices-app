@@ -2196,31 +2196,34 @@ async function startWork() {
   if (
     !currentUser ||
     !currentMission
-  )
-    return;
-
+  ) return;
 
   const {
-    data:existing,
-    error:checkError
-  } =
-  await sb
-  .from("work_logs")
-  .select("id")
-  .eq(
-    "mission_id",
-    currentMission.id
-  )
-  .eq(
-    "employee_id",
-    currentUser.id
-  )
-  .is(
-    "end_time",
-    null
-  )
-  .maybeSingle();
-
+    data: existing,
+    error: checkError
+  } = await sb
+    .from("work_hours")
+    .select("id")
+    .eq(
+      "mission_id",
+      currentMission.id
+    )
+    .eq(
+      "employee_id",
+      currentUser.id
+    )
+    .is(
+      "finished_at",
+      null
+    )
+    .order(
+      "started_at",
+      {
+        ascending: false
+      }
+    )
+    .limit(1)
+    .maybeSingle();
 
   if (checkError) {
 
@@ -2232,7 +2235,6 @@ async function startWork() {
     return;
   }
 
-
   if (existing) {
 
     msg(
@@ -2243,24 +2245,22 @@ async function startWork() {
     return;
   }
 
+  const { error } =
+    await sb
+      .from("work_hours")
+      .insert({
 
-  const {error} =
-  await sb
-  .from("work_logs")
-  .insert({
+        mission_id:
+          currentMission.id,
 
-    mission_id:
-    currentMission.id,
+        employee_id:
+          currentUser.id,
 
-    employee_id:
-    currentUser.id,
+        started_at:
+          new Date()
+            .toISOString()
 
-    start_time:
-    new Date()
-    .toISOString()
-
-  });
-
+      });
 
   if (error) {
 
@@ -2272,30 +2272,38 @@ async function startWork() {
     return;
   }
 
+  const {
+    error: missionError
+  } = await sb
+    .from("missions")
+    .update({
+      status: "in_progress"
+    })
+    .eq(
+      "id",
+      currentMission.id
+    );
 
-  await sb
-  .from("missions")
-  .update({
-    status:"in_progress"
-  })
-  .eq(
-    "id",
+  if (missionError) {
+
+    msg(
+      "workMessage",
+      missionError.message
+    );
+
+    return;
+  }
+
+  await openMission(
     currentMission.id
   );
-
 
   msg(
     "workMessage",
     "Travail démarré ✅",
     true
   );
-
-
-  await openMission(
-    currentMission.id
-  );
 }
-
 
 /* ==============================
    FINISH WORK
