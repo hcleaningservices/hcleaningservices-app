@@ -2760,10 +2760,36 @@ async function loadHours() {
                 : "En cours"
             }
           </div>
-
+<button
+  class="danger"
+  onclick="deleteWorkHour('${row.id}')">
+  🗑 Supprimer
+</button>
         </div>
       `;
+async function deleteWorkHour(hourId) {
+  if (currentRole !== "admin") {
+    alert("Action non autorisée.");
+    return;
+  }
 
+  if (!confirm("Supprimer cet enregistrement d'heures ?")) {
+    return;
+  }
+
+  const { error } = await sb
+    .from("work_hours")
+    .delete()
+    .eq("id", hourId);
+
+  if (error) {
+    alert("Erreur : " + error.message);
+    return;
+  }
+
+  alert("Heures supprimées.");
+  await loadHours();
+}
     }).join("");
 }
 
