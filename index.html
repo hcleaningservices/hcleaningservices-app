@@ -3872,33 +3872,11 @@ init()
 
 });
 
-init()
-.catch(error => {
 
-  $("error")
-  .textContent =
-  "Erreur de démarrage : " +
-  (
-    error.message ||
-    error
-  );
-
-  console.error(error);
-
-});
 
 </script>
 
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("./sw.js")
-      .then(() => console.log("H Cleaning app ready"))
-      .catch(error => console.error("Service worker error:", error));
-  });
-}
-</script>
+
 
 </body>
 </html>
