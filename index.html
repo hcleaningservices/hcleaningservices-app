@@ -1421,7 +1421,8 @@ async function loadEmployees() {
   `).join("");
 }
 
-async function openEmployee(employeeId) {
+  async function openEmployee(employeeId) {
+
   const { data: employee, error } = await sb
     .from("profiles")
     .select("id,full_name,role,phone")
@@ -1433,10 +1434,58 @@ async function openEmployee(employeeId) {
     return;
   }
 
-  alert(
+  const confirmed = confirm(
     "Employé : " + (employee.full_name || "—") +
-    "\nTéléphone : " + (employee.phone || "—")
+    "\nTéléphone : " + (employee.phone || "—") +
+    "\n\nVoulez-vous supprimer cet employé ?"
   );
+
+  if (!confirmed) {
+    return;
+  }
+
+  const secondConfirmation = confirm(
+    "⚠️ Confirmer la suppression de " +
+    (employee.full_name || "cet employé") +
+    " ?"
+  );
+
+  if (!secondConfirmation) {
+    return;
+  }
+
+  const { data, error: deleteError } =
+    await sb.functions.invoke(
+      "delete-employee",
+      {
+        body: {
+          employeeId: employee.id
+        }
+      }
+    );
+
+  if (deleteError) {
+    alert(
+      "Suppression impossible : " +
+      deleteError.message
+    );
+    return;
+  }
+
+  if (!data?.success) {
+    alert(
+      "Suppression impossible : " +
+      (data?.error || "Erreur inconnue.")
+    );
+    return;
+  }
+
+  alert(
+    (employee.full_name || "Employé") +
+    " a été supprimé ✅"
+  );
+
+  await loadEmployees();
 }
 /* ==============================
    EMPLOYEE SELECT
