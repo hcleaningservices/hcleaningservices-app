@@ -3442,7 +3442,17 @@ async function loadProblems() {
 
         ""
       }
+          }
 
+          ${currentRole === "admin" ? `
+            <button
+              class="danger"
+              onclick="deleteProblem('${row.id}')">
+              🗑 Supprimer
+            </button>
+          ` : ""}
+
+        </div>
     </div>
 
   `).join("");
@@ -3483,7 +3493,31 @@ async function loadProblems() {
 
   });
 }
+async function deleteProblem(problemId) {
+  if (currentRole !== "admin") {
+    alert("Action non autorisée.");
+    return;
+  }
 
+  const ok = confirm(
+    "Voulez-vous vraiment supprimer ce problème ?"
+  );
+
+  if (!ok) return;
+
+  const { error } = await sb
+    .from("problems")
+    .delete()
+    .eq("id", problemId);
+
+  if (error) {
+    alert("Erreur : " + error.message);
+    return;
+  }
+
+  alert("Problème supprimé.");
+  await loadProblems();
+}
 
 /* ==============================
    REPORTS
