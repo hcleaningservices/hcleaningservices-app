@@ -233,7 +233,15 @@ button:disabled {
 
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
-
+.tile .icon svg {
+  width: 25px;
+  height: 25px;
+  fill: none;
+  stroke: #087f83;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .tile strong,
 .tile small {
   display: block;
@@ -407,49 +415,99 @@ Bonjour 👋
 <div class="grid">
 
 <div class="tile" data-nav="employees">
-<div class="icon">👥</div>
+<div class="icon">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+    <circle cx="9" cy="7" r="4"/>
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </svg>
+</div>
 <strong>Employés</strong>
 <small>Gérer l'équipe</small>
 </div>
 
 <div class="tile" data-nav="planning">
-<div class="icon">📅</div>
+<div class="icon">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="3" y="5" width="18" height="16" rx="2"/>
+    <path d="M16 3v4M8 3v4M3 10h18"/>
+    <path d="M8 14h2M14 14h2M8 18h2M14 18h2"/>
+  </svg>
+</div>
 <strong>Planning</strong>
 <small>Voir le planning</small>
 </div>
 
 <div class="tile" data-nav="missions">
-<div class="icon">🧹</div>
+<div class="icon">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M9 11l3 3L22 4"/>
+    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+  </svg>
+</div>
 <strong>Missions</strong>
 <small>Créer / gérer</small>
 </div>
 
 <div class="tile" data-nav="hours">
-<div class="icon">⏱️</div>
+<div class="icon">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="13" r="8"/>
+    <path d="M12 9v4l3 2"/>
+    <path d="M9 2h6"/>
+    <path d="M12 2v3"/>
+  </svg>
+</div>
 <strong>Heures</strong>
 <small>Temps de travail</small>
 </div>
 
 <div class="tile" data-nav="absences">
-<div class="icon">🏖️</div>
+<div class="icon">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M8 2v3M16 2v3"/>
+    <rect x="3" y="4" width="18" height="17" rx="2"/>
+    <path d="M3 9h18"/>
+    <path d="M8 14l2 2 5-5"/>
+  </svg>
+</div>
 <strong>Absences</strong>
 <small>Demandes</small>
 </div>
 
 <div class="tile" data-nav="photos">
-<div class="icon">📷</div>
+  <div class="icon">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M14.5 4l1.5 2H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l1.5-2z"/>
+    <circle cx="12" cy="13" r="4"/>
+  </svg>
+</div>
 <strong>Photos</strong>
 <small>Avant / Après</small>
 </div>
 
 <div class="tile" data-nav="problems">
-<div class="icon">⚠️</div>
+<div class="icon">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M10.3 3.7L2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0z"/>
+    <path d="M12 9v4"/>
+    <path d="M12 17h.01"/>
+  </svg>
+</div>
 <strong>Problèmes</strong>
 <small>Incidents</small>
 </div>
 
 <div class="tile" data-nav="reports">
-<div class="icon">📊</div>
+<div class="icon">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M4 20V10"/>
+    <path d="M10 20V4"/>
+    <path d="M16 20v-7"/>
+    <path d="M22 20H2"/>
+  </svg>
+</div>
 <strong>Rapports</strong>
 <small>Vue générale</small>
 </div>
