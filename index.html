@@ -14,25 +14,44 @@ O<!DOCTYPE html>
 <style>
 * {
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
 }
 
 body {
   margin: 0;
-  background: #f4f8fa;
-  color: #16324a;
+  min-height: 100vh;
+  color: #102a43;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(35, 166, 213, 0.20), transparent 35%),
+    radial-gradient(circle at 95% 15%, rgba(0, 105, 180, 0.15), transparent 35%),
+    linear-gradient(145deg, #f7fbff 0%, #eaf5fb 50%, #f8fcff 100%);
+  background-attachment: fixed;
 }
 
 .header {
-  background: linear-gradient(135deg,#08a7a7,#1677c8);
-  color: white;
-  padding: 25px 18px;
+  margin: 12px;
+  padding: 20px 18px;
   text-align: center;
+  color: #0b4f7c;
+
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 24px;
+
+  box-shadow:
+    0 10px 35px rgba(16, 70, 110, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .header h1 {
   margin: 0;
   font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #083b66;
 }
 
 .container {
@@ -42,11 +61,19 @@ body {
 }
 
 .card {
-  background: white;
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
   padding: 21px;
-  border-radius: 18px;
+  border-radius: 22px;
   margin-top: 17px;
-  box-shadow: 0 5px 20px #00000012;
+
+  border: 1px solid rgba(255, 255, 255, 0.85);
+
+  box-shadow:
+    0 10px 30px rgba(16, 70, 110, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 input,
@@ -66,15 +93,31 @@ textarea {
 
 button {
   width: 100%;
-  padding: 14px;
+  padding: 14px 18px;
   margin-top: 12px;
-  border: 0;
-  border-radius: 10px;
-  background: #08a7a7;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+
+  background: linear-gradient(135deg, #139fd0 0%, #075b9b 100%);
   color: white;
+
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+
   cursor: pointer;
+
+  box-shadow:
+    0 7px 18px rgba(7, 91, 155, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+  box-shadow: 0 3px 10px rgba(7, 91, 155, 0.18);
 }
 
 button:disabled {
@@ -82,15 +125,15 @@ button:disabled {
 }
 
 .blue {
-  background: #1677c8;
+  background: linear-gradient(135deg, #168fd0 0%, #075b9b 100%);
 }
 
 .gray {
-  background: #718392;
+  background: linear-gradient(135deg, #7890a3 0%, #526b7d 100%);
 }
 
 .danger {
-  background: #c62828;
+  background: linear-gradient(135deg, #e65c68 0%, #b93645 100%);
 }
 
 .link {
