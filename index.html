@@ -3083,7 +3083,13 @@ async function loadAbsences(
 
         ""
       }
-
+${admin ? `
+  <button
+    class="danger"
+    onclick="deleteAbsence('${row.id}')">
+    🗑 Supprimer
+  </button>
+` : ""}
     </div>
 
   `).join("");
@@ -3107,7 +3113,31 @@ async function loadAbsences(
     });
   }
 }
+async function deleteAbsence(absenceId) {
+  if (currentRole !== "admin") {
+    alert("Action non autorisée.");
+    return;
+  }
 
+  const ok = confirm(
+    "Voulez-vous vraiment supprimer cette demande d'absence ?"
+  );
+
+  if (!ok) return;
+
+  const { error } = await sb
+    .from("absences")
+    .delete()
+    .eq("id", absenceId);
+
+  if (error) {
+    alert("Erreur : " + error.message);
+    return;
+  }
+
+  alert("Demande d'absence supprimée.");
+  await loadAbsences(true);
+}
 
 /* ==============================
    UPDATE ABSENCE
