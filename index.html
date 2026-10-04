@@ -3034,7 +3034,104 @@ async function deleteWorkHour(hourId) {
   alert("Heures supprimées.");
   await loadHours();
 }
-    }).join("");
+  async function loadEmployeeHours() {
+
+  const target = $("employeeHoursList");
+
+  target.innerHTML = "<p>Chargement...</p>";
+
+  const { data, error } = await sb
+    .from("work_hours")
+    .select(`
+      id,
+      mission_id,
+      started_at,
+      finished_at
+    `)
+    .eq("employee_id", currentUser.id)
+    .order("started_at", { ascending: false });
+
+  if (error) {
+    msg("employeeHoursList", error.message);
+    return;
+  }
+
+  if (!data?.length) {
+    target.innerHTML =
+      "<p>Aucune heure enregistrée.</p>";
+    return;
+  }
+
+  const missionIds = [
+    ...new Set(
+      data.map(row => row.mission_id).filter(Boolean)
+    )
+  ];
+
+  let missions = {};
+
+  if (missionIds.length) {
+    const { data: missionData } = await sb
+      .from("missions")
+      .select("id,title")
+      .in("id", missionIds);
+
+    (missionData || []).forEach(mission => {
+      missions[mission.id] = mission.title;
+    });
+  }
+
+  target.innerHTML = data.map(row => {
+
+    let minutes = 0;
+
+    if (row.started_at && row.finished_at) {
+      minutes = Math.max(
+        0,
+        Math.round(
+          (
+            new Date(row.finished_at) -
+            new Date(row.started_at)
+          ) / 60000
+        )
+      );
+    }
+
+    return `
+      <div class="item">
+
+        <h3>
+          ⏱ ${esc(
+            missions[row.mission_id] || "Mission"
+          )}
+        </h3>
+
+        <div>
+          <b>Début :</b>
+          ${esc(dt(row.started_at))}
+        </div>
+
+        <div>
+          <b>Fin :</b>
+          ${
+            row.finished_at
+              ? esc(dt(row.finished_at))
+              : "En cours"
+          }
+        </div>
+
+        <div>
+          <b>Durée :</b>
+          ${
+            row.finished_at
+              ? `${Math.floor(minutes / 60)} h ${minutes % 60} min`
+              : "En cours"
+          }
+        </div>
+
+      </div>
+    `;
+  }).join("");
 }
 
 
@@ -4187,7 +4284,14 @@ function wire() {
         await loadEmployeeMissions();
       }
 
+if (navigation === "employeeHours") {
+  go(
+    "employeeHoursPage",
+    "Mes heures"
+  );
 
+  await loadEmployeeHours();
+}
       if (
         navigation ===
         "employeeAbsences"
