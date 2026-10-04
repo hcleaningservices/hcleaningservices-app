@@ -4141,7 +4141,17 @@ function wire() {
   $("forgotButton")
   .onclick =
   forgotPassword;
+$("showRegisterButton").onclick = () => {
+  $("login").style.display = "none";
+  $("registerEmployee").style.display = "block";
+  $("areaTitle").textContent = "Inscription employé";
+};
 
+$("backToLoginButton").onclick = () => {
+  $("registerEmployee").style.display = "none";
+  $("login").style.display = "block";
+  $("areaTitle").textContent = "Connexion";
+};
 
   $("savePasswordButton")
   .onclick =
