@@ -112,14 +112,19 @@ textarea {
 
   transition: 0.2s ease;
 }
-
+input::placeholder,
+textarea::placeholder {
+  color: #8fa6bd;
+  opacity: 1;
+}
 input:focus,
 select:focus,
 textarea:focus {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: #168ac2;
-  box-shadow: 0 0 0 4px rgba(22, 138, 194, 0.10);
+  background: rgba(10, 31, 60, 0.95);
+  border-color: #20c9be;
+  box-shadow: 0 0 0 3px rgba(32, 201, 190, 0.14);
 }
+
 textarea {
   min-height: 85px;
 }
