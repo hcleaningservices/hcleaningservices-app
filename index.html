@@ -3009,8 +3009,14 @@ async function loadHours() {
   onclick="deleteWorkHour('${row.id}')">
   🗑 Supprimer
 </button>
+
         </div>
       `;
+    }).join("");
+}
+
+
+
 async function deleteWorkHour(hourId) {
   if (currentRole !== "admin") {
     alert("Action non autorisée.");
