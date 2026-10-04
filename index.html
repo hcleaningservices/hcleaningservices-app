@@ -1547,7 +1547,79 @@ async function saveNewPassword() {
     );
   }
 }
+async function registerEmployee() {
 
+  const name = $("registerName").value.trim();
+  const email = $("registerEmail").value.trim();
+  const phone = $("registerPhone").value.trim();
+  const password = $("registerPassword").value;
+  const confirmation = $("registerPasswordConfirm").value;
+
+  $("registerError").textContent = "";
+  $("registerMessage").textContent = "";
+
+  if (!name || !email || !phone || !password) {
+    $("registerError").textContent =
+      "Veuillez remplir tous les champs.";
+    return;
+  }
+
+  if (password.length < 6) {
+    $("registerError").textContent =
+      "Le mot de passe doit contenir au moins 6 caractères.";
+    return;
+  }
+
+  if (password !== confirmation) {
+    $("registerError").textContent =
+      "Les mots de passe ne correspondent pas.";
+    return;
+  }
+
+  const button = $("registerButton");
+
+  button.disabled = true;
+  button.textContent = "Création...";
+
+  try {
+
+    const { data, error } =
+      await sb.functions.invoke(
+        "register-employee",
+        {
+          body: {
+            name,
+            email,
+            phone,
+            password
+          }
+        }
+      );
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data?.success) {
+      throw new Error(
+        data?.error || "Création du compte impossible."
+      );
+    }
+
+    $("registerMessage").textContent =
+      "Compte créé avec succès ✅ Vous pouvez maintenant vous connecter.";
+
+  } catch (error) {
+
+    $("registerError").textContent =
+      error.message || "Création du compte impossible.";
+
+  } finally {
+
+    button.disabled = false;
+    button.textContent = "Créer mon compte";
+  }
+        }
 
 /* ==============================
    EMPLOYEE CREATION
