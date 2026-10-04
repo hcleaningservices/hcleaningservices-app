@@ -1564,9 +1564,9 @@ async function registerEmployee() {
     return;
   }
 
-  if (password.length < 6) {
+  if (password.length < 8) {
     $("registerError").textContent =
-      "Le mot de passe doit contenir au moins 6 caractères.";
+      "Le mot de passe doit contenir au moins 8 caractères.";
     return;
   }
 
