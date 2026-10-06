@@ -4283,7 +4283,386 @@ async function loadReports() {
   `;
 }
 
+/* ==============================
+   PAYMENTS FUNCTIONS
+============================== */
 
+async function fillPaymentEmployees() {
+
+  const select = $("paymentEmployee");
+
+  select.innerHTML =
+    '<option value="">Choisir un employé</option>';
+
+  const { data, error } = await sb
+    .from("profiles")
+    .select("id,full_name")
+    .eq("role", "employee")
+    .order("full_name");
+
+  if (error) {
+    $("paymentError").textContent =
+      "Impossible de charger les employés : " + error.message;
+    return;
+  }
+
+  select.innerHTML =
+    '<option value="">Choisir un employé</option>' +
+    (data || []).map(employee => `
+      <option value="${esc(employee.id)}">
+        ${esc(employee.full_name || "Employé")}
+      </option>
+    `).join("");
+}
+
+
+function calculatePaymentAmount() {
+
+  const hours =
+    parseFloat($("paymentHours").value) || 0;
+
+  const rate =
+    parseFloat($("paymentHourlyRate").value) || 0;
+
+  $("paymentAmount").value =
+    (hours * rate).toFixed(2);
+}
+
+
+function resetPaymentForm() {
+
+  $("paymentEmployee").value = "";
+  $("paymentPeriodStart").value = "";
+  $("paymentPeriodEnd").value = "";
+  $("paymentHours").value = "";
+  $("paymentHourlyRate").value = "";
+  $("paymentAmount").value = "";
+
+  $("paymentDate").value =
+    new Date().toISOString().split("T")[0];
+
+  $("paymentMethod").value =
+    "Virement bancaire";
+
+  $("paymentNotes").value = "";
+
+  $("paymentError").textContent = "";
+  $("paymentMessage").textContent = "";
+}
+
+
+async function openNewPaymentForm() {
+
+  resetPaymentForm();
+
+  await fillPaymentEmployees();
+
+  $("paymentForm").style.display =
+    "block";
+
+  $("paymentForm").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+
+function cancelPaymentForm() {
+
+  resetPaymentForm();
+
+  $("paymentForm").style.display =
+    "none";
+}
+
+
+async function savePayment() {
+
+  $("paymentError").textContent = "";
+  $("paymentMessage").textContent = "";
+
+  const employeeId =
+    $("paymentEmployee").value;
+
+  const periodStart =
+    $("paymentPeriodStart").value;
+
+  const periodEnd =
+    $("paymentPeriodEnd").value;
+
+  const hours =
+    parseFloat($("paymentHours").value) || 0;
+
+  const hourlyRate =
+    parseFloat($("paymentHourlyRate").value) || 0;
+
+  const amount =
+    parseFloat($("paymentAmount").value) || 0;
+
+  const paymentDate =
+    $("paymentDate").value;
+
+  const paymentMethod =
+    $("paymentMethod").value;
+
+  const notes =
+    $("paymentNotes").value.trim();
+
+
+  if (!employeeId) {
+    $("paymentError").textContent =
+      "Choisissez un employé.";
+    return;
+  }
+
+  if (!periodStart || !periodEnd) {
+    $("paymentError").textContent =
+      "Choisissez la période.";
+    return;
+  }
+
+  if (periodEnd < periodStart) {
+    $("paymentError").textContent =
+      "La date de fin est incorrecte.";
+    return;
+  }
+
+  if (!paymentDate) {
+    $("paymentError").textContent =
+      "Choisissez la date du paiement.";
+    return;
+  }
+
+
+  const button =
+    $("savePaymentButton");
+
+  button.disabled = true;
+  button.textContent =
+    "Enregistrement...";
+
+
+  const { error } = await sb
+    .from("payments")
+    .insert({
+      employee_id: employeeId,
+      period_start: periodStart,
+      period_end: periodEnd,
+      hours,
+      hourly_rate: hourlyRate,
+      amount,
+      payment_date: paymentDate,
+      payment_method: paymentMethod,
+      notes: notes || null
+    });
+
+
+  button.disabled = false;
+  button.textContent =
+    "Enregistrer le reçu";
+
+
+  if (error) {
+
+    $("paymentError").textContent =
+      "La partie Paiements doit encore être configurée dans Supabase.";
+
+    console.error(error);
+
+    return;
+  }
+
+
+  $("paymentMessage").textContent =
+    "Reçu enregistré avec succès ✅";
+
+  await loadPayments();
+
+  setTimeout(() => {
+    $("paymentForm").style.display =
+      "none";
+  }, 700);
+}
+
+
+async function loadPayments() {
+
+  const target =
+    $("paymentsList");
+
+  target.innerHTML =
+    "<p>Chargement...</p>";
+
+
+  const { data, error } = await sb
+    .from("payments")
+    .select(`
+      id,
+      employee_id,
+      period_start,
+      period_end,
+      hours,
+      hourly_rate,
+      amount,
+      payment_date,
+      payment_method,
+      notes,
+      created_at
+    `)
+    .order("payment_date", {
+      ascending: false
+    });
+
+
+  if (error) {
+
+    target.innerHTML = `
+      <div class="item">
+        <b>Paiements</b>
+        <p>
+          La base de données Paiements
+          sera activée lors de notre
+          configuration Supabase.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  if (!data?.length) {
+
+    target.innerHTML =
+      "<p>Aucun reçu enregistré.</p>";
+
+    return;
+  }
+
+
+  const employeeIds = [
+    ...new Set(
+      data
+        .map(row => row.employee_id)
+        .filter(Boolean)
+    )
+  ];
+
+
+  let employees = {};
+
+
+  if (employeeIds.length) {
+
+    const { data: profiles } = await sb
+      .from("profiles")
+      .select("id,full_name")
+      .in("id", employeeIds);
+
+    (profiles || []).forEach(profile => {
+      employees[profile.id] =
+        profile.full_name;
+    });
+  }
+
+
+  target.innerHTML =
+    data.map(payment => `
+
+      <div class="item">
+
+        <h3>
+          💶 ${esc(
+            employees[payment.employee_id] ||
+            "Employé"
+          )}
+        </h3>
+
+        <div>
+          <b>Période :</b>
+          ${esc(payment.period_start)}
+          →
+          ${esc(payment.period_end)}
+        </div>
+
+        <div>
+          <b>Heures :</b>
+          ${esc(payment.hours)} h
+        </div>
+
+        <div>
+          <b>Taux :</b>
+          ${Number(payment.hourly_rate || 0).toFixed(2)} €
+        </div>
+
+        <div>
+          <b>Montant :</b>
+          <strong>
+            ${Number(payment.amount || 0).toFixed(2)} €
+          </strong>
+        </div>
+
+        <div>
+          <b>Date :</b>
+          ${esc(payment.payment_date)}
+        </div>
+
+        <div>
+          <b>Paiement :</b>
+          ${esc(payment.payment_method)}
+        </div>
+
+        ${
+          payment.notes
+          ? `
+            <div>
+              <b>Notes :</b>
+              ${esc(payment.notes)}
+            </div>
+          `
+          : ""
+        }
+
+        <button
+          class="danger"
+          onclick="deletePayment('${payment.id}')">
+          🗑 Supprimer
+        </button>
+
+      </div>
+
+    `).join("");
+}
+
+
+async function deletePayment(paymentId) {
+
+  if (currentRole !== "admin") {
+    alert("Action non autorisée.");
+    return;
+  }
+
+  if (!confirm(
+    "Voulez-vous supprimer ce reçu ?"
+  )) {
+    return;
+  }
+
+  const { error } = await sb
+    .from("payments")
+    .delete()
+    .eq("id", paymentId);
+
+  if (error) {
+    alert(
+      "Suppression impossible : " +
+      error.message
+    );
+    return;
+  }
+
+  await loadPayments();
+}
 /* ==============================
    BUTTONS / NAVIGATION
 ============================== */
@@ -4565,6 +4944,17 @@ if (
     "Paiements"
   );
 
+  $("paymentForm").style.display =
+    "none";
+
+  $("paymentDate").value =
+    new Date()
+      .toISOString()
+      .split("T")[0];
+
+  await fillPaymentEmployees();
+
+  await loadPayments();
 }
 
       if (
