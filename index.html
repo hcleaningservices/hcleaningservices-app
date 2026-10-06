@@ -4355,7 +4355,35 @@ registerEmployee;
   $("createMissionButton")
   .onclick =
   createMission;
+$("newPaymentButton")
+.onclick =
+openNewPaymentForm;
 
+$("cancelPaymentButton")
+.onclick =
+cancelPaymentForm;
+
+$("savePaymentButton")
+.onclick =
+savePayment;
+
+$("paymentHours")
+.addEventListener(
+  "input",
+  calculatePaymentAmount
+);
+
+$("paymentHourlyRate")
+.addEventListener(
+  "input",
+  calculatePaymentAmount
+);
+
+document
+.querySelectorAll("[data-back]")
+.forEach(button => {
+  button.onclick = home;
+});
 
   $("startWorkButton")
   .onclick =
