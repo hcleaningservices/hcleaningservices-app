@@ -402,7 +402,152 @@ a {
 </head>
 
 <body>
+<!-- LOGIN -->
+<div id="login">
 
+  <div class="card">
+    <h1>H Cleaning Services</h1>
+    <p>Connexion à votre espace</p>
+
+    <label for="email">Adresse e-mail</label>
+    <input
+      id="email"
+      type="email"
+      autocomplete="email"
+      placeholder="votre@email.com">
+
+    <label for="password">Mot de passe</label>
+    <input
+      id="password"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Votre mot de passe">
+
+    <button id="loginButton" type="button">
+      Se connecter
+    </button>
+
+    <button
+      id="forgotButton"
+      type="button"
+      class="secondary">
+      Mot de passe oublié
+    </button>
+
+    <button
+      id="showRegisterButton"
+      type="button"
+      class="secondary">
+      Créer un compte employé
+    </button>
+
+    <div id="error" class="error"></div>
+    <div id="message" class="message"></div>
+  </div>
+
+</div>
+
+
+<!-- EMPLOYEE REGISTRATION -->
+<div id="registerEmployee">
+
+  <div class="card">
+    <h2>Créer un compte employé</h2>
+
+    <label for="registerName">Nom complet</label>
+    <input
+      id="registerName"
+      type="text"
+      autocomplete="name"
+      placeholder="Nom et prénom">
+
+    <label for="registerEmail">Adresse e-mail</label>
+    <input
+      id="registerEmail"
+      type="email"
+      autocomplete="email"
+      placeholder="votre@email.com">
+
+    <label for="registerPhone">Téléphone</label>
+    <input
+      id="registerPhone"
+      type="tel"
+      autocomplete="tel"
+      placeholder="Numéro de téléphone">
+
+    <label for="registerPassword">Mot de passe</label>
+    <input
+      id="registerPassword"
+      type="password"
+      autocomplete="new-password"
+      placeholder="Minimum 8 caractères">
+
+    <label for="registerPasswordConfirm">
+      Confirmer le mot de passe
+    </label>
+    <input
+      id="registerPasswordConfirm"
+      type="password"
+      autocomplete="new-password"
+      placeholder="Confirmez le mot de passe">
+
+    <button id="registerButton" type="button">
+      Créer mon compte
+    </button>
+
+    <button
+      id="backToLoginButton"
+      type="button"
+      class="secondary">
+      Retour à la connexion
+    </button>
+
+    <div id="registerError" class="error"></div>
+    <div id="registerMessage" class="message"></div>
+  </div>
+
+</div>
+
+
+<!-- RESET PASSWORD -->
+<div id="resetPassword">
+
+  <div class="card">
+    <h2>Nouveau mot de passe</h2>
+
+    <p>
+      Choisissez votre nouveau mot de passe.
+    </p>
+
+    <label for="newPassword">Nouveau mot de passe</label>
+    <input
+      id="newPassword"
+      type="password"
+      autocomplete="new-password"
+      placeholder="Minimum 8 caractères">
+
+    <label for="confirmPassword">
+      Confirmer le nouveau mot de passe
+    </label>
+    <input
+      id="confirmPassword"
+      type="password"
+      autocomplete="new-password"
+      placeholder="Confirmez le mot de passe">
+
+    <button id="savePasswordButton" type="button">
+      Enregistrer le mot de passe
+    </button>
+
+    <div id="resetError" class="error"></div>
+    <div id="resetMessage" class="message"></div>
+  </div>
+
+</div>
+
+
+<!-- APP TITLE USED BY JAVASCRIPT -->
+<div id="areaTitle" style="display:none;"></div>
 <div id="adminDashboard">
 
   <div class="card">
