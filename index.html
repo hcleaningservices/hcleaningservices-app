@@ -5581,3 +5581,1042 @@ function clearSelectedPhoto() {
 
     $("galleryPhotoInput").value = "";
   }    
+}
+
+
+/* ==============================
+   SELECT PHOTO
+============================== */
+
+function selectPhoto(file) {
+
+  $("photoError").textContent = "";
+  $("photoMessage").textContent = "";
+
+  if (!file) {
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+
+    $("photoError").textContent =
+    "Veuillez sélectionner une image.";
+
+    return;
+  }
+
+  const maxSize =
+  10 * 1024 * 1024;
+
+  if (file.size > maxSize) {
+
+    $("photoError").textContent =
+    "La photo ne peut pas dépasser 10 MB.";
+
+    return;
+  }
+
+  clearSelectedPhoto();
+
+  selectedPhotoFile =
+  file;
+
+  selectedPhotoPreviewUrl =
+  URL.createObjectURL(file);
+
+  $("photoPreview").src =
+  selectedPhotoPreviewUrl;
+
+  $("photoFileInfo").textContent =
+  `${file.name || "Photo"} — ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+
+  $("photoPreviewBox")
+  .style.display = "block";
+}
+
+
+/* ==============================
+   PHOTO MISSIONS
+============================== */
+
+async function fillPhotoMissions() {
+
+  const select =
+  $("photoMission");
+
+  if (!select) {
+    return;
+  }
+
+  select.innerHTML =
+  '<option value="">Choisir une mission</option>';
+
+  let query =
+  sb
+  .from("missions")
+  .select(`
+    id,
+    title,
+    mission_date,
+    employee_id
+  `)
+  .order(
+    "mission_date",
+    {
+      ascending:false
+    }
+  );
+
+  if (
+    currentRole === "employee" &&
+    currentUser
+  ) {
+
+    query =
+    query.eq(
+      "employee_id",
+      currentUser.id
+    );
+  }
+
+  const {
+    data,
+    error
+  } =
+  await query;
+
+  if (error) {
+
+    $("photoError").textContent =
+    "Impossible de charger les missions : " +
+    error.message;
+
+    return;
+  }
+
+  select.innerHTML =
+  '<option value="">Choisir une mission</option>' +
+
+  (data || [])
+  .map(mission => `
+
+    <option value="${esc(mission.id)}">
+
+      ${esc(
+        mission.mission_date ||
+        ""
+      )}
+
+      —
+
+      ${esc(
+        mission.title ||
+        "Mission"
+      )}
+
+    </option>
+
+  `)
+  .join("");
+}
+
+
+/* ==============================
+   OPEN PHOTOS
+============================== */
+
+async function openPhotosPage() {
+
+  clearSelectedPhoto();
+
+  $("photoError").textContent = "";
+  $("photoMessage").textContent = "";
+
+  if (currentRole === "admin") {
+
+    $("photoPageDescription").textContent =
+    "Consultez les photos Avant / Après des missions.";
+
+    $("photoGalleryTitle").textContent =
+    "Toutes les photos";
+
+  } else {
+
+    $("photoPageDescription").textContent =
+    "Sélectionnez une mission puis prenez une photo ou choisissez une photo dans votre galerie.";
+
+    $("photoGalleryTitle").textContent =
+    "Mes photos";
+  }
+
+  go(
+    "photosPage",
+    "Photos"
+  );
+
+  await fillPhotoMissions();
+
+  await loadPhotos();
+}
+
+
+/* ==============================
+   UPLOAD PHOTO
+============================== */
+
+async function uploadMissionPhoto() {
+
+  $("photoError").textContent = "";
+  $("photoMessage").textContent = "";
+
+  if (
+    !currentUser ||
+    !selectedPhotoFile
+  ) {
+
+    $("photoError").textContent =
+    "Veuillez prendre ou choisir une photo.";
+
+    return;
+  }
+
+  const missionId =
+  $("photoMission").value;
+
+  const photoType =
+  $("photoType").value;
+
+  if (!missionId) {
+
+    $("photoError").textContent =
+    "Veuillez choisir une mission.";
+
+    return;
+  }
+
+  if (
+    ![
+      "before",
+      "after"
+    ].includes(photoType)
+  ) {
+
+    $("photoError").textContent =
+    "Type de photo incorrect.";
+
+    return;
+  }
+
+  const button =
+  $("uploadPhotoButton");
+
+  button.disabled = true;
+
+  button.textContent =
+  "Envoi...";
+
+  let uploadedPath = null;
+
+  try {
+
+    const originalName =
+    selectedPhotoFile.name ||
+    "photo.jpg";
+
+    const extension =
+    originalName.includes(".")
+    ?
+    originalName
+    .split(".")
+    .pop()
+    .toLowerCase()
+    :
+    "jpg";
+
+    const safeExtension =
+    extension
+    .replace(
+      /[^a-z0-9]/g,
+      ""
+    ) || "jpg";
+
+    const fileName =
+    `${Date.now()}-${photoType}.${safeExtension}`;
+
+    const storagePath =
+    `${currentUser.id}/${missionId}/${fileName}`;
+
+    const {
+      error:uploadError
+    } =
+    await sb.storage
+    .from(PHOTO_BUCKET)
+    .upload(
+      storagePath,
+      selectedPhotoFile,
+      {
+        cacheControl:"3600",
+        upsert:false,
+        contentType:
+        selectedPhotoFile.type ||
+        "image/jpeg"
+      }
+    );
+
+    if (uploadError) {
+
+      const text =
+      String(
+        uploadError.message ||
+        ""
+      ).toLowerCase();
+
+      if (
+        text.includes("bucket") ||
+        text.includes("not found")
+      ) {
+
+        throw new Error(
+          "Le stockage des photos n'est pas encore configuré dans Supabase."
+        );
+      }
+
+      throw uploadError;
+    }
+
+    uploadedPath =
+    storagePath;
+
+    const {
+      error:databaseError
+    } =
+    await sb
+    .from("mission_photos")
+    .insert({
+
+      mission_id:
+      missionId,
+
+      employee_id:
+      currentUser.id,
+
+      photo_type:
+      photoType,
+
+      storage_path:
+      storagePath
+
+    });
+
+    if (databaseError) {
+
+      await sb.storage
+      .from(PHOTO_BUCKET)
+      .remove([
+        storagePath
+      ]);
+
+      uploadedPath = null;
+
+      const text =
+      String(
+        databaseError.message ||
+        ""
+      ).toLowerCase();
+
+      if (
+        databaseError.code === "42P01" ||
+        text.includes("schema cache") ||
+        text.includes("does not exist") ||
+        text.includes("could not find")
+      ) {
+
+        throw new Error(
+          "La table mission_photos doit encore être configurée dans Supabase."
+        );
+      }
+
+      throw databaseError;
+    }
+
+    $("photoMessage").textContent =
+    "Photo envoyée avec succès ✅";
+
+    clearSelectedPhoto();
+
+    await loadPhotos();
+
+  } catch(error) {
+
+    if (uploadedPath) {
+
+      try {
+
+        await sb.storage
+        .from(PHOTO_BUCKET)
+        .remove([
+          uploadedPath
+        ]);
+
+      } catch (_) {}
+    }
+
+    $("photoError").textContent =
+    error.message ||
+    "Impossible d'envoyer la photo.";
+
+  } finally {
+
+    button.disabled = false;
+
+    button.textContent =
+    "Envoyer la photo";
+  }
+}
+
+
+/* ==============================
+   LOAD PHOTOS
+============================== */
+
+async function loadPhotos() {
+
+  const target =
+  $("photosList");
+
+  target.innerHTML =
+  "<p>Chargement...</p>";
+
+  let query =
+  sb
+  .from("mission_photos")
+  .select(`
+    id,
+    mission_id,
+    employee_id,
+    photo_type,
+    storage_path,
+    created_at
+  `)
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
+
+  if (
+    currentRole === "employee" &&
+    currentUser
+  ) {
+
+    query =
+    query.eq(
+      "employee_id",
+      currentUser.id
+    );
+  }
+
+  const {
+    data,
+    error
+  } =
+  await query;
+
+  if (error) {
+
+    const text =
+    String(
+      error.message ||
+      ""
+    ).toLowerCase();
+
+    if (
+      error.code === "42P01" ||
+      text.includes("schema cache") ||
+      text.includes("does not exist") ||
+      text.includes("could not find")
+    ) {
+
+      target.innerHTML = `
+
+        <p>
+          La section Photos est prête.
+          La configuration Supabase doit encore être terminée.
+        </p>
+      `;
+
+      return;
+    }
+
+    target.innerHTML = `
+
+      <p class="error">
+        ${esc(error.message)}
+      </p>
+    `;
+
+    return;
+  }
+
+  if (!data?.length) {
+
+    target.innerHTML =
+    "<p>Aucune photo.</p>";
+
+    return;
+  }
+
+  const missionIds =
+  [
+    ...new Set(
+      data
+      .map(row =>
+        row.mission_id
+      )
+      .filter(Boolean)
+    )
+  ];
+
+  let missions = {};
+
+  if (missionIds.length) {
+
+    const {
+      data:missionData
+    } =
+    await sb
+    .from("missions")
+    .select(
+      "id,title"
+    )
+    .in(
+      "id",
+      missionIds
+    );
+
+    (missionData || [])
+    .forEach(mission => {
+
+      missions[
+        mission.id
+      ] =
+      mission.title;
+
+    });
+  }
+
+  const photoCards = [];
+
+  for (const row of data) {
+
+    let signedUrl = "";
+
+    if (row.storage_path) {
+
+      const {
+        data:signedData
+      } =
+      await sb.storage
+      .from(PHOTO_BUCKET)
+      .createSignedUrl(
+        row.storage_path,
+        3600
+      );
+
+      signedUrl =
+      signedData?.signedUrl ||
+      "";
+    }
+
+    photoCards.push(`
+
+      <div class="item">
+
+        <h3>
+          📷
+          ${esc(
+            missions[
+              row.mission_id
+            ] ||
+            "Mission"
+          )}
+        </h3>
+
+        <span class="photo-type-badge">
+
+          ${
+            row.photo_type === "after"
+            ?
+            "Après"
+            :
+            "Avant"
+          }
+
+        </span>
+
+        ${
+          signedUrl
+          ?
+          `<img
+            class="photo-card-image"
+            src="${esc(signedUrl)}"
+            alt="Photo de mission">`
+          :
+          `<p>
+            Aperçu indisponible.
+          </p>`
+        }
+
+        <div style="margin-top:10px">
+
+          ${esc(
+            dt(
+              row.created_at
+            )
+          )}
+
+        </div>
+
+        ${
+          currentRole === "admin"
+          ?
+          `<button
+            class="danger"
+            onclick="deleteMissionPhoto(
+              '${row.id}',
+              '${esc(row.storage_path || "")}'
+            )">
+
+            🗑 Supprimer la photo
+
+          </button>`
+          :
+          ""
+        }
+
+      </div>
+    `);
+  }
+
+  target.innerHTML =
+  photoCards.join("");
+}
+
+
+/* ==============================
+   DELETE PHOTO
+============================== */
+
+async function deleteMissionPhoto(
+  photoId,
+  storagePath
+) {
+
+  if (currentRole !== "admin") {
+
+    alert(
+      "Action non autorisée."
+    );
+
+    return;
+  }
+
+  if (
+    !confirm(
+      "Voulez-vous vraiment supprimer cette photo ?"
+    )
+  ) {
+
+    return;
+  }
+
+  const {
+    error:databaseError
+  } =
+  await sb
+  .from("mission_photos")
+  .delete()
+  .eq(
+    "id",
+    photoId
+  );
+
+  if (databaseError) {
+
+    alert(
+      "Suppression impossible : " +
+      databaseError.message
+    );
+
+    return;
+  }
+
+  if (storagePath) {
+
+    await sb.storage
+    .from(PHOTO_BUCKET)
+    .remove([
+      storagePath
+    ]);
+  }
+
+  await loadPhotos();
+}
+
+
+/* ==============================
+   WIRE APP
+============================== */
+
+function wire() {
+
+  $("loginButton").onclick =
+  login;
+
+  $("forgotButton").onclick =
+  forgotPassword;
+
+  $("savePasswordButton").onclick =
+  saveNewPassword;
+
+  $("adminLogoutButton").onclick =
+  logout;
+
+  $("employeeLogoutButton").onclick =
+  logout;
+
+
+  $("showRegisterButton").onclick =
+  () => {
+
+    $("login").style.display =
+    "none";
+
+    $("registerEmployee")
+    .style.display =
+    "block";
+
+    $("areaTitle").textContent =
+    "Créer un compte";
+  };
+
+
+  $("backToLoginButton").onclick =
+  () => {
+
+    $("registerEmployee")
+    .style.display =
+    "none";
+
+    $("login").style.display =
+    "block";
+
+    $("areaTitle").textContent =
+    "Connexion";
+  };
+
+
+  $("registerButton").onclick =
+  registerEmployee;
+
+
+  $("toggleEmployeeForm").onclick =
+  () => {
+
+    const form =
+    $("employeeForm");
+
+    form.style.display =
+    form.style.display === "none"
+    ?
+    "block"
+    :
+    "none";
+  };
+
+
+  $("createEmployeeButton").onclick =
+  createEmployee;
+
+  $("createMissionButton").onclick =
+  createMission;
+
+  $("startWorkButton").onclick =
+  startWork;
+
+  $("finishWorkButton").onclick =
+  finishWork;
+
+  $("requestAbsenceButton").onclick =
+  requestAbsence;
+
+  $("reportProblemButton").onclick =
+  reportProblem;
+
+
+  $("backToMissionsButton").onclick =
+  async () => {
+
+    go(
+      "employeeMissionsPage",
+      "Mes missions"
+    );
+
+    await loadEmployeeMissions();
+  };
+
+
+  $("newPaymentButton").onclick =
+  openNewPaymentForm;
+
+  $("cancelPaymentButton").onclick =
+  cancelPaymentForm;
+
+  $("savePaymentButton").onclick =
+  savePayment;
+
+  $("paymentHours").oninput =
+  calculatePaymentAmount;
+
+  $("paymentHourlyRate").oninput =
+  calculatePaymentAmount;
+
+
+  $("takePhotoButton").onclick =
+  () => {
+
+    $("cameraPhotoInput").click();
+  };
+
+
+  $("choosePhotoButton").onclick =
+  () => {
+
+    $("galleryPhotoInput").click();
+  };
+
+
+  $("cameraPhotoInput").onchange =
+  event => {
+
+    selectPhoto(
+      event.target.files?.[0]
+    );
+  };
+
+
+  $("galleryPhotoInput").onchange =
+  event => {
+
+    selectPhoto(
+      event.target.files?.[0]
+    );
+  };
+
+
+  $("cancelPhotoButton").onclick =
+  clearSelectedPhoto;
+
+
+  $("uploadPhotoButton").onclick =
+  uploadMissionPhoto;
+
+
+  document
+  .querySelectorAll(
+    ".homeBtn"
+  )
+  .forEach(button => {
+
+    button.onclick =
+    home;
+
+  });
+
+
+  document
+  .querySelectorAll(
+    "[data-back]"
+  )
+  .forEach(button => {
+
+    button.onclick =
+    home;
+
+  });
+
+
+  document
+  .querySelectorAll(
+    "[data-nav]"
+  )
+  .forEach(tile => {
+
+    tile.onclick =
+    async () => {
+
+      const navigation =
+      tile.dataset.nav;
+
+
+      if (
+        navigation ===
+        "employees"
+      ) {
+
+        go(
+          "employeesPage",
+          "Employés"
+        );
+
+        await loadEmployees();
+      }
+
+
+      if (
+        navigation ===
+        "planning"
+      ) {
+
+        go(
+          "planningPage",
+          "Planning"
+        );
+
+        await loadMissions(
+          "planningList"
+        );
+      }
+
+
+      if (
+        navigation ===
+        "missions"
+      ) {
+
+        go(
+          "missionsPage",
+          "Missions"
+        );
+
+        await prepareMissions();
+      }
+
+
+      if (
+        navigation ===
+        "hours"
+      ) {
+
+        go(
+          "hoursPage",
+          "Heures"
+        );
+
+        await loadHours();
+      }
+
+
+      if (
+        navigation ===
+        "absences"
+      ) {
+
+        go(
+          "absencesPage",
+          "Absences"
+        );
+
+        await loadAbsences(
+          true
+        );
+      }
+
+
+      if (
+        navigation ===
+        "photos" ||
+        navigation ===
+        "employeePhotos"
+      ) {
+
+        await openPhotosPage();
+      }
+
+
+      if (
+        navigation ===
+        "problems"
+      ) {
+
+        go(
+          "problemsPage",
+          "Problèmes"
+        );
+
+        await loadProblems();
+      }
+
+
+      if (
+        navigation ===
+        "reports"
+      ) {
+
+        go(
+          "reportsPage",
+          "Rapports"
+        );
+
+        await loadReports();
+      }
+
+
+      if (
+        navigation ===
+        "payments"
+      ) {
+
+        go(
+          "paymentsPage",
+          "Paiements"
+        );
+
+        await loadPayments();
+      }
+
+
+      if (
+        navigation ===
+        "employeeMissions"
+      ) {
+
+        go(
+          "employeeMissionsPage",
+          "Mes missions"
+        );
+
+        await loadEmployeeMissions();
+      }
+
+
+      if (
+        navigation ===
+        "employeeAbsences"
+      ) {
+
+        go(
+          "employeeAbsencePage",
+          "Mes absences"
+        );
+
+        await loadAbsences(
+          false
+        );
+      }
+
+
+      if (
+        navigation ===
+        "employeeHours
