@@ -5133,4 +5133,451 @@ async function savePayment() {
   ) {
 
     $("paymentError").textContent =
-    "
+    "La date de fin doit être après la date de début.";
+
+    return;
+  }
+
+
+  if (!paymentDate) {
+
+    $("paymentError").textContent =
+    "Choisissez la date du paiement.";
+
+    return;
+  }
+
+
+  const button =
+  $("savePaymentButton");
+
+  button.disabled = true;
+  button.textContent = "Enregistrement...";
+
+
+  try {
+
+    const {error} =
+    await sb
+    .from("payments")
+    .insert({
+
+      employee_id:
+      employeeId,
+
+      period_start:
+      periodStart,
+
+      period_end:
+      periodEnd,
+
+      hours,
+
+      hourly_rate:
+      hourlyRate,
+
+      amount,
+
+      payment_date:
+      paymentDate,
+
+      payment_method:
+      paymentMethod,
+
+      notes:
+      notes || null
+
+    });
+
+
+    if (error) {
+
+      const message =
+      String(
+        error.message || ""
+      ).toLowerCase();
+
+
+      if (
+        error.code === "42P01" ||
+        message.includes("schema cache") ||
+        message.includes("does not exist") ||
+        message.includes("could not find")
+      ) {
+
+        throw new Error(
+          "La configuration Supabase des paiements n'est pas encore terminée."
+        );
+      }
+
+
+      throw error;
+    }
+
+
+    $("paymentMessage").textContent =
+    "Reçu enregistré avec succès ✅";
+
+
+    await loadPayments();
+
+
+    setTimeout(() => {
+
+      $("paymentForm").style.display =
+      "none";
+
+      resetPaymentForm();
+
+    }, 800);
+
+
+  } catch(error) {
+
+    $("paymentError").textContent =
+    error.message ||
+    "Impossible d'enregistrer le reçu.";
+
+
+  } finally {
+
+    button.disabled = false;
+
+    button.textContent =
+    "Enregistrer le reçu";
+  }
+}
+
+
+/* ==============================
+   LOAD PAYMENTS
+============================== */
+
+async function loadPayments() {
+
+  const target =
+  $("paymentsList");
+
+
+  target.innerHTML =
+  '<div class="card"><p>Chargement...</p></div>';
+
+
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from("payments")
+  .select(`
+    id,
+    employee_id,
+    period_start,
+    period_end,
+    hours,
+    hourly_rate,
+    amount,
+    payment_date,
+    payment_method,
+    notes,
+    created_at
+  `)
+  .order(
+    "payment_date",
+    {
+      ascending:false
+    }
+  );
+
+
+  if (error) {
+
+    const message =
+    String(
+      error.message || ""
+    ).toLowerCase();
+
+
+    if (
+      error.code === "42P01" ||
+      message.includes("schema cache") ||
+      message.includes("does not exist") ||
+      message.includes("could not find")
+    ) {
+
+      target.innerHTML = `
+
+        <div class="card">
+
+          <p>
+            La section Paiements est prête.
+          </p>
+
+          <p>
+            La table Supabase
+            <b>payments</b>
+            doit encore être configurée.
+          </p>
+
+        </div>
+      `;
+
+      return;
+    }
+
+
+    target.innerHTML = `
+
+      <div class="card">
+
+        <p class="error">
+          ${esc(error.message)}
+        </p>
+
+      </div>
+    `;
+
+    return;
+  }
+
+
+  if (!data?.length) {
+
+    target.innerHTML = `
+
+      <div class="card">
+
+        <p>
+          Aucun reçu de paiement.
+        </p>
+
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const employeeIds =
+  [
+    ...new Set(
+      data
+      .map(row =>
+        row.employee_id
+      )
+      .filter(Boolean)
+    )
+  ];
+
+
+  let employees = {};
+
+
+  if (employeeIds.length) {
+
+    const {
+      data:profiles
+    } =
+    await sb
+    .from("profiles")
+    .select(
+      "id,full_name"
+    )
+    .in(
+      "id",
+      employeeIds
+    );
+
+
+    (profiles || [])
+    .forEach(profile => {
+
+      employees[
+        profile.id
+      ] =
+      profile.full_name;
+
+    });
+  }
+
+
+  target.innerHTML =
+  data.map(row => `
+
+    <div class="card">
+
+      <h3>
+        💶
+        ${esc(
+          employees[
+            row.employee_id
+          ] ||
+          "Employé"
+        )}
+      </h3>
+
+      <div>
+        <b>Période :</b>
+        ${esc(row.period_start)}
+        →
+        ${esc(row.period_end)}
+      </div>
+
+      <div>
+        <b>Heures :</b>
+        ${esc(row.hours)}
+      </div>
+
+      <div>
+        <b>Taux horaire :</b>
+        ${esc(row.hourly_rate)}
+        €
+      </div>
+
+      <div>
+        <b>Montant :</b>
+        ${esc(row.amount)}
+        €
+      </div>
+
+      <div>
+        <b>Date du paiement :</b>
+        ${esc(row.payment_date)}
+      </div>
+
+      <div>
+        <b>Méthode :</b>
+        ${esc(
+          row.payment_method ||
+          "—"
+        )}
+      </div>
+
+      ${
+        row.notes
+        ?
+        `<div>
+          <b>Notes :</b>
+          ${esc(row.notes)}
+        </div>`
+        :
+        ""
+      }
+
+      <button
+        class="danger"
+        onclick="deletePayment('${row.id}')">
+
+        🗑 Supprimer le reçu
+
+      </button>
+
+    </div>
+
+  `).join("");
+}
+
+
+/* ==============================
+   DELETE PAYMENT
+============================== */
+
+async function deletePayment(id) {
+
+  if (currentRole !== "admin") {
+
+    alert(
+      "Action non autorisée."
+    );
+
+    return;
+  }
+
+
+  if (
+    !confirm(
+      "Voulez-vous vraiment supprimer ce reçu ?"
+    )
+  ) {
+
+    return;
+  }
+
+
+  const {error} =
+  await sb
+  .from("payments")
+  .delete()
+  .eq(
+    "id",
+    id
+  );
+
+
+  if (error) {
+
+    alert(
+      "Suppression impossible : " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  await loadPayments();
+}
+
+
+/* ==============================
+   PHOTO SYSTEM
+============================== */
+
+function clearSelectedPhoto() {
+
+  selectedPhotoFile = null;
+
+
+  if (selectedPhotoPreviewUrl) {
+
+    URL.revokeObjectURL(
+      selectedPhotoPreviewUrl
+    );
+
+    selectedPhotoPreviewUrl = null;
+  }
+
+
+  const preview =
+  $("photoPreview");
+
+
+  if (preview) {
+    preview.removeAttribute("src");
+  }
+
+
+  if ($("photoPreviewBox")) {
+
+    $("photoPreviewBox")
+    .style.display = "none";
+  }
+
+
+  if ($("photoFileInfo")) {
+
+    $("photoFileInfo")
+    .textContent = "";
+  }
+
+
+  if ($("cameraPhotoInput")) {
+
+    $("cameraPhotoInput").value = "";
+  }
+
+
+  if ($("galleryPhotoInput")) {
+
+    $("galleryPhotoInput").value = "";
+  }    
