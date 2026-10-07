@@ -3,15 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="manifest" href="./manifest.json">
+
 <meta name="theme-color" content="#10aaa7">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="H Cleaning">
+
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./icon-192.png">
+
 <title>H Cleaning Services</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 * {
   box-sizing: border-box;
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
@@ -22,13 +31,14 @@ body {
   min-height: 100vh;
   color: #f4f8ff;
 
-background:
-  radial-gradient(circle at 15% 0%, rgba(20, 184, 190, 0.16), transparent 35%),
-  radial-gradient(circle at 90% 10%, rgba(55, 100, 220, 0.18), transparent 38%),
-  linear-gradient(160deg, #071426 0%, #0b1d38 50%, #0a1730 100%);
+  background:
+    radial-gradient(circle at 15% 0%, rgba(20, 184, 190, 0.16), transparent 35%),
+    radial-gradient(circle at 90% 10%, rgba(55, 100, 220, 0.18), transparent 38%),
+    linear-gradient(160deg, #071426 0%, #0b1d38 50%, #0a1730 100%);
 
-background-attachment: fixed;
+  background-attachment: fixed;
 }
+
 .header {
   margin: 12px;
   padding: 14px 18px;
@@ -67,21 +77,20 @@ background-attachment: fixed;
 }
 
 .card {
-  
-background: linear-gradient(
-  145deg,
-  rgba(25, 48, 88, 0.96),
-  rgba(15, 34, 67, 0.96)
-);
-color: #f4f8ff;
+  background: linear-gradient(
+    145deg,
+    rgba(25, 48, 88, 0.96),
+    rgba(15, 34, 67, 0.96)
+  );
 
-                   
+  color: #f4f8ff;
+
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
   padding: 14px 16px;
-border-radius: 20px;
-margin-top: 12px;
+  border-radius: 20px;
+  margin-top: 12px;
 
   border: 1px solid rgba(94, 234, 212, 0.16);
 
@@ -89,7 +98,7 @@ margin-top: 12px;
     0 10px 30px rgba(16, 70, 110, 0.10),
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
-  
+
 input,
 select,
 textarea {
@@ -112,11 +121,13 @@ textarea {
 
   transition: 0.2s ease;
 }
+
 input::placeholder,
 textarea::placeholder {
   color: #8fa6bd;
   opacity: 1;
 }
+
 input:focus,
 select:focus,
 textarea:focus {
@@ -178,17 +189,17 @@ button:disabled {
 
 .link {
   background: transparent;
-  color: #1677c8;
+  color: #5fc5ff;
 }
 
 .error {
-  color: #c62828;
+  color: #ff858f;
   font-weight: bold;
   margin-top: 10px;
 }
 
 .success {
-  color: #158447;
+  color: #64e89a;
   font-weight: bold;
   margin-top: 10px;
 }
@@ -211,7 +222,7 @@ button:disabled {
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-  .grid {
+.grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
@@ -220,19 +231,21 @@ button:disabled {
 
 .tile {
   position: relative;
-  
-min-height: 105px;
-padding: 14px 10px;
+
+  min-height: 105px;
+  padding: 14px 10px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   background: linear-gradient(
-  145deg,
-  rgba(28, 54, 96, 0.96),
-  rgba(16, 37, 72, 0.96)
-);
+    145deg,
+    rgba(28, 54, 96, 0.96),
+    rgba(16, 37, 72, 0.96)
+  );
+
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 
@@ -253,7 +266,7 @@ padding: 14px 10px;
   transform: scale(0.97);
 }
 
-  .tile .icon {
+.tile .icon {
   width: 48px;
   height: 48px;
   margin-bottom: 8px;
@@ -277,15 +290,17 @@ padding: 14px 10px;
     0 6px 18px rgba(0, 190, 180, 0.10),
     inset 0 1px 0 rgba(255, 255, 255, 0.10);
 }
+
 .tile .icon svg {
   width: 25px;
   height: 25px;
   fill: none;
-  stroke: #087f83;
+  stroke: #20c9be;
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
 .tile strong,
 .tile small {
   display: block;
@@ -306,8 +321,6 @@ padding: 14px 10px;
   line-height: 1.3;
   font-weight: 500;
 }
-
-
 
 .item {
   background: linear-gradient(
@@ -365,11 +378,67 @@ padding: 14px 10px;
   margin: 0;
 }
 
+/* PHOTO SYSTEM */
+
+.photo-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.photo-input {
+  display: none;
+}
+
+.photo-preview-box {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(8, 25, 50, 0.65);
+  border: 1px solid rgba(94, 234, 212, 0.20);
+}
+
+.photo-preview-box img {
+  display: block;
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: 13px;
+}
+
+.photo-card-image {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-top: 10px;
+  background: rgba(8, 25, 50, 0.7);
+}
+
+.photo-type-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: rgba(32, 201, 190, 0.14);
+  border: 1px solid rgba(94, 234, 212, 0.22);
+  color: #5eead4;
+  font-weight: 700;
+}
+
 @media(max-width:520px) {
+
   .row {
     flex-direction: column;
   }
+
+  .photo-actions {
+    grid-template-columns: 1fr;
+  }
 }
+
 </style>
 </head>
 
@@ -382,359 +451,430 @@ padding: 14px 10px;
 
 <div class="container">
 
-<!-- LOGIN -->
+<!-- =========================
+     LOGIN
+========================= -->
 
 <div id="login" class="card">
 
-<h2>Connexion</h2>
+  <h2>Connexion</h2>
 
-<input
-  id="email"
-  type="email"
-  placeholder="Adresse e-mail"
-  autocomplete="email">
+  <input
+    id="email"
+    type="email"
+    placeholder="Adresse e-mail"
+    autocomplete="email">
 
-<input
-  id="password"
-  type="password"
-  placeholder="Mot de passe"
-  autocomplete="current-password">
+  <input
+    id="password"
+    type="password"
+    placeholder="Mot de passe"
+    autocomplete="current-password">
 
-<button id="loginButton">
-Se connecter
-</button>
+  <button id="loginButton">
+    Se connecter
+  </button>
 
-<button id="forgotButton" class="link">
-Mot de passe oublié ?
-</button>
-<button id="showRegisterButton" class="blue">
-Créer un compte employé
-</button>
-<div id="error" class="error"></div>
-<div id="message" class="success"></div>
+  <button id="forgotButton" class="link">
+    Mot de passe oublié ?
+  </button>
+
+  <button id="showRegisterButton" class="blue">
+    Créer un compte employé
+  </button>
+
+  <div id="error" class="error"></div>
+  <div id="message" class="success"></div>
 
 </div>
-<!-- EMPLOYEE REGISTRATION -->
+
+
+<!-- =========================
+     EMPLOYEE REGISTRATION
+========================= -->
 
 <div id="registerEmployee" class="card" style="display:none">
 
-<h2>Créer mon compte</h2>
+  <h2>Créer mon compte</h2>
 
-<p>Inscription employé H Cleaning Services</p>
+  <p>Inscription employé H Cleaning Services</p>
 
-<input
-  id="registerName"
-  placeholder="Nom et prénom">
+  <input
+    id="registerName"
+    placeholder="Nom et prénom">
 
-<input
-  id="registerEmail"
-  type="email"
-  placeholder="Adresse e-mail">
+  <input
+    id="registerEmail"
+    type="email"
+    placeholder="Adresse e-mail">
 
-<input
-  id="registerPhone"
-  type="tel"
-  placeholder="Téléphone">
+  <input
+    id="registerPhone"
+    type="tel"
+    placeholder="Téléphone">
 
-<input
-  id="registerPassword"
-  type="password"
-  placeholder="Mot de passe (min. 6 caractères)">
+  <input
+    id="registerPassword"
+    type="password"
+    placeholder="Mot de passe (min. 8 caractères)">
 
-<input
-  id="registerPasswordConfirm"
-  type="password"
-  placeholder="Confirmer le mot de passe">
+  <input
+    id="registerPasswordConfirm"
+    type="password"
+    placeholder="Confirmer le mot de passe">
 
-<button id="registerButton" class="blue">
-Créer mon compte
-</button>
+  <button id="registerButton" class="blue">
+    Créer mon compte
+  </button>
 
-<button id="backToLoginButton" class="link">
-← Retour à la connexion
-</button>
+  <button id="backToLoginButton" class="link">
+    ← Retour à la connexion
+  </button>
 
-<div id="registerError" class="error"></div>
-<div id="registerMessage" class="success"></div>
+  <div id="registerError" class="error"></div>
+  <div id="registerMessage" class="success"></div>
 
 </div>
 
-<!-- RESET PASSWORD -->
+
+<!-- =========================
+     RESET PASSWORD
+========================= -->
 
 <div id="resetPassword" class="card">
 
-<h2>Nouveau mot de passe</h2>
+  <h2>Nouveau mot de passe</h2>
 
-<input
-  id="newPassword"
-  type="password"
-  placeholder="Nouveau mot de passe">
+  <input
+    id="newPassword"
+    type="password"
+    placeholder="Nouveau mot de passe">
 
-<input
-  id="confirmPassword"
-  type="password"
-  placeholder="Confirmer le mot de passe">
+  <input
+    id="confirmPassword"
+    type="password"
+    placeholder="Confirmer le mot de passe">
 
-<button id="savePasswordButton">
-Enregistrer
-</button>
+  <button id="savePasswordButton">
+    Enregistrer
+  </button>
 
-<div id="resetError" class="error"></div>
-<div id="resetMessage" class="success"></div>
+  <div id="resetError" class="error"></div>
+  <div id="resetMessage" class="success"></div>
 
 </div>
 
 
-<!-- ADMIN DASHBOARD -->
+<!-- =========================
+     ADMIN DASHBOARD
+========================= -->
 
 <div id="adminDashboard">
 
-<div class="card">
+  <div class="card">
 
-<h2 id="adminWelcome">
-Bonjour 👋
-</h2>
+    <h2 id="adminWelcome">
+      Bonjour 👋
+    </h2>
 
-<p>Tableau de bord administrateur</p>
+    <p>Tableau de bord administrateur</p>
 
-<span class="badge">
-★ Administrateur
-</span>
+    <span class="badge">
+      ★ Administrateur
+    </span>
 
-</div>
-
-
-<div class="card">
-
-<h2>Gestion H Cleaning</h2>
-
-<div class="grid">
-
-<div class="tile" data-nav="employees">
-<div class="icon">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-    <circle cx="9" cy="7" r="4"/>
-    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-  </svg>
-</div>
-<strong>Employés</strong>
-<small>Gérer l'équipe</small>
-</div>
-
-<div class="tile" data-nav="planning">
-<div class="icon">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <rect x="3" y="5" width="18" height="16" rx="2"/>
-    <path d="M16 3v4M8 3v4M3 10h18"/>
-    <path d="M8 14h2M14 14h2M8 18h2M14 18h2"/>
-  </svg>
-</div>
-<strong>Planning</strong>
-<small>Voir le planning</small>
-</div>
-
-<div class="tile" data-nav="missions">
-<div class="icon">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M9 11l3 3L22 4"/>
-    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-  </svg>
-</div>
-<strong>Missions</strong>
-<small>Créer / gérer</small>
-</div>
-
-<div class="tile" data-nav="hours">
-<div class="icon">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="12" cy="13" r="8"/>
-    <path d="M12 9v4l3 2"/>
-    <path d="M9 2h6"/>
-    <path d="M12 2v3"/>
-  </svg>
-</div>
-<strong>Heures</strong>
-<small>Temps de travail</small>
-</div>
-
-<div class="tile" data-nav="absences">
-<div class="icon">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M8 2v3M16 2v3"/>
-    <rect x="3" y="4" width="18" height="17" rx="2"/>
-    <path d="M3 9h18"/>
-    <path d="M8 14l2 2 5-5"/>
-  </svg>
-</div>
-<strong>Absences</strong>
-<small>Demandes</small>
-</div>
-
-<div class="tile" data-nav="photos">
-  <div class="icon">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M14.5 4l1.5 2H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l1.5-2z"/>
-    <circle cx="12" cy="13" r="4"/>
-  </svg>
-</div>
-<strong>Photos</strong>
-<small>Avant / Après</small>
-</div>
-
-<div class="tile" data-nav="problems">
-<div class="icon">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M10.3 3.7L2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0z"/>
-    <path d="M12 9v4"/>
-    <path d="M12 17h.01"/>
-  </svg>
-</div>
-<strong>Problèmes</strong>
-<small>Incidents</small>
-</div>
-
-<div class="tile" data-nav="reports">
-<div class="icon">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M4 20V10"/>
-    <path d="M10 20V4"/>
-    <path d="M16 20v-7"/>
-    <path d="M22 20H2"/>
-  </svg>
-</div>
-<strong>Rapports</strong>
-<small>Vue générale</small>
-</div>
-<div class="tile" data-nav="payments">
-  <div class="icon">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <rect x="3" y="5" width="18" height="14" rx="2"/>
-      <path d="M3 9h18"/>
-      <path d="M7 15h4"/>
-      <path d="M17 13v4"/>
-      <path d="M15 15h4"/>
-    </svg>
   </div>
-  <strong>Paiements</strong>
-  <small>Reçus des employés</small>
+
+
+  <div class="card">
+
+    <h2>Gestion H Cleaning</h2>
+
+    <div class="grid">
+
+      <div class="tile" data-nav="employees">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <strong>Employés</strong>
+        <small>Gérer l'équipe</small>
+      </div>
+
+
+      <div class="tile" data-nav="planning">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="5" width="18" height="16" rx="2"/>
+            <path d="M16 3v4M8 3v4M3 10h18"/>
+            <path d="M8 14h2M14 14h2M8 18h2M14 18h2"/>
+          </svg>
+        </div>
+        <strong>Planning</strong>
+        <small>Voir le planning</small>
+      </div>
+
+
+      <div class="tile" data-nav="missions">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+        <strong>Missions</strong>
+        <small>Créer / gérer</small>
+      </div>
+
+
+      <div class="tile" data-nav="hours">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="13" r="8"/>
+            <path d="M12 9v4l3 2"/>
+            <path d="M9 2h6"/>
+            <path d="M12 2v3"/>
+          </svg>
+        </div>
+        <strong>Heures</strong>
+        <small>Temps de travail</small>
+      </div>
+
+
+      <div class="tile" data-nav="absences">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 2v3M16 2v3"/>
+            <rect x="3" y="4" width="18" height="17" rx="2"/>
+            <path d="M3 9h18"/>
+            <path d="M8 14l2 2 5-5"/>
+          </svg>
+        </div>
+        <strong>Absences</strong>
+        <small>Demandes</small>
+      </div>
+
+
+      <div class="tile" data-nav="photos">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M14.5 4l1.5 2H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l1.5-2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+        <strong>Photos</strong>
+        <small>Avant / Après</small>
+      </div>
+
+
+      <div class="tile" data-nav="problems">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M10.3 3.7L2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0z"/>
+            <path d="M12 9v4"/>
+            <path d="M12 17h.01"/>
+          </svg>
+        </div>
+        <strong>Problèmes</strong>
+        <small>Incidents</small>
+      </div>
+
+
+      <div class="tile" data-nav="reports">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 20V10"/>
+            <path d="M10 20V4"/>
+            <path d="M16 20v-7"/>
+            <path d="M22 20H2"/>
+          </svg>
+        </div>
+        <strong>Rapports</strong>
+        <small>Vue générale</small>
+      </div>
+
+
+      <div class="tile" data-nav="payments">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="5" width="18" height="14" rx="2"/>
+            <path d="M3 9h18"/>
+            <path d="M7 15h4"/>
+            <path d="M17 13v4"/>
+            <path d="M15 15h4"/>
+          </svg>
+        </div>
+        <strong>Paiements</strong>
+        <small>Reçus des employés</small>
+      </div>
+
+    </div>
+
+    <button id="adminLogoutButton" class="blue">
+      Se déconnecter
+    </button>
+
+  </div>
+
 </div>
-</div>
-
-<button
-  id="adminLogoutButton"
-  class="blue">
-Se déconnecter
-</button>
-
-</div>
-
-</div>
 
 
-<!-- EMPLOYEE DASHBOARD -->
+<!-- =========================
+     EMPLOYEE DASHBOARD
+========================= -->
 
 <div id="employeeDashboard">
 
-<div class="card">
+  <div class="card">
 
-<h2 id="employeeWelcome">
-Bonjour 👋
-</h2>
+    <h2 id="employeeWelcome">
+      Bonjour 👋
+    </h2>
 
-<p>
-Vos missions et outils de travail.
-</p>
+    <p>
+      Vos missions et outils de travail.
+    </p>
 
-<span class="badge">
-● Employé
-</span>
+    <span class="badge">
+      ● Employé
+    </span>
 
-</div>
-
-<div class="card">
-
-  <h2>Mon espace de travail</h2>
-
-  <div class="grid">
-
-    <div class="tile" data-nav="employeeMissions">
-      <div class="icon">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M9 11l3 3L22 4"/>
-          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-        </svg>
-      </div>
-      <strong>Mes missions</strong>
-      <small>Voir mes tâches</small>
-    </div>
-
-    <div class="tile" data-nav="employeeAbsences">
-      <div class="icon">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M8 2v3M16 2v3"/>
-          <rect x="3" y="4" width="18" height="17" rx="2"/>
-          <path d="M3 9h18"/>
-          <path d="M8 14l2 2 5-5"/>
-        </svg>
-      </div>
-      <strong>Mes absences</strong>
-      <small>Gérer mes demandes</small>
-    </div>
-
-    <div class="tile" data-nav="employeeHours">
-      <div class="icon">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="13" r="8"/>
-          <path d="M12 9v4l3 2"/>
-          <path d="M9 2h6"/>
-          <path d="M12 2v3"/>
-        </svg>
-      </div>
-      <strong>Mes heures</strong>
-      <small>Temps de travail</small>
-    </div>
-
-    <div class="tile" data-nav="employeeProblems">
-  <div class="icon">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M10.3 3.7L2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0z"/>
-      <path d="M12 9v4"/>
-      <path d="M12 17h.01"/>
-    </svg>
   </div>
-  <strong>Signaler un problème</strong>
-  <small>Demander de l'aide</small>
-</div>
+
+
+  <div class="card">
+
+    <h2>Mon espace de travail</h2>
+
+    <div class="grid">
+
+
+      <div class="tile" data-nav="employeeMissions">
+
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+
+        <strong>Mes missions</strong>
+        <small>Voir mes tâches</small>
+
+      </div>
+
+
+      <div class="tile" data-nav="employeeAbsences">
+
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 2v3M16 2v3"/>
+            <rect x="3" y="4" width="18" height="17" rx="2"/>
+            <path d="M3 9h18"/>
+            <path d="M8 14l2 2 5-5"/>
+          </svg>
+        </div>
+
+        <strong>Mes absences</strong>
+        <small>Gérer mes demandes</small>
+
+      </div>
+
+
+      <div class="tile" data-nav="employeeHours">
+
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="13" r="8"/>
+            <path d="M12 9v4l3 2"/>
+            <path d="M9 2h6"/>
+            <path d="M12 2v3"/>
+          </svg>
+        </div>
+
+        <strong>Mes heures</strong>
+        <small>Temps de travail</small>
+
+      </div>
+
+
+      <div class="tile" data-nav="employeeProblems">
+
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M10.3 3.7L2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0z"/>
+            <path d="M12 9v4"/>
+            <path d="M12 17h.01"/>
+          </svg>
+        </div>
+
+        <strong>Signaler un problème</strong>
+        <small>Demander de l'aide</small>
+
+      </div>
+
+
+      <!-- NEW EMPLOYEE PHOTO BUTTON -->
+
+      <div class="tile" data-nav="employeePhotos">
+
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M14.5 4l1.5 2H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l1.5-2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+
+        <strong>Photos</strong>
+        <small>Avant / Après</small>
+
+      </div>
+
+    </div>
+
+
+    <button id="employeeLogoutButton" class="blue">
+      Se déconnecter
+    </button>
+
+  </div>
 
 </div>
 
-<button id="employeeLogoutButton" class="blue">
-  Se déconnecter
-</button>
 
-</div>
-</div>
-<!-- PAYMENTS -->
+<!-- =========================
+     PAYMENTS
+========================= -->
 
 <div id="paymentsPage" class="page">
 
   <div class="card">
+
     <h2>💶 Paiements</h2>
-    <p>Créer et gérer les reçus de paiement des employés.</p>
+
+    <p>
+      Créer et gérer les reçus de paiement des employés.
+    </p>
 
     <button id="newPaymentButton" class="blue">
       + Nouveau reçu
     </button>
+
   </div>
+
 
   <div id="paymentForm" class="card" style="display:none">
 
     <h3>Nouveau reçu de paiement</h3>
 
     <select id="paymentEmployee">
-      <option value="">Choisir un employé</option>
+      <option value="">
+        Choisir un employé
+      </option>
     </select>
 
     <label>Début de la période</label>
@@ -744,28 +884,46 @@ Vos missions et outils de travail.
     <input id="paymentPeriodEnd" type="date">
 
     <label>Nombre d'heures</label>
-    <input id="paymentHours" type="number" step="0.01" min="0">
+    <input
+      id="paymentHours"
+      type="number"
+      step="0.01"
+      min="0">
 
     <label>Taux horaire (€)</label>
-    <input id="paymentHourlyRate" type="number" step="0.01" min="0">
+    <input
+      id="paymentHourlyRate"
+      type="number"
+      step="0.01"
+      min="0">
 
     <label>Montant (€)</label>
-    <input id="paymentAmount" type="number" step="0.01" min="0">
+    <input
+      id="paymentAmount"
+      type="number"
+      step="0.01"
+      min="0">
 
     <label>Date du paiement</label>
     <input id="paymentDate" type="date">
 
     <label>Méthode de paiement</label>
+
     <select id="paymentMethod">
-      <option value="Virement bancaire">Virement bancaire</option>
-      <option value="Espèces">Espèces</option>
-      <option value="Autre">Autre</option>
+      <option value="Virement bancaire">
+        Virement bancaire
+      </option>
+      <option value="Espèces">
+        Espèces
+      </option>
+      <option value="Autre">
+        Autre
+      </option>
     </select>
 
     <textarea
       id="paymentNotes"
-      placeholder="Notes (facultatif)">
-    </textarea>
+      placeholder="Notes (facultatif)"></textarea>
 
     <button id="savePaymentButton">
       Enregistrer le reçu
@@ -780,6 +938,7 @@ Vos missions et outils de travail.
 
   </div>
 
+
   <div id="paymentsList"></div>
 
   <button class="blue" data-back>
@@ -788,361 +947,514 @@ Vos missions et outils de travail.
 
 </div>
 
-<!-- EMPLOYEES -->
+
+<!-- =========================
+     EMPLOYEES
+========================= -->
 
 <div id="employeesPage" class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2>👥 Employés</h2>
+    <h2>👥 Employés</h2>
 
-<button id="toggleEmployeeForm">
-+ Ajouter un employé
-</button>
+    <button id="toggleEmployeeForm">
+      + Ajouter un employé
+    </button>
 
-<div
-  id="employeeForm"
-  style="display:none">
+    <div id="employeeForm" style="display:none">
 
-<input
-  id="employeeName"
-  placeholder="Nom et prénom">
+      <input
+        id="employeeName"
+        placeholder="Nom et prénom">
 
-<input
-  id="employeeEmail"
-  type="email"
-  placeholder="Adresse e-mail">
+      <input
+        id="employeeEmail"
+        type="email"
+        placeholder="Adresse e-mail">
 
-<input
-  id="employeePhone"
-  placeholder="Téléphone">
+      <input
+        id="employeePhone"
+        placeholder="Téléphone">
 
-<input
-  id="employeePassword"
-  type="password"
-  placeholder="Mot de passe (min. 6 caractères)">
+      <input
+        id="employeePassword"
+        type="password"
+        placeholder="Mot de passe (min. 6 caractères)">
 
-<button id="createEmployeeButton">
-Créer l'employé
-</button>
+      <button id="createEmployeeButton">
+        Créer l'employé
+      </button>
 
-<div
-  id="employeeFormError"
-  class="error">
+      <div
+        id="employeeFormError"
+        class="error">
+      </div>
+
+      <div
+        id="employeeFormMessage"
+        class="success">
+      </div>
+
+    </div>
+
+    <div id="employeesList"></div>
+
+    <button class="blue homeBtn">
+      ← Retour
+    </button>
+
+  </div>
+
 </div>
 
-<div
-  id="employeeFormMessage"
-  class="success">
-</div>
 
-</div>
-
-<div id="employeesList"></div>
-
-<button class="blue homeBtn">
-← Retour
-</button>
-
-</div>
-</div>
-
-
-<!-- PLANNING -->
+<!-- =========================
+     PLANNING
+========================= -->
 
 <div id="planningPage" class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2>📅 Planning</h2>
+    <h2>📅 Planning</h2>
 
-<div id="planningList"></div>
+    <div id="planningList"></div>
 
-<button class="blue homeBtn">
-← Retour
-</button>
+    <button class="blue homeBtn">
+      ← Retour
+    </button>
+
+  </div>
 
 </div>
-</div>
 
 
-<!-- MISSIONS -->
+<!-- =========================
+     MISSIONS
+========================= -->
 
 <div id="missionsPage" class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2>🧹 Missions</h2>
+    <h2>🧹 Missions</h2>
 
-<input
-  id="missionTitle"
-  placeholder="Titre">
+    <input
+      id="missionTitle"
+      placeholder="Titre">
 
-<input
-  id="missionClient"
-  placeholder="Client">
+    <input
+      id="missionClient"
+      placeholder="Client">
 
-<input
-  id="missionAddress"
-  placeholder="Adresse">
+    <input
+      id="missionAddress"
+      placeholder="Adresse">
 
-<input
-  id="missionCity"
-  placeholder="Ville">
+    <input
+      id="missionCity"
+      placeholder="Ville">
 
-<input
-  id="missionDate"
-  type="date">
+    <input
+      id="missionDate"
+      type="date">
 
-<div class="row">
+    <div class="row">
 
-<input
-  id="missionStart"
-  type="time">
+      <input
+        id="missionStart"
+        type="time">
 
-<input
-  id="missionEnd"
-  type="time">
+      <input
+        id="missionEnd"
+        type="time">
+
+    </div>
+
+    <select id="missionEmployee">
+
+      <option value="">
+        Choisir un employé
+      </option>
+
+    </select>
+
+    <textarea
+      id="missionDescription"
+      placeholder="Instructions"></textarea>
+
+    <input
+      id="missionChecklist"
+      placeholder="Checklist séparée par des virgules">
+
+    <button id="createMissionButton">
+      Créer la mission
+    </button>
+
+    <div id="missionMsg"></div>
+
+    <div id="missionsList"></div>
+
+    <button class="blue homeBtn">
+      ← Retour
+    </button>
+
+  </div>
 
 </div>
 
-<select id="missionEmployee">
 
-<option value="">
-Choisir un employé
-</option>
-
-</select>
-
-<textarea
-  id="missionDescription"
-  placeholder="Instructions">
-</textarea>
-
-<input
-  id="missionChecklist"
-  placeholder="Checklist séparée par des virgules">
-
-<button id="createMissionButton">
-Créer la mission
-</button>
-
-<div id="missionMsg"></div>
-
-<div id="missionsList"></div>
-
-<button class="blue homeBtn">
-← Retour
-</button>
-
-</div>
-</div>
-
-
-<!-- HOURS -->
+<!-- =========================
+     HOURS ADMIN
+========================= -->
 
 <div id="hoursPage" class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2>⏱️ Heures</h2>
+    <h2>⏱️ Heures</h2>
 
-<div id="hoursList"></div>
+    <div id="hoursList"></div>
 
-<button class="blue homeBtn">
-← Retour
-</button>
+    <button class="blue homeBtn">
+      ← Retour
+    </button>
+
+  </div>
 
 </div>
-</div>
 
 
-<!-- ABSENCES ADMIN -->
+<!-- =========================
+     ABSENCES ADMIN
+========================= -->
 
 <div id="absencesPage" class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2>🏖️ Absences</h2>
+    <h2>🏖️ Absences</h2>
 
-<div id="absencesList"></div>
+    <div id="absencesList"></div>
 
-<button class="blue homeBtn">
-← Retour
-</button>
+    <button class="blue homeBtn">
+      ← Retour
+    </button>
+
+  </div>
 
 </div>
-</div>
 
 
-<!-- PHOTOS -->
+<!-- =========================
+     PHOTOS
+========================= -->
 
 <div id="photosPage" class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2>
-📷 Photos Avant / Après
-</h2>
+    <h2>📷 Photos Avant / Après</h2>
 
-<p>
-La section est prête.
-L'envoi des photos sera activé après
-la configuration de Supabase Storage.
-</p>
+    <p id="photoPageDescription">
+      Sélectionnez une mission puis prenez une photo
+      ou choisissez une photo dans votre galerie.
+    </p>
 
-<button class="blue homeBtn">
-← Retour
-</button>
+    <label>Mission</label>
+
+    <select id="photoMission">
+      <option value="">
+        Choisir une mission
+      </option>
+    </select>
+
+
+    <label>Type de photo</label>
+
+    <select id="photoType">
+
+      <option value="before">
+        Avant
+      </option>
+
+      <option value="after">
+        Après
+      </option>
+
+    </select>
+
+
+    <div class="photo-actions">
+
+      <button
+        id="takePhotoButton"
+        type="button">
+
+        📷 Prendre une photo
+
+      </button>
+
+
+      <button
+        id="choosePhotoButton"
+        type="button"
+        class="blue">
+
+        🖼️ Choisir dans la galerie
+
+      </button>
+
+    </div>
+
+
+    <!-- PHONE CAMERA -->
+
+    <input
+      id="cameraPhotoInput"
+      class="photo-input"
+      type="file"
+      accept="image/*"
+      capture="environment">
+
+
+    <!-- PHONE GALLERY -->
+
+    <input
+      id="galleryPhotoInput"
+      class="photo-input"
+      type="file"
+      accept="image/*">
+
+
+    <div
+      id="photoPreviewBox"
+      class="photo-preview-box">
+
+      <h3>Aperçu</h3>
+
+      <img
+        id="photoPreview"
+        alt="Aperçu de la photo">
+
+      <div id="photoFileInfo"></div>
+
+
+      <button
+        id="uploadPhotoButton"
+        type="button">
+
+        Envoyer la photo
+
+      </button>
+
+
+      <button
+        id="cancelPhotoButton"
+        type="button"
+        class="gray">
+
+        Annuler
+
+      </button>
+
+    </div>
+
+
+    <div id="photoError" class="error"></div>
+
+    <div id="photoMessage" class="success"></div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 id="photoGalleryTitle">
+      Photos
+    </h2>
+
+    <div id="photosList">
+      <p>Aucune photo chargée.</p>
+    </div>
+
+  </div>
+
+
+  <button class="blue homeBtn">
+    ← Retour
+  </button>
 
 </div>
-</div>
 
 
-<!-- PROBLEMS ADMIN -->
+<!-- =========================
+     PROBLEMS ADMIN
+========================= -->
 
 <div id="problemsPage" class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2>⚠️ Problèmes</h2>
+    <h2>⚠️ Problèmes</h2>
 
-<div id="problemsList"></div>
+    <div id="problemsList"></div>
 
-<button class="blue homeBtn">
-← Retour
-</button>
+    <button class="blue homeBtn">
+      ← Retour
+    </button>
+
+  </div>
 
 </div>
-</div>
 
 
-<!-- REPORTS -->
+<!-- =========================
+     REPORTS
+========================= -->
 
 <div id="reportsPage" class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2>📊 Rapports</h2>
+    <h2>📊 Rapports</h2>
 
-<div id="reportsContent"></div>
+    <div id="reportsContent"></div>
 
-<button class="blue homeBtn">
-← Retour
-</button>
+    <button class="blue homeBtn">
+      ← Retour
+    </button>
+
+  </div>
 
 </div>
-</div>
 
 
-<!-- EMPLOYEE MISSIONS -->
+<!-- =========================
+     EMPLOYEE MISSIONS
+========================= -->
 
 <div
   id="employeeMissionsPage"
   class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2>🧹 Mes missions</h2>
+    <h2>🧹 Mes missions</h2>
 
-<div id="employeeMissionsList"></div>
+    <div id="employeeMissionsList"></div>
 
-<button class="blue homeBtn">
-← Retour
-</button>
+    <button class="blue homeBtn">
+      ← Retour
+    </button>
+
+  </div>
 
 </div>
-</div>
 
 
-<!-- MISSION DETAIL -->
+<!-- =========================
+     MISSION DETAIL
+========================= -->
 
 <div
   id="missionDetailPage"
   class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2 id="detailTitle">
-Mission
-</h2>
+    <h2 id="detailTitle">
+      Mission
+    </h2>
 
-<div id="missionDetail"></div>
+    <div id="missionDetail"></div>
 
-<div id="checklistArea"></div>
+    <div id="checklistArea"></div>
 
-<div class="row">
+    <div class="row">
 
-<button id="startWorkButton">
-▶ Démarrer
-</button>
+      <button id="startWorkButton">
+        ▶ Démarrer
+      </button>
 
-<button
-  id="finishWorkButton"
-  class="blue">
-⏹ Terminer
-</button>
+      <button
+        id="finishWorkButton"
+        class="blue">
+
+        ⏹ Terminer
+
+      </button>
+
+    </div>
+
+    <div id="workMessage"></div>
+
+    <button
+      id="backToMissionsButton"
+      class="gray">
+
+      ← Missions
+
+    </button>
+
+  </div>
 
 </div>
 
-<div id="workMessage"></div>
 
-<button
-  id="backToMissionsButton"
-  class="gray">
-← Missions
-</button>
-
-</div>
-</div>
-
-
-<!-- EMPLOYEE ABSENCE -->
+<!-- =========================
+     EMPLOYEE ABSENCE
+========================= -->
 
 <div
   id="employeeAbsencePage"
   class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2>
-🏖️ Demande d'absence
-</h2>
+    <h2>
+      🏖️ Demande d'absence
+    </h2>
 
-<label>Du</label>
+    <label>Du</label>
 
-<input
-  id="absenceStart"
-  type="date">
+    <input
+      id="absenceStart"
+      type="date">
 
-<label>Au</label>
+    <label>Au</label>
 
-<input
-  id="absenceEnd"
-  type="date">
+    <input
+      id="absenceEnd"
+      type="date">
 
-<textarea
-  id="absenceReason"
-  placeholder="Motif">
-</textarea>
+    <textarea
+      id="absenceReason"
+      placeholder="Motif"></textarea>
 
-<button id="requestAbsenceButton">
-Envoyer
-</button>
+    <button id="requestAbsenceButton">
+      Envoyer
+    </button>
 
-<div id="absenceMsg"></div>
+    <div id="absenceMsg"></div>
 
-<h3>Mes demandes</h3>
+    <h3>Mes demandes</h3>
 
-<div id="myAbsences"></div>
+    <div id="myAbsences"></div>
 
-<button class="blue homeBtn">
-← Retour
-</button>
+    <button class="blue homeBtn">
+      ← Retour
+    </button>
+
+  </div>
 
 </div>
-</div>
-<!-- EMPLOYEE HOURS -->
+
+
+<!-- =========================
+     EMPLOYEE HOURS
+========================= -->
 
 <div id="employeeHoursPage" class="page">
 
@@ -1160,46 +1472,48 @@ Envoyer
 
 </div>
 
-<!-- EMPLOYEE PROBLEM -->
+
+<!-- =========================
+     EMPLOYEE PROBLEM
+========================= -->
 
 <div
   id="employeeProblemPage"
   class="page">
 
-<div class="card">
+  <div class="card">
 
-<h2>
-⚠️ Signaler un problème
-</h2>
+    <h2>
+      ⚠️ Signaler un problème
+    </h2>
 
-<select id="problemMission">
+    <select id="problemMission">
 
-<option value="">
-Mission (facultatif)
-</option>
+      <option value="">
+        Mission (facultatif)
+      </option>
 
-</select>
+    </select>
 
-<textarea
-  id="problemDescription"
-  placeholder="Décrivez le problème ou dommage">
-</textarea>
+    <textarea
+      id="problemDescription"
+      placeholder="Décrivez le problème ou dommage"></textarea>
 
-<button id="reportProblemButton">
-Envoyer
-</button>
+    <button id="reportProblemButton">
+      Envoyer
+    </button>
 
-<div id="problemMsg"></div>
+    <div id="problemMsg"></div>
 
-<button class="blue homeBtn">
-← Retour
-</button>
+    <button class="blue homeBtn">
+      ← Retour
+    </button>
 
-</div>
-</div>
+  </div>
 
 </div>
 
+</div>
 <script>
 
 /* ==============================
@@ -1215,6 +1529,9 @@ const SUPABASE_ANON_KEY =
 const APP_URL =
 "https://hcleaningservices.github.io/hcleaningservices-app/";
 
+const PHOTO_BUCKET =
+"mission-photos";
+
 const sb =
 supabase.createClient(
   SUPABASE_URL,
@@ -1229,6 +1546,8 @@ supabase.createClient(
 let currentUser = null;
 let currentRole = "";
 let currentMission = null;
+let selectedPhotoFile = null;
+let selectedPhotoPreviewUrl = null;
 
 const $ =
 id => document.getElementById(id);
@@ -1254,16 +1573,16 @@ String(value ?? "")
 
 const stat = status => ({
 
-planned:"Planifiée",
-in_progress:"En cours",
-completed:"Terminée",
+  planned:"Planifiée",
+  in_progress:"En cours",
+  completed:"Terminée",
 
-pending:"En attente",
-approved:"Approuvée",
-rejected:"Refusée",
+  pending:"En attente",
+  approved:"Approuvée",
+  rejected:"Refusée",
 
-open:"Ouvert",
-closed:"Résolu"
+  open:"Ouvert",
+  closed:"Résolu"
 
 }[status] || status || "—");
 
@@ -1300,9 +1619,15 @@ function hideAll() {
     "employeeDashboard",
     "resetPassword"
   ]
-  .forEach(id =>
-    $(id).style.display = "none"
-  );
+  .forEach(id => {
+
+    const element = $(id);
+
+    if (element) {
+      element.style.display = "none";
+    }
+
+  });
 }
 
 
@@ -1310,7 +1635,11 @@ function go(id,title) {
 
   hideAll();
 
-  $(id).style.display = "block";
+  const page = $(id);
+
+  if (page) {
+    page.style.display = "block";
+  }
 
   $("areaTitle").textContent =
   title;
@@ -1369,6 +1698,7 @@ async function login() {
   $("loginButton");
 
   button.disabled = true;
+
   button.textContent =
   "Connexion...";
 
@@ -1384,8 +1714,9 @@ async function login() {
       password
     });
 
-    if (error)
+    if (error) {
       throw error;
+    }
 
     await loadDashboard(
       data.user
@@ -1457,8 +1788,7 @@ async function loadDashboard(user) {
     ![
       "admin",
       "employee"
-    ]
-    .includes(currentRole)
+    ].includes(currentRole)
   ) {
 
     $("error").textContent =
@@ -1469,16 +1799,18 @@ async function loadDashboard(user) {
   }
 
 
-  $("login")
-  .style.display = "none";
+  $("login").style.display =
+  "none";
+
+  $("registerEmployee").style.display =
+  "none";
 
   hideAll();
 
 
   if (currentRole === "admin") {
 
-    $("adminWelcome")
-    .textContent =
+    $("adminWelcome").textContent =
     `Bonjour ${profile.full_name || ""} 👋`;
 
     $("adminDashboard")
@@ -1490,8 +1822,7 @@ async function loadDashboard(user) {
 
   } else {
 
-    $("employeeWelcome")
-    .textContent =
+    $("employeeWelcome").textContent =
     `Bonjour ${profile.full_name || ""} 👋`;
 
     $("employeeDashboard")
@@ -1516,7 +1847,12 @@ async function logout() {
   currentRole = "";
   currentMission = null;
 
+  clearSelectedPhoto();
+
   hideAll();
+
+  $("registerEmployee")
+  .style.display = "none";
 
   $("login")
   .style.display = "block";
@@ -1559,14 +1895,12 @@ async function forgotPassword() {
 
   if (error) {
 
-    $("error")
-    .textContent =
+    $("error").textContent =
     error.message;
 
   } else {
 
-    $("message")
-    .textContent =
+    $("message").textContent =
     "Un e-mail de réinitialisation a été envoyé.";
   }
 }
@@ -1583,21 +1917,16 @@ async function saveNewPassword() {
 
   if (password.length < 6) {
 
-    $("resetError")
-    .textContent =
+    $("resetError").textContent =
     "Minimum 6 caractères.";
 
     return;
   }
 
 
-  if (
-    password !==
-    confirmation
-  ) {
+  if (password !== confirmation) {
 
-    $("resetError")
-    .textContent =
+    $("resetError").textContent =
     "Les mots de passe ne correspondent pas.";
 
     return;
@@ -1613,14 +1942,12 @@ async function saveNewPassword() {
 
   if (error) {
 
-    $("resetError")
-    .textContent =
+    $("resetError").textContent =
     error.message;
 
   } else {
 
-    $("resetMessage")
-    .textContent =
+    $("resetMessage").textContent =
     "Mot de passe enregistré ✅";
 
     setTimeout(
@@ -1629,111 +1956,146 @@ async function saveNewPassword() {
     );
   }
 }
+
+
+/* ==============================
+   EMPLOYEE REGISTRATION
+============================== */
+
 async function registerEmployee() {
 
-  const name = $("registerName").value.trim();
-  const email = $("registerEmail").value.trim();
-  const phone = $("registerPhone").value.trim();
-  const password = $("registerPassword").value;
-  const confirmation = $("registerPasswordConfirm").value;
+  const name =
+  $("registerName").value.trim();
+
+  const email =
+  $("registerEmail").value.trim();
+
+  const phone =
+  $("registerPhone").value.trim();
+
+  const password =
+  $("registerPassword").value;
+
+  const confirmation =
+  $("registerPasswordConfirm").value;
+
 
   $("registerError").textContent = "";
   $("registerMessage").textContent = "";
 
-  if (!name || !email || !phone || !password) {
+
+  if (
+    !name ||
+    !email ||
+    !phone ||
+    !password
+  ) {
+
     $("registerError").textContent =
-      "Veuillez remplir tous les champs.";
+    "Veuillez remplir tous les champs.";
+
     return;
   }
+
 
   if (password.length < 8) {
+
     $("registerError").textContent =
-      "Le mot de passe doit contenir au moins 8 caractères.";
+    "Le mot de passe doit contenir au moins 8 caractères.";
+
     return;
   }
+
 
   if (password !== confirmation) {
+
     $("registerError").textContent =
-      "Les mots de passe ne correspondent pas.";
+    "Les mots de passe ne correspondent pas.";
+
     return;
   }
 
-  const button = $("registerButton");
+
+  const button =
+  $("registerButton");
 
   button.disabled = true;
   button.textContent = "Création...";
 
+
   try {
 
-    const { data, error } =
-      await sb.functions.invoke(
-        "register-employee",
-        {
-          body: {
-            name,
-            email,
-            phone,
-            password
-          }
+    const {data,error} =
+    await sb.functions.invoke(
+      "register-employee",
+      {
+        body:{
+          name,
+          email,
+          phone,
+          password
         }
-      );
+      }
+    );
+
 
     if (error) {
       throw error;
     }
 
+
     if (!data?.success) {
+
       throw new Error(
-        data?.error || "Création du compte impossible."
+        data?.error ||
+        "Création du compte impossible."
       );
     }
 
-    
-$("registerMessage").textContent =
-  "Compte créé avec succès ✅ Vérifiez votre e-mail et cliquez sur le lien de confirmation avant de vous connecter.";
 
-    
+    $("registerMessage").textContent =
+    "Compte créé avec succès ✅ Vérifiez votre e-mail et cliquez sur le lien de confirmation avant de vous connecter.";
 
-  } catch (error) {
+
+    $("registerPassword").value = "";
+    $("registerPasswordConfirm").value = "";
+
+  } catch(error) {
 
     $("registerError").textContent =
-      error.message || "Création du compte impossible.";
+    error.message ||
+    "Création du compte impossible.";
 
   } finally {
 
     button.disabled = false;
-    button.textContent = "Créer mon compte";
+    button.textContent =
+    "Créer mon compte";
   }
-        }
+}
+
 
 /* ==============================
-   EMPLOYEE CREATION
+   ADMIN EMPLOYEE CREATION
 ============================== */
 
 async function createEmployee() {
 
   const name =
-  $("employeeName")
-  .value.trim();
+  $("employeeName").value.trim();
 
   const email =
-  $("employeeEmail")
-  .value.trim();
+  $("employeeEmail").value.trim();
 
   const phone =
-  $("employeePhone")
-  .value.trim();
+  $("employeePhone").value.trim();
 
   const password =
-  $("employeePassword")
-  .value;
+  $("employeePassword").value;
 
 
-  $("employeeFormError")
-  .textContent = "";
-
-  $("employeeFormMessage")
-  .textContent = "";
+  $("employeeFormError").textContent = "";
+  $("employeeFormMessage").textContent = "";
 
 
   if (
@@ -1742,8 +2104,7 @@ async function createEmployee() {
     password.length < 6
   ) {
 
-    $("employeeFormError")
-    .textContent =
+    $("employeeFormError").textContent =
     "Nom, e-mail et mot de passe de 6 caractères minimum obligatoires.";
 
     return;
@@ -1762,8 +2123,7 @@ async function createEmployee() {
       data,
       error
     } =
-    await sb.functions
-    .invoke(
+    await sb.functions.invoke(
       "create-employee",
       {
         body:{
@@ -1776,40 +2136,43 @@ async function createEmployee() {
     );
 
 
-  if (error) {
+    if (error) {
 
-  let realMessage =
-    error.message ||
-    "Création impossible.";
+      let realMessage =
+      error.message ||
+      "Création impossible.";
 
-  try {
+      try {
 
-    if (error.context) {
+        if (error.context) {
 
-      const result =
-        await error.context.json();
+          const result =
+          await error.context.json();
 
-      if (result?.error) {
-        realMessage = result.error;
-      }
+          if (result?.error) {
+            realMessage =
+            result.error;
+          }
+        }
+
+      } catch (_) {}
+
+      throw new Error(
+        realMessage
+      );
     }
 
-  } catch (_) {}
 
-  throw new Error(realMessage);
-}
+    if (!data?.success) {
 
-if (!data?.success) {
-
-  throw new Error(
-    data?.error ||
-    "Création impossible."
-  );
-}
+      throw new Error(
+        data?.error ||
+        "Création impossible."
+      );
+    }
 
 
-    $("employeeFormMessage")
-    .textContent =
+    $("employeeFormMessage").textContent =
     "Employé créé avec succès ✅";
 
 
@@ -1826,11 +2189,9 @@ if (!data?.success) {
 
     await loadEmployees();
 
-
   } catch(error) {
 
-    $("employeeFormError")
-    .textContent =
+    $("employeeFormError").textContent =
     error.message;
 
   } finally {
@@ -1872,105 +2233,137 @@ async function loadEmployees() {
 
   if (!data?.length) {
 
-    $("employeesList")
-    .innerHTML =
+    $("employeesList").innerHTML =
     "<p>Aucun employé.</p>";
 
     return;
   }
 
 
-  $("employeesList")
-  .innerHTML =
+  $("employeesList").innerHTML =
   data.map(employee => `
 
-    <div class="item"
-     onclick="openEmployee('${employee.id}')"
-     style="cursor:pointer;">
+    <div
+      class="item"
+      onclick="openEmployee('${employee.id}')"
+      style="cursor:pointer;">
 
-  <h3>
-    👤 ${esc(employee.full_name || "Employé")}
-  </h3>
+      <h3>
+        👤 ${esc(employee.full_name || "Employé")}
+      </h3>
 
-  <div>
-    📞 ${esc(employee.phone || "—")}
-  </div>
+      <div>
+        📞 ${esc(employee.phone || "—")}
+      </div>
 
-  <div style="margin-top:10px;">
-    <strong>Voir le profil →</strong>
-  </div>
+      <div style="margin-top:10px;">
+        <strong>Voir le profil →</strong>
+      </div>
 
-</div>
+    </div>
 
   `).join("");
 }
 
-  async function openEmployee(employeeId) {
 
-  const { data: employee, error } = await sb
-    .from("profiles")
-    .select("id,full_name,role,phone")
-    .eq("id", employeeId)
-    .single();
+async function openEmployee(employeeId) {
+
+  const {
+    data:employee,
+    error
+  } =
+  await sb
+  .from("profiles")
+  .select(
+    "id,full_name,role,phone"
+  )
+  .eq("id",employeeId)
+  .single();
+
 
   if (error || !employee) {
-    alert("Impossible de charger l'employé.");
+
+    alert(
+      "Impossible de charger l'employé."
+    );
+
     return;
   }
 
-  const confirmed = confirm(
-    "Employé : " + (employee.full_name || "—") +
-    "\nTéléphone : " + (employee.phone || "—") +
+
+  const confirmed =
+  confirm(
+    "Employé : " +
+    (employee.full_name || "—") +
+    "\nTéléphone : " +
+    (employee.phone || "—") +
     "\n\nVoulez-vous supprimer cet employé ?"
   );
 
-  if (!confirmed) {
-    return;
-  }
 
-  const secondConfirmation = confirm(
+  if (!confirmed) return;
+
+
+  const secondConfirmation =
+  confirm(
     "⚠️ Confirmer la suppression de " +
     (employee.full_name || "cet employé") +
     " ?"
   );
 
-  if (!secondConfirmation) {
-    return;
-  }
 
-  const { data, error: deleteError } =
-    await sb.functions.invoke(
-      "delete-employee",
-      {
-        body: {
-          employeeId: employee.id
-        }
+  if (!secondConfirmation) return;
+
+
+  const {
+    data,
+    error:deleteError
+  } =
+  await sb.functions.invoke(
+    "delete-employee",
+    {
+      body:{
+        employeeId:employee.id
       }
-    );
+    }
+  );
+
 
   if (deleteError) {
+
     alert(
       "Suppression impossible : " +
       deleteError.message
     );
+
     return;
   }
 
+
   if (!data?.success) {
+
     alert(
       "Suppression impossible : " +
-      (data?.error || "Erreur inconnue.")
+      (
+        data?.error ||
+        "Erreur inconnue."
+      )
     );
+
     return;
   }
+
 
   alert(
     (employee.full_name || "Employé") +
     " a été supprimé ✅"
   );
 
+
   await loadEmployees();
 }
+
+
 /* ==============================
    EMPLOYEE SELECT
 ============================== */
@@ -1990,12 +2383,10 @@ async function fillEmployees() {
   .order("full_name");
 
 
-  if (error)
-    return;
+  if (error) return;
 
 
-  $("missionEmployee")
-  .innerHTML =
+  $("missionEmployee").innerHTML =
 
   '<option value="">Choisir un employé</option>' +
 
@@ -2003,12 +2394,10 @@ async function fillEmployees() {
   .map(employee => `
 
     <option value="${esc(employee.id)}">
-
       ${esc(
         employee.full_name ||
         "Employé"
       )}
-
     </option>
 
   `)
@@ -2032,8 +2421,7 @@ async function prepareMissions() {
 
 async function createMission() {
 
-  $("missionMsg")
-  .innerHTML = "";
+  $("missionMsg").innerHTML = "";
 
 
   const mission = {
@@ -2142,8 +2530,9 @@ async function createMission() {
     );
 
 
-    if (error)
+    if (error) {
       console.error(error);
+    }
   }
 
 
@@ -2170,8 +2559,7 @@ async function createMission() {
   );
 
 
-  $("missionEmployee")
-  .value = "";
+  $("missionEmployee").value = "";
 
 
   await loadMissions(
@@ -2184,9 +2572,7 @@ async function createMission() {
    LOAD MISSIONS
 ============================== */
 
-async function loadMissions(
-  targetId
-) {
+async function loadMissions(targetId) {
 
   const target =
   $(targetId);
@@ -2260,7 +2646,9 @@ async function loadMissions(
 
   if (employeeIds.length) {
 
-    const {data:profiles} =
+    const {
+      data:profiles
+    } =
     await sb
     .from("profiles")
     .select(
@@ -2290,8 +2678,7 @@ async function loadMissions(
     <div class="item">
 
       <h3>
-        🧹
-        ${esc(mission.title)}
+        🧹 ${esc(mission.title)}
       </h3>
 
       <div>
@@ -2355,52 +2742,91 @@ async function loadMissions(
           stat(mission.status)
         )}
       </div>
+
       <button
-  class="danger"
-  onclick="deleteMission('${mission.id}')">
-  🗑 Supprimer la mission
-</button>
+        class="danger"
+        onclick="deleteMission('${mission.id}')">
+
+        🗑 Supprimer la mission
+
+      </button>
+
     </div>
 
   `).join("");
 }
 
+
 async function deleteMission(missionId) {
 
   if (currentRole !== "admin") {
-    alert("Action non autorisée.");
+
+    alert(
+      "Action non autorisée."
+    );
+
     return;
   }
 
-  const confirmed = confirm(
+
+  const confirmed =
+  confirm(
     "Voulez-vous vraiment supprimer cette mission ?"
   );
 
+
   if (!confirmed) return;
 
-  const { error } = await sb
-    .from("missions")
-    .delete()
-    .eq("id", missionId);
+
+  const {error} =
+  await sb
+  .from("missions")
+  .delete()
+  .eq(
+    "id",
+    missionId
+  );
+
 
   if (error) {
+
     alert(
       "Impossible de supprimer la mission : " +
       error.message
     );
+
     return;
   }
 
-  alert("Mission supprimée ✅");
 
-  if ($("missionsPage").style.display !== "none") {
-    await loadMissions("missionsList");
+  alert(
+    "Mission supprimée ✅"
+  );
+
+
+  if (
+    $("missionsPage").style.display !==
+    "none"
+  ) {
+
+    await loadMissions(
+      "missionsList"
+    );
   }
 
-  if ($("planningPage").style.display !== "none") {
-    await loadMissions("planningList");
+
+  if (
+    $("planningPage").style.display !==
+    "none"
+  ) {
+
+    await loadMissions(
+      "planningList"
+    );
   }
 }
+
+
 /* ==============================
    EMPLOYEE MISSIONS
 ============================== */
@@ -2474,8 +2900,7 @@ async function loadEmployeeMissions() {
       style="cursor:pointer">
 
       <h3>
-        🧹
-        ${esc(mission.title)}
+        🧹 ${esc(mission.title)}
       </h3>
 
       <div>
@@ -2578,7 +3003,9 @@ async function openMission(id) {
 
   if (error) {
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
     return;
   }
@@ -2602,14 +3029,12 @@ async function openMission(id) {
   mission;
 
 
-  $("detailTitle")
-  .textContent =
+  $("detailTitle").textContent =
   mission.title ||
   "Mission";
 
 
-  $("missionDetail")
-  .innerHTML = `
+  $("missionDetail").innerHTML = `
 
     <div class="item">
 
@@ -2666,9 +3091,7 @@ async function openMission(id) {
 
       <div style="margin-top:10px">
 
-        <b>
-          Instructions :
-        </b>
+        <b>Instructions :</b>
 
         <br>
 
@@ -2785,7 +3208,9 @@ async function loadChecklist(id) {
 
       if (error) {
 
-        alert(error.message);
+        alert(
+          error.message
+        );
 
         box.checked =
         !box.checked;
@@ -2806,32 +3231,35 @@ async function startWork() {
     !currentMission
   ) return;
 
+
   const {
-    data: existing,
-    error: checkError
-  } = await sb
-    .from("work_hours")
-    .select("id")
-    .eq(
-      "mission_id",
-      currentMission.id
-    )
-    .eq(
-      "employee_id",
-      currentUser.id
-    )
-    .is(
-      "finished_at",
-      null
-    )
-    .order(
-      "started_at",
-      {
-        ascending: false
-      }
-    )
-    .limit(1)
-    .maybeSingle();
+    data:existing,
+    error:checkError
+  } =
+  await sb
+  .from("work_hours")
+  .select("id")
+  .eq(
+    "mission_id",
+    currentMission.id
+  )
+  .eq(
+    "employee_id",
+    currentUser.id
+  )
+  .is(
+    "finished_at",
+    null
+  )
+  .order(
+    "started_at",
+    {
+      ascending:false
+    }
+  )
+  .limit(1)
+  .maybeSingle();
+
 
   if (checkError) {
 
@@ -2843,6 +3271,7 @@ async function startWork() {
     return;
   }
 
+
   if (existing) {
 
     msg(
@@ -2853,22 +3282,23 @@ async function startWork() {
     return;
   }
 
-  const { error } =
-    await sb
-      .from("work_hours")
-      .insert({
 
-        mission_id:
-          currentMission.id,
+  const {error} =
+  await sb
+  .from("work_hours")
+  .insert({
 
-        employee_id:
-          currentUser.id,
+    mission_id:
+    currentMission.id,
 
-        started_at:
-          new Date()
-            .toISOString()
+    employee_id:
+    currentUser.id,
 
-      });
+    started_at:
+    new Date().toISOString()
+
+  });
+
 
   if (error) {
 
@@ -2880,17 +3310,20 @@ async function startWork() {
     return;
   }
 
+
   const {
-    error: missionError
-  } = await sb
-    .from("missions")
-    .update({
-      status: "in_progress"
-    })
-    .eq(
-      "id",
-      currentMission.id
-    );
+    error:missionError
+  } =
+  await sb
+  .from("missions")
+  .update({
+    status:"in_progress"
+  })
+  .eq(
+    "id",
+    currentMission.id
+  );
+
 
   if (missionError) {
 
@@ -2902,9 +3335,11 @@ async function startWork() {
     return;
   }
 
+
   await openMission(
     currentMission.id
   );
+
 
   msg(
     "workMessage",
@@ -2912,6 +3347,7 @@ async function startWork() {
     true
   );
 }
+
 
 /* ==============================
    FINISH WORK
@@ -2924,34 +3360,37 @@ async function finishWork() {
     !currentMission
   ) return;
 
+
   const {
-    data: work,
-    error: checkError
-  } = await sb
-    .from("work_hours")
-    .select(
-      "id,started_at"
-    )
-    .eq(
-      "mission_id",
-      currentMission.id
-    )
-    .eq(
-      "employee_id",
-      currentUser.id
-    )
-    .is(
-      "finished_at",
-      null
-    )
-    .order(
-      "started_at",
-      {
-        ascending: false
-      }
-    )
-    .limit(1)
-    .maybeSingle();
+    data:work,
+    error:checkError
+  } =
+  await sb
+  .from("work_hours")
+  .select(
+    "id,started_at"
+  )
+  .eq(
+    "mission_id",
+    currentMission.id
+  )
+  .eq(
+    "employee_id",
+    currentUser.id
+  )
+  .is(
+    "finished_at",
+    null
+  )
+  .order(
+    "started_at",
+    {
+      ascending:false
+    }
+  )
+  .limit(1)
+  .maybeSingle();
+
 
   if (checkError) {
 
@@ -2963,6 +3402,7 @@ async function finishWork() {
     return;
   }
 
+
   if (!work) {
 
     msg(
@@ -2973,20 +3413,24 @@ async function finishWork() {
     return;
   }
 
-  const finishedAt =
-    new Date();
 
-  const { error } =
-    await sb
-      .from("work_hours")
-      .update({
-        finished_at:
-          finishedAt.toISOString()
-      })
-      .eq(
-        "id",
-        work.id
-      );
+  const finishedAt =
+  new Date();
+
+
+  const {error} =
+  await sb
+  .from("work_hours")
+  .update({
+    finished_at:
+    finishedAt.toISOString()
+  })
+  .eq(
+    "id",
+    work.id
+  );
+
+
   if (error) {
 
     msg(
@@ -2997,17 +3441,20 @@ async function finishWork() {
     return;
   }
 
+
   const {
-    error: missionError
-  } = await sb
-    .from("missions")
-    .update({
-      status: "completed"
-    })
-    .eq(
-      "id",
-      currentMission.id
-    );
+    error:missionError
+  } =
+  await sb
+  .from("missions")
+  .update({
+    status:"completed"
+  })
+  .eq(
+    "id",
+    currentMission.id
+  );
+
 
   if (missionError) {
 
@@ -3019,7 +3466,9 @@ async function finishWork() {
     return;
   }
 
-  const minutes = Math.max(
+
+  const minutes =
+  Math.max(
     0,
     Math.round(
       (
@@ -3029,9 +3478,11 @@ async function finishWork() {
     )
   );
 
+
   await openMission(
     currentMission.id
   );
+
 
   msg(
     "workMessage",
@@ -3042,34 +3493,40 @@ async function finishWork() {
 
 
 /* ==============================
-   HOURS
+   HOURS ADMIN
 ============================== */
 
 async function loadHours() {
 
-  const target = $("hoursList");
+  const target =
+  $("hoursList");
 
-  target.innerHTML = "<p>Chargement...</p>";
+
+  target.innerHTML =
+  "<p>Chargement...</p>";
+
 
   const {
     data,
     error
-  } = await sb
-    .from("work_hours")
-    .select(`
-      id,
-      employee_id,
-      mission_id,
-      started_at,
-      finished_at,
-      created_at
-    `)
-    .order(
-      "started_at",
-      {
-        ascending: false
-      }
-    );
+  } =
+  await sb
+  .from("work_hours")
+  .select(`
+    id,
+    employee_id,
+    mission_id,
+    started_at,
+    finished_at,
+    created_at
+  `)
+  .order(
+    "started_at",
+    {
+      ascending:false
+    }
+  );
+
 
   if (error) {
 
@@ -3081,288 +3538,169 @@ async function loadHours() {
     return;
   }
 
+
   if (!data?.length) {
 
     target.innerHTML =
-      "<p>Aucune heure enregistrée.</p>";
+    "<p>Aucune heure enregistrée.</p>";
 
     return;
   }
+
 
   const employeeIds = [
     ...new Set(
       data
-        .map(row =>
-          row.employee_id
-        )
-        .filter(Boolean)
+      .map(row =>
+        row.employee_id
+      )
+      .filter(Boolean)
     )
   ];
+
 
   const missionIds = [
     ...new Set(
       data
-        .map(row =>
-          row.mission_id
-        )
-        .filter(Boolean)
+      .map(row =>
+        row.mission_id
+      )
+      .filter(Boolean)
     )
   ];
+
 
   let employees = {};
   let missions = {};
 
+
   if (employeeIds.length) {
 
     const {
-      data: profiles
-    } = await sb
-      .from("profiles")
-      .select(
-        "id,full_name"
-      )
-      .in(
-        "id",
-        employeeIds
-      );
+      data:profiles
+    } =
+    await sb
+    .from("profiles")
+    .select(
+      "id,full_name"
+    )
+    .in(
+      "id",
+      employeeIds
+    );
+
 
     (profiles || [])
-      .forEach(profile => {
+    .forEach(profile => {
 
-        employees[
-          profile.id
-        ] =
-          profile.full_name;
+      employees[
+        profile.id
+      ] =
+      profile.full_name;
 
-      });
+    });
   }
+
 
   if (missionIds.length) {
 
     const {
-      data: missionData
-    } = await sb
-      .from("missions")
-      .select(
-        "id,title"
-      )
-      .in(
-        "id",
-        missionIds
-      );
+      data:missionData
+    } =
+    await sb
+    .from("missions")
+    .select(
+      "id,title"
+    )
+    .in(
+      "id",
+      missionIds
+    );
+
 
     (missionData || [])
-      .forEach(mission => {
+    .forEach(mission => {
 
-        missions[
-          mission.id
-        ] =
-          mission.title;
+      missions[
+        mission.id
+      ] =
+      mission.title;
 
-      });
-  }
-
-  target.innerHTML =
-    data.map(row => {
-
-      let minutes = 0;
-
-      if (
-        row.started_at &&
-        row.finished_at
-      ) {
-
-        minutes = Math.max(
-          0,
-          Math.round(
-            (
-              new Date(
-                row.finished_at
-              ) -
-              new Date(
-                row.started_at
-              )
-            ) / 60000
-          )
-        );
-      }
-
-      return `
-        <div class="item">
-
-          <h3>
-            ⏱️
-            ${esc(
-              employees[
-                row.employee_id
-              ] ||
-              "Employé"
-            )}
-          </h3>
-
-          <div>
-            <b>Mission :</b>
-            ${esc(
-              missions[
-                row.mission_id
-              ] ||
-              "—"
-            )}
-          </div>
-
-          <div>
-            <b>Début :</b>
-            ${esc(
-              dt(
-                row.started_at
-              )
-            )}
-          </div>
-
-          <div>
-            <b>Fin :</b>
-            ${
-              row.finished_at
-                ? esc(
-                    dt(
-                      row.finished_at
-                    )
-                  )
-                : "En cours"
-            }
-          </div>
-
-          <div>
-            <b>Durée :</b>
-            ${
-              row.finished_at
-                ? `${Math.floor(
-                    minutes / 60
-                  )} h ${
-                    minutes % 60
-                  } min`
-                : "En cours"
-            }
-          </div>
-<button
-  class="danger"
-  onclick="deleteWorkHour('${row.id}')">
-  🗑 Supprimer
-</button>
-
-        </div>
-      `;
-    }).join("");
-}
-
-
-
-async function deleteWorkHour(hourId) {
-  if (currentRole !== "admin") {
-    alert("Action non autorisée.");
-    return;
-  }
-
-  if (!confirm("Supprimer cet enregistrement d'heures ?")) {
-    return;
-  }
-
-  const { error } = await sb
-    .from("work_hours")
-    .delete()
-    .eq("id", hourId);
-
-  if (error) {
-    alert("Erreur : " + error.message);
-    return;
-  }
-
-  alert("Heures supprimées.");
-  await loadHours();
-}
-  async function loadEmployeeHours() {
-
-  const target = $("employeeHoursList");
-
-  target.innerHTML = "<p>Chargement...</p>";
-
-  const { data, error } = await sb
-    .from("work_hours")
-    .select(`
-      id,
-      mission_id,
-      started_at,
-      finished_at
-    `)
-    .eq("employee_id", currentUser.id)
-    .order("started_at", { ascending: false });
-
-  if (error) {
-    msg("employeeHoursList", error.message);
-    return;
-  }
-
-  if (!data?.length) {
-    target.innerHTML =
-      "<p>Aucune heure enregistrée.</p>";
-    return;
-  }
-
-  const missionIds = [
-    ...new Set(
-      data.map(row => row.mission_id).filter(Boolean)
-    )
-  ];
-
-  let missions = {};
-
-  if (missionIds.length) {
-    const { data: missionData } = await sb
-      .from("missions")
-      .select("id,title")
-      .in("id", missionIds);
-
-    (missionData || []).forEach(mission => {
-      missions[mission.id] = mission.title;
     });
   }
 
-  target.innerHTML = data.map(row => {
+
+  target.innerHTML =
+  data.map(row => {
 
     let minutes = 0;
 
-    if (row.started_at && row.finished_at) {
-      minutes = Math.max(
+
+    if (
+      row.started_at &&
+      row.finished_at
+    ) {
+
+      minutes =
+      Math.max(
         0,
         Math.round(
           (
-            new Date(row.finished_at) -
-            new Date(row.started_at)
+            new Date(
+              row.finished_at
+            ) -
+            new Date(
+              row.started_at
+            )
           ) / 60000
         )
       );
     }
 
+
     return `
+
       <div class="item">
 
         <h3>
-          ⏱ ${esc(
-            missions[row.mission_id] || "Mission"
+          ⏱️
+          ${esc(
+            employees[
+              row.employee_id
+            ] ||
+            "Employé"
           )}
         </h3>
 
         <div>
+          <b>Mission :</b>
+          ${esc(
+            missions[
+              row.mission_id
+            ] ||
+            "—"
+          )}
+        </div>
+
+        <div>
           <b>Début :</b>
-          ${esc(dt(row.started_at))}
+          ${esc(
+            dt(
+              row.started_at
+            )
+          )}
         </div>
 
         <div>
           <b>Fin :</b>
           ${
             row.finished_at
-              ? esc(dt(row.finished_at))
-              : "En cours"
+            ? esc(
+                dt(
+                  row.finished_at
+                )
+              )
+            : "En cours"
           }
         </div>
 
@@ -3370,13 +3708,254 @@ async function deleteWorkHour(hourId) {
           <b>Durée :</b>
           ${
             row.finished_at
-              ? `${Math.floor(minutes / 60)} h ${minutes % 60} min`
-              : "En cours"
+            ? `${Math.floor(minutes / 60)} h ${minutes % 60} min`
+            : "En cours"
+          }
+        </div>
+
+        <button
+          class="danger"
+          onclick="deleteWorkHour('${row.id}')">
+
+          🗑 Supprimer
+
+        </button>
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+
+async function deleteWorkHour(hourId) {
+
+  if (currentRole !== "admin") {
+
+    alert(
+      "Action non autorisée."
+    );
+
+    return;
+  }
+
+
+  if (
+    !confirm(
+      "Supprimer cet enregistrement d'heures ?"
+    )
+  ) {
+
+    return;
+  }
+
+
+  const {error} =
+  await sb
+  .from("work_hours")
+  .delete()
+  .eq(
+    "id",
+    hourId
+  );
+
+
+  if (error) {
+
+    alert(
+      "Erreur : " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  alert(
+    "Heures supprimées."
+  );
+
+
+  await loadHours();
+}
+
+
+/* ==============================
+   EMPLOYEE HOURS
+============================== */
+
+async function loadEmployeeHours() {
+
+  const target =
+  $("employeeHoursList");
+
+
+  target.innerHTML =
+  "<p>Chargement...</p>";
+
+
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from("work_hours")
+  .select(`
+    id,
+    mission_id,
+    started_at,
+    finished_at
+  `)
+  .eq(
+    "employee_id",
+    currentUser.id
+  )
+  .order(
+    "started_at",
+    {
+      ascending:false
+    }
+  );
+
+
+  if (error) {
+
+    msg(
+      "employeeHoursList",
+      error.message
+    );
+
+    return;
+  }
+
+
+  if (!data?.length) {
+
+    target.innerHTML =
+    "<p>Aucune heure enregistrée.</p>";
+
+    return;
+  }
+
+
+  const missionIds = [
+    ...new Set(
+      data
+      .map(row =>
+        row.mission_id
+      )
+      .filter(Boolean)
+    )
+  ];
+
+
+  let missions = {};
+
+
+  if (missionIds.length) {
+
+    const {
+      data:missionData
+    } =
+    await sb
+    .from("missions")
+    .select(
+      "id,title"
+    )
+    .in(
+      "id",
+      missionIds
+    );
+
+
+    (missionData || [])
+    .forEach(mission => {
+
+      missions[
+        mission.id
+      ] =
+      mission.title;
+
+    });
+  }
+
+
+  target.innerHTML =
+  data.map(row => {
+
+    let minutes = 0;
+
+
+    if (
+      row.started_at &&
+      row.finished_at
+    ) {
+
+      minutes =
+      Math.max(
+        0,
+        Math.round(
+          (
+            new Date(
+              row.finished_at
+            ) -
+            new Date(
+              row.started_at
+            )
+          ) / 60000
+        )
+      );
+    }
+
+
+    return `
+
+      <div class="item">
+
+        <h3>
+          ⏱
+          ${esc(
+            missions[
+              row.mission_id
+            ] ||
+            "Mission"
+          )}
+        </h3>
+
+        <div>
+          <b>Début :</b>
+          ${esc(
+            dt(
+              row.started_at
+            )
+          )}
+        </div>
+
+        <div>
+          <b>Fin :</b>
+          ${
+            row.finished_at
+            ? esc(
+                dt(
+                  row.finished_at
+                )
+              )
+            : "En cours"
+          }
+        </div>
+
+        <div>
+          <b>Durée :</b>
+          ${
+            row.finished_at
+            ? `${Math.floor(minutes / 60)} h ${minutes % 60} min`
+            : "En cours"
           }
         </div>
 
       </div>
     `;
+
   }).join("");
 }
 
@@ -3388,22 +3967,16 @@ async function deleteWorkHour(hourId) {
 async function requestAbsence() {
 
   const start =
-  $("absenceStart")
-  .value;
+  $("absenceStart").value;
 
   const end =
-  $("absenceEnd")
-  .value;
+  $("absenceEnd").value;
 
   const reason =
-  $("absenceReason")
-  .value.trim();
+  $("absenceReason").value.trim();
 
 
-  if (
-    !start ||
-    !end
-  ) {
+  if (!start || !end) {
 
     msg(
       "absenceMsg",
@@ -3462,14 +4035,9 @@ async function requestAbsence() {
   );
 
 
-  $("absenceStart")
-  .value = "";
-
-  $("absenceEnd")
-  .value = "";
-
-  $("absenceReason")
-  .value = "";
+  $("absenceStart").value = "";
+  $("absenceEnd").value = "";
+  $("absenceReason").value = "";
 
 
   await loadAbsences(
@@ -3482,9 +4050,7 @@ async function requestAbsence() {
    LOAD ABSENCES
 ============================== */
 
-async function loadAbsences(
-  admin
-) {
+async function loadAbsences(admin) {
 
   const target =
   admin
@@ -3568,7 +4134,9 @@ async function loadAbsences(
 
     if (ids.length) {
 
-      const {data:profiles} =
+      const {
+        data:profiles
+      } =
       await sb
       .from("profiles")
       .select(
@@ -3670,13 +4238,21 @@ async function loadAbsences(
 
         ""
       }
-${admin ? `
-  <button
-    class="danger"
-    onclick="deleteAbsence('${row.id}')">
-    🗑 Supprimer
-  </button>
-` : ""}
+
+      ${
+        admin
+        ?
+        `<button
+          class="danger"
+          onclick="deleteAbsence('${row.id}')">
+
+          🗑 Supprimer
+
+        </button>`
+        :
+        ""
+      }
+
     </div>
 
   `).join("");
@@ -3700,35 +4276,60 @@ ${admin ? `
     });
   }
 }
+
+
 async function deleteAbsence(absenceId) {
+
   if (currentRole !== "admin") {
-    alert("Action non autorisée.");
+
+    alert(
+      "Action non autorisée."
+    );
+
     return;
   }
 
-  const ok = confirm(
+
+  const ok =
+  confirm(
     "Voulez-vous vraiment supprimer cette demande d'absence ?"
   );
 
+
   if (!ok) return;
 
-  const { error } = await sb
-    .from("absences")
-    .delete()
-    .eq("id", absenceId);
+
+  const {error} =
+  await sb
+  .from("absences")
+  .delete()
+  .eq(
+    "id",
+    absenceId
+  );
+
 
   if (error) {
-    alert("Erreur : " + error.message);
+
+    alert(
+      "Erreur : " +
+      error.message
+    );
+
     return;
   }
 
-  alert("Demande d'absence supprimée.");
-  await loadAbsences(true);
+
+  alert(
+    "Demande d'absence supprimée."
+  );
+
+
+  await loadAbsences(
+    true
+  );
 }
 
-/* ==============================
-   UPDATE ABSENCE
-============================== */
 
 async function updateAbsence(
   id,
@@ -3789,12 +4390,10 @@ async function loadMissionOptions() {
   );
 
 
-  if (error)
-    return;
+  if (error) return;
 
 
-  $("problemMission")
-  .innerHTML =
+  $("problemMission").innerHTML =
 
   '<option value="">Mission (facultatif)</option>' +
 
@@ -3883,11 +4482,8 @@ async function reportProblem() {
   );
 
 
-  $("problemDescription")
-  .value = "";
-
-  $("problemMission")
-  .value = "";
+  $("problemDescription").value = "";
+  $("problemMission").value = "";
 }
 
 
@@ -3960,7 +4556,9 @@ async function loadProblems() {
 
   if (ids.length) {
 
-    const {data:profiles} =
+    const {
+      data:profiles
+    } =
     await sb
     .from("profiles")
     .select(
@@ -4029,17 +4627,21 @@ async function loadProblems() {
 
         ""
       }
-          
 
-          ${currentRole === "admin" ? `
-            <button
-              class="danger"
-              onclick="deleteProblem('${row.id}')">
-              🗑 Supprimer
-            </button>
-          ` : ""}
+      ${
+        currentRole === "admin"
+        ?
+        `<button
+          class="danger"
+          onclick="deleteProblem('${row.id}')">
 
-        </div>
+          🗑 Supprimer
+
+        </button>`
+        :
+        ""
+      }
+
     </div>
 
   `).join("");
@@ -4074,37 +4676,64 @@ async function loadProblems() {
 
       } else {
 
-        loadProblems();
+        await loadProblems();
       }
     };
 
   });
 }
+
+
 async function deleteProblem(problemId) {
+
   if (currentRole !== "admin") {
-    alert("Action non autorisée.");
+
+    alert(
+      "Action non autorisée."
+    );
+
     return;
   }
 
-  const ok = confirm(
+
+  const ok =
+  confirm(
     "Voulez-vous vraiment supprimer ce problème ?"
   );
 
+
   if (!ok) return;
 
-  const { error } = await sb
-    .from("problems")
-    .delete()
-    .eq("id", problemId);
+
+  const {error} =
+  await sb
+  .from("problems")
+  .delete()
+  .eq(
+    "id",
+    problemId
+  );
+
 
   if (error) {
-    alert("Erreur : " + error.message);
+
+    alert(
+      "Erreur : " +
+      error.message
+    );
+
     return;
   }
 
-  alert("Problème supprimé.");
+
+  alert(
+    "Problème supprimé."
+  );
+
+
   await loadProblems();
 }
+
 
 /* ==============================
    REPORTS
@@ -4112,47 +4741,52 @@ async function deleteProblem(problemId) {
 
 async function loadReports() {
 
-  const target = $("reportsContent");
+  const target =
+  $("reportsContent");
+
 
   target.innerHTML =
-    "<p>Chargement...</p>";
+  "<p>Chargement...</p>";
+
 
   const [
     missions,
     workHours,
     absences,
     problems
-  ] = await Promise.all([
+  ] =
+  await Promise.all([
 
     sb
-      .from("missions")
-      .select(
-        "id",
-        {
-          count: "exact",
-          head: true
-        }
-      ),
+    .from("missions")
+    .select(
+      "id",
+      {
+        count:"exact",
+        head:true
+      }
+    ),
 
     sb
-      .from("work_hours")
-      .select(
-        "started_at,finished_at"
-      ),
+    .from("work_hours")
+    .select(
+      "started_at,finished_at"
+    ),
 
     sb
-      .from("absences")
-      .select(
-        "id,status"
-      ),
+    .from("absences")
+    .select(
+      "id,status"
+    ),
 
     sb
-      .from("problems")
-      .select(
-        "id,status"
-      )
+    .from("problems")
+    .select(
+      "id,status"
+    )
 
   ]);
+
 
   if (
     missions.error ||
@@ -4162,66 +4796,81 @@ async function loadReports() {
   ) {
 
     const error =
-      missions.error ||
-      workHours.error ||
-      absences.error ||
-      problems.error;
+    missions.error ||
+    workHours.error ||
+    absences.error ||
+    problems.error;
+
 
     target.innerHTML =
-      `<p class="error">${esc(error.message)}</p>`;
+    `<p class="error">
+      ${esc(error.message)}
+    </p>`;
 
     return;
   }
 
+
   let totalMinutes = 0;
 
+
   (workHours.data || [])
-    .forEach(row => {
+  .forEach(row => {
 
-      if (
-        row.started_at &&
-        row.finished_at
-      ) {
+    if (
+      row.started_at &&
+      row.finished_at
+    ) {
 
-        const minutes =
-          Math.max(
-            0,
-            Math.round(
-              (
-                new Date(row.finished_at) -
-                new Date(row.started_at)
-              ) / 60000
+      const minutes =
+      Math.max(
+        0,
+        Math.round(
+          (
+            new Date(
+              row.finished_at
+            ) -
+            new Date(
+              row.started_at
             )
-          );
+          ) / 60000
+        )
+      );
 
-        totalMinutes += minutes;
-      }
+      totalMinutes +=
+      minutes;
+    }
 
-    });
+  });
+
 
   const totalHours =
-    Math.floor(
-      totalMinutes / 60
-    );
+  Math.floor(
+    totalMinutes / 60
+  );
+
 
   const remainingMinutes =
-    totalMinutes % 60;
+  totalMinutes % 60;
+
 
   const pendingAbsences =
-    (absences.data || [])
-      .filter(
-        row =>
-          row.status === "pending"
-      )
-      .length;
+  (absences.data || [])
+  .filter(
+    row =>
+    row.status === "pending"
+  )
+  .length;
+
 
   const openProblems =
-    (problems.data || [])
-      .filter(
-        row =>
-          row.status === "open"
-      )
-      .length;
+  (problems.data || [])
+  .filter(
+    row =>
+    row.status === "open"
+  )
+  .length;
+
 
   target.innerHTML = `
 
@@ -4283,49 +4932,86 @@ async function loadReports() {
   `;
 }
 
+
 /* ==============================
-   PAYMENTS FUNCTIONS
+   PAYMENTS
 ============================== */
 
 async function fillPaymentEmployees() {
 
-  const select = $("paymentEmployee");
+  const select =
+  $("paymentEmployee");
+
 
   select.innerHTML =
-    '<option value="">Choisir un employé</option>';
+  '<option value="">Choisir un employé</option>';
 
-  const { data, error } = await sb
-    .from("profiles")
-    .select("id,full_name")
-    .eq("role", "employee")
-    .order("full_name");
+
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from("profiles")
+  .select(
+    "id,full_name"
+  )
+  .eq(
+    "role",
+    "employee"
+  )
+  .order(
+    "full_name"
+  );
+
 
   if (error) {
+
     $("paymentError").textContent =
-      "Impossible de charger les employés : " + error.message;
+    "Impossible de charger les employés : " +
+    error.message;
+
     return;
   }
 
+
   select.innerHTML =
-    '<option value="">Choisir un employé</option>' +
-    (data || []).map(employee => `
-      <option value="${esc(employee.id)}">
-        ${esc(employee.full_name || "Employé")}
-      </option>
-    `).join("");
+  '<option value="">Choisir un employé</option>' +
+
+  (data || [])
+  .map(employee => `
+
+    <option value="${esc(employee.id)}">
+
+      ${esc(
+        employee.full_name ||
+        "Employé"
+      )}
+
+    </option>
+
+  `)
+  .join("");
 }
 
 
 function calculatePaymentAmount() {
 
   const hours =
-    parseFloat($("paymentHours").value) || 0;
+  parseFloat(
+    $("paymentHours").value
+  ) || 0;
+
 
   const rate =
-    parseFloat($("paymentHourlyRate").value) || 0;
+  parseFloat(
+    $("paymentHourlyRate").value
+  ) || 0;
+
 
   $("paymentAmount").value =
-    (hours * rate).toFixed(2);
+  (hours * rate)
+  .toFixed(2);
 }
 
 
@@ -4339,10 +5025,12 @@ function resetPaymentForm() {
   $("paymentAmount").value = "";
 
   $("paymentDate").value =
-    new Date().toISOString().split("T")[0];
+  new Date()
+  .toISOString()
+  .split("T")[0];
 
   $("paymentMethod").value =
-    "Virement bancaire";
+  "Virement bancaire";
 
   $("paymentNotes").value = "";
 
@@ -4358,11 +5046,12 @@ async function openNewPaymentForm() {
   await fillPaymentEmployees();
 
   $("paymentForm").style.display =
-    "block";
+  "block";
 
-  $("paymentForm").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
+  $("paymentForm")
+  .scrollIntoView({
+    behavior:"smooth",
+    block:"start"
   });
 }
 
@@ -4372,7 +5061,7 @@ function cancelPaymentForm() {
   resetPaymentForm();
 
   $("paymentForm").style.display =
-    "none";
+  "none";
 }
 
 
@@ -4381,734 +5070,67 @@ async function savePayment() {
   $("paymentError").textContent = "";
   $("paymentMessage").textContent = "";
 
+
   const employeeId =
-    $("paymentEmployee").value;
+  $("paymentEmployee").value;
 
   const periodStart =
-    $("paymentPeriodStart").value;
+  $("paymentPeriodStart").value;
 
   const periodEnd =
-    $("paymentPeriodEnd").value;
+  $("paymentPeriodEnd").value;
 
   const hours =
-    parseFloat($("paymentHours").value) || 0;
+  parseFloat(
+    $("paymentHours").value
+  ) || 0;
 
   const hourlyRate =
-    parseFloat($("paymentHourlyRate").value) || 0;
+  parseFloat(
+    $("paymentHourlyRate").value
+  ) || 0;
 
   const amount =
-    parseFloat($("paymentAmount").value) || 0;
+  parseFloat(
+    $("paymentAmount").value
+  ) || 0;
 
   const paymentDate =
-    $("paymentDate").value;
+  $("paymentDate").value;
 
   const paymentMethod =
-    $("paymentMethod").value;
+  $("paymentMethod").value;
 
   const notes =
-    $("paymentNotes").value.trim();
+  $("paymentNotes")
+  .value.trim();
 
 
   if (!employeeId) {
-    $("paymentError").textContent =
-      "Choisissez un employé.";
-    return;
-  }
-
-  if (!periodStart || !periodEnd) {
-    $("paymentError").textContent =
-      "Choisissez la période.";
-    return;
-  }
-
-  if (periodEnd < periodStart) {
-    $("paymentError").textContent =
-      "La date de fin est incorrecte.";
-    return;
-  }
-
-  if (!paymentDate) {
-    $("paymentError").textContent =
-      "Choisissez la date du paiement.";
-    return;
-  }
-
-
-  const button =
-    $("savePaymentButton");
-
-  button.disabled = true;
-  button.textContent =
-    "Enregistrement...";
-
-
-  const { error } = await sb
-    .from("payments")
-    .insert({
-      employee_id: employeeId,
-      period_start: periodStart,
-      period_end: periodEnd,
-      hours,
-      hourly_rate: hourlyRate,
-      amount,
-      payment_date: paymentDate,
-      payment_method: paymentMethod,
-      notes: notes || null
-    });
-
-
-  button.disabled = false;
-  button.textContent =
-    "Enregistrer le reçu";
-
-
-  if (error) {
 
     $("paymentError").textContent =
-      "La partie Paiements doit encore être configurée dans Supabase.";
-
-    console.error(error);
+    "Choisissez un employé.";
 
     return;
   }
-
-
-  $("paymentMessage").textContent =
-    "Reçu enregistré avec succès ✅";
-
-  await loadPayments();
-
-  setTimeout(() => {
-    $("paymentForm").style.display =
-      "none";
-  }, 700);
-}
-
-
-async function loadPayments() {
-
-  const target =
-    $("paymentsList");
-
-  target.innerHTML =
-    "<p>Chargement...</p>";
-
-
-  const { data, error } = await sb
-    .from("payments")
-    .select(`
-      id,
-      employee_id,
-      period_start,
-      period_end,
-      hours,
-      hourly_rate,
-      amount,
-      payment_date,
-      payment_method,
-      notes,
-      created_at
-    `)
-    .order("payment_date", {
-      ascending: false
-    });
-
-
-  if (error) {
-
-    target.innerHTML = `
-      <div class="item">
-        <b>Paiements</b>
-        <p>
-          La base de données Paiements
-          sera activée lors de notre
-          configuration Supabase.
-        </p>
-      </div>
-    `;
-
-    return;
-  }
-
-
-  if (!data?.length) {
-
-    target.innerHTML =
-      "<p>Aucun reçu enregistré.</p>";
-
-    return;
-  }
-
-
-  const employeeIds = [
-    ...new Set(
-      data
-        .map(row => row.employee_id)
-        .filter(Boolean)
-    )
-  ];
-
-
-  let employees = {};
-
-
-  if (employeeIds.length) {
-
-    const { data: profiles } = await sb
-      .from("profiles")
-      .select("id,full_name")
-      .in("id", employeeIds);
-
-    (profiles || []).forEach(profile => {
-      employees[profile.id] =
-        profile.full_name;
-    });
-  }
-
-
-  target.innerHTML =
-    data.map(payment => `
-
-      <div class="item">
-
-        <h3>
-          💶 ${esc(
-            employees[payment.employee_id] ||
-            "Employé"
-          )}
-        </h3>
-
-        <div>
-          <b>Période :</b>
-          ${esc(payment.period_start)}
-          →
-          ${esc(payment.period_end)}
-        </div>
-
-        <div>
-          <b>Heures :</b>
-          ${esc(payment.hours)} h
-        </div>
-
-        <div>
-          <b>Taux :</b>
-          ${Number(payment.hourly_rate || 0).toFixed(2)} €
-        </div>
-
-        <div>
-          <b>Montant :</b>
-          <strong>
-            ${Number(payment.amount || 0).toFixed(2)} €
-          </strong>
-        </div>
-
-        <div>
-          <b>Date :</b>
-          ${esc(payment.payment_date)}
-        </div>
-
-        <div>
-          <b>Paiement :</b>
-          ${esc(payment.payment_method)}
-        </div>
-
-        ${
-          payment.notes
-          ? `
-            <div>
-              <b>Notes :</b>
-              ${esc(payment.notes)}
-            </div>
-          `
-          : ""
-        }
-
-        <button
-          class="danger"
-          onclick="deletePayment('${payment.id}')">
-          🗑 Supprimer
-        </button>
-
-      </div>
-
-    `).join("");
-}
-
-
-async function deletePayment(paymentId) {
-
-  if (currentRole !== "admin") {
-    alert("Action non autorisée.");
-    return;
-  }
-
-  if (!confirm(
-    "Voulez-vous supprimer ce reçu ?"
-  )) {
-    return;
-  }
-
-  const { error } = await sb
-    .from("payments")
-    .delete()
-    .eq("id", paymentId);
-
-  if (error) {
-    alert(
-      "Suppression impossible : " +
-      error.message
-    );
-    return;
-  }
-
-  await loadPayments();
-}
-/* ==============================
-   BUTTONS / NAVIGATION
-============================== */
-
-function wire() {
-
-  $("loginButton")
-  .onclick =
-  login;
-
-
-  $("forgotButton")
-  .onclick =
-  forgotPassword;
-$("showRegisterButton").onclick = () => {
-  $("login").style.display = "none";
-  $("registerEmployee").style.display = "block";
-  $("areaTitle").textContent = "Inscription employé";
-};
-
-$("backToLoginButton").onclick = () => {
-  $("registerEmployee").style.display = "none";
-  $("login").style.display = "block";
-  $("areaTitle").textContent = "Connexion";
-};
-$("registerButton")
-.onclick =
-registerEmployee;
-  $("savePasswordButton")
-  .onclick =
-  saveNewPassword;
-
-
-  $("adminLogoutButton")
-  .onclick =
-  logout;
-
-
-  $("employeeLogoutButton")
-  .onclick =
-  logout;
-
-
-  $("toggleEmployeeForm")
-  .onclick =
-  () => {
-
-    $("employeeForm")
-    .style.display =
-
-    $("employeeForm")
-    .style.display === "none"
-
-    ?
-
-    "block"
-
-    :
-
-    "none";
-  };
-
-
-  $("createEmployeeButton")
-  .onclick =
-  createEmployee;
-
-
-  $("createMissionButton")
-  .onclick =
-  createMission;
-$("newPaymentButton")
-.onclick =
-openNewPaymentForm;
-
-$("cancelPaymentButton")
-.onclick =
-cancelPaymentForm;
-
-$("savePaymentButton")
-.onclick =
-savePayment;
-
-$("paymentHours")
-.addEventListener(
-  "input",
-  calculatePaymentAmount
-);
-
-$("paymentHourlyRate")
-.addEventListener(
-  "input",
-  calculatePaymentAmount
-);
-
-document
-.querySelectorAll("[data-back]")
-.forEach(button => {
-  button.onclick = home;
-});
-
-  $("startWorkButton")
-  .onclick =
-  startWork;
-
-
-  $("finishWorkButton")
-  .onclick =
-  finishWork;
-
-
-  $("backToMissionsButton")
-  .onclick =
-  () => {
-
-    go(
-      "employeeMissionsPage",
-      "Mes missions"
-    );
-
-    loadEmployeeMissions();
-  };
-
-
-  $("requestAbsenceButton")
-  .onclick =
-  requestAbsence;
-
-
-  $("reportProblemButton")
-  .onclick =
-  reportProblem;
-
-
-  document
-  .querySelectorAll(
-    ".homeBtn"
-  )
-  .forEach(button => {
-
-    button.onclick =
-    home;
-
-  });
-
-
-  document
-  .querySelectorAll(
-    "[data-nav]"
-  )
-  .forEach(element => {
-
-    element.onclick =
-    async () => {
-
-      const navigation =
-      element.dataset.nav;
-
-
-      if (
-        navigation ===
-        "employees"
-      ) {
-
-        go(
-          "employeesPage",
-          "Employés"
-        );
-
-        await loadEmployees();
-      }
-
-
-      if (
-        navigation ===
-        "planning"
-      ) {
-
-        go(
-          "planningPage",
-          "Planning"
-        );
-
-        await loadMissions(
-          "planningList"
-        );
-      }
-
-
-      if (
-        navigation ===
-        "missions"
-      ) {
-
-        go(
-          "missionsPage",
-          "Missions"
-        );
-
-        await prepareMissions();
-      }
-
-
-      if (
-        navigation ===
-        "hours"
-      ) {
-
-        go(
-          "hoursPage",
-          "Heures"
-        );
-
-        await loadHours();
-      }
-
-
-      if (
-        navigation ===
-        "absences"
-      ) {
-
-        go(
-          "absencesPage",
-          "Absences"
-        );
-
-        await loadAbsences(
-          true
-        );
-      }
-
-
-      if (
-        navigation ===
-        "photos"
-      ) {
-
-        go(
-          "photosPage",
-          "Photos"
-        );
-      }
-
-
-      if (
-        navigation ===
-        "problems"
-      ) {
-
-        go(
-          "problemsPage",
-          "Problèmes"
-        );
-
-        await loadProblems();
-      }
-
-
-      if (
-        navigation ===
-        "reports"
-      ) {
-
-        go(
-          "reportsPage",
-          "Rapports"
-        );
-
-        await loadReports();
-      }
-if (
-  navigation ===
-  "payments"
-) {
-
-  go(
-    "paymentsPage",
-    "Paiements"
-  );
-
-  $("paymentForm").style.display =
-    "none";
-
-  $("paymentDate").value =
-    new Date()
-      .toISOString()
-      .split("T")[0];
-
-  await fillPaymentEmployees();
-
-  await loadPayments();
-}
-
-      if (
-        navigation ===
-        "employeeMissions"
-      ) {
-
-        go(
-          "employeeMissionsPage",
-          "Mes missions"
-        );
-
-        await loadEmployeeMissions();
-      }
-
-if (navigation === "employeeHours") {
-  go(
-    "employeeHoursPage",
-    "Mes heures"
-  );
-
-  await loadEmployeeHours();
-}
-      if (
-        navigation ===
-        "employeeAbsences"
-      ) {
-
-        go(
-          "employeeAbsencePage",
-          "Mes absences"
-        );
-
-        await loadAbsences(
-          false
-        );
-      }
-
-
-      if (
-        navigation ===
-        "employeeProblems"
-      ) {
-
-        go(
-          "employeeProblemPage",
-          "Signaler un problème"
-        );
-
-        await loadMissionOptions();
-      }
-    };
-
-  });
-
-
-  $("password")
-  .addEventListener(
-    "keydown",
-    event => {
-
-      if (
-        event.key ===
-        "Enter"
-      ) {
-
-        login();
-      }
-    }
-  );
-}
-
-
-/* ==============================
-   START APP
-============================== */
-
-async function init() {
-
-  wire();
-
-
-  const hash =
-  location.hash || "";
 
 
   if (
-    hash.includes(
-      "type=recovery"
-    )
+    !periodStart ||
+    !periodEnd
   ) {
 
-    $("login")
-    .style.display =
-    "none";
-
-    $("resetPassword")
-    .style.display =
-    "block";
-
-    $("areaTitle")
-    .textContent =
-    "Nouveau mot de passe";
+    $("paymentError").textContent =
+    "Choisissez la période.";
 
     return;
   }
 
 
-  const {
-    data:{
-      session
-    }
-  } =
-  await sb.auth
-  .getSession();
-
-
   if (
-    session?.user
+    periodEnd <
+    periodStart
   ) {
 
-    await loadDashboard(
-      session.user
-    );
-  }
-}
-
-
-init()
-.catch(error => {
-
-  $("error")
-  .textContent =
-  "Erreur de démarrage : " +
-  (
-    error.message ||
-    error
-  );
-
-  console.error(error);
-
-});
-
-
-
-</script>
-
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js");
-  });
-}
-</script>
-
-</body>
-</html>
+    $("paymentError").textContent =
+    "
