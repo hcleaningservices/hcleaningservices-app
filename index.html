@@ -6620,3 +6620,200 @@ function wire() {
       if (
         navigation ===
         "employeeHours
+      ) {
+
+        go(
+          "employeeHoursPage",
+          "Mes heures"
+        );
+
+        await loadEmployeeHours();
+      }
+
+
+      if (
+        navigation ===
+        "employeeProblems"
+      ) {
+
+        go(
+          "employeeProblemPage",
+          "Signaler un problème"
+        );
+
+        await loadMissionOptions();
+      }
+
+    };
+
+  });
+
+}
+
+
+/* ==============================
+   INITIALIZE APP
+============================== */
+
+async function initializeApp() {
+
+  wire();
+
+  const hash =
+  window.location.hash || "";
+
+
+  if (
+    hash.includes("type=recovery")
+  ) {
+
+    $("login").style.display =
+    "none";
+
+    $("registerEmployee").style.display =
+    "none";
+
+    go(
+      "resetPassword",
+      "Nouveau mot de passe"
+    );
+
+    return;
+  }
+
+
+  const {
+    data:{
+      session
+    }
+  } =
+  await sb.auth.getSession();
+
+
+  if (
+    session?.user
+  ) {
+
+    $("login").style.display =
+    "none";
+
+    await loadDashboard(
+      session.user
+    );
+
+  } else {
+
+    hideAll();
+
+    $("registerEmployee")
+    .style.display =
+    "none";
+
+    $("login")
+    .style.display =
+    "block";
+
+    $("areaTitle")
+    .textContent =
+    "Connexion";
+  }
+}
+
+
+/* ==============================
+   AUTH CHANGES
+============================== */
+
+sb.auth.onAuthStateChange(
+  async (
+    event,
+    session
+  ) => {
+
+    if (
+      event ===
+      "PASSWORD_RECOVERY"
+    ) {
+
+      $("login").style.display =
+      "none";
+
+      $("registerEmployee")
+      .style.display =
+      "none";
+
+      go(
+        "resetPassword",
+        "Nouveau mot de passe"
+      );
+
+      return;
+    }
+
+
+    if (
+      event === "SIGNED_OUT"
+    ) {
+
+      currentUser = null;
+      currentRole = "";
+      currentMission = null;
+
+      hideAll();
+
+      $("registerEmployee")
+      .style.display =
+      "none";
+
+      $("login")
+      .style.display =
+      "block";
+
+      $("areaTitle")
+      .textContent =
+      "Connexion";
+    }
+
+  }
+);
+
+
+/* ==============================
+   START
+============================== */
+
+initializeApp();
+
+
+/* ==============================
+   SERVICE WORKER
+============================== */
+
+if (
+  "serviceWorker" in navigator
+) {
+
+  window.addEventListener(
+    "load",
+    () => {
+
+      navigator
+      .serviceWorker
+      .register("./sw.js")
+      .catch(error => {
+
+        console.error(
+          "Service Worker:",
+          error
+        );
+
+      });
+
+    }
+  );
+}
+
+</script>
+
+</body>
+</html>
